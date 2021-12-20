@@ -4,6 +4,7 @@ import ContextProvider from 'context';
 import { ReactNode } from 'react';
 import { useTheme } from 'context/ThemeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from 'next/head';
 
 type props = {
   children: ReactNode;
@@ -22,6 +23,13 @@ const ThemeController = ({ children }: props) => {
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <ContextProvider>
     <ThemeController>
+      <Head>
+        <title>MovieMe</title>
+        <meta
+          name="description"
+          content="Your Favorite Movie Database"
+        />
+      </Head>
       <Component {...pageProps} />
     </ThemeController>
   </ContextProvider>

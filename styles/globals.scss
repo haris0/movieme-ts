@@ -1,9 +1,29 @@
+@import 'colors';
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+#__next {
+  .app-light {
+    background-color: $bg-light;
+    color: $text-light;
+    min-height: 100vh; 
+    margin: 0; 
+    width: 100%;
+  }
+
+  .app-dark {
+    background-color: $bg-dark;
+    color: $text-dark;
+    min-height: 100vh; 
+    margin: 0; 
+    width: 100%;
+  }
 }
 
 a {

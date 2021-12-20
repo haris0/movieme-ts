@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
+import { useSwitchTheme } from 'context/ThemeContext';
 import type { GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
 import { getDiscover } from 'services';
 import { IDiscoverResponse, IMovie } from 'types';
+import { Button } from 'react-bootstrap';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage<{
@@ -13,10 +15,17 @@ const Home: NextPage<{
   discoverError,
 }) => {
   const [movies, setMovies] = useState<IMovie[]>(discoverResponse.results);
+  const switchTheme = useSwitchTheme();
 
   return (
     <div className={`py-5 ${styles.container}`}>
       <h1 className="pb-3">Movie</h1>
+      <Button
+        type="button"
+        onClick={() => switchTheme()}
+      >
+        Change Theme
+      </Button>
       {movies && (
         <ul>
           {movies.map((movie) => (

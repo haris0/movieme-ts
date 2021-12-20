@@ -1,21 +1,19 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import {
   createContext,
-  Dispatch,
   ReactNode,
-  SetStateAction,
   useContext,
   useState,
 } from 'react';
 
 export interface ThemeContextType{
   theme : string;
-  setTheme : Dispatch<SetStateAction<string>>
+  switchTheme : () => void;
 }
 
 const initialTheme: ThemeContextType = {
   theme: 'dark',
-  setTheme: () => {},
+  switchTheme: () => {},
 };
 
 const ThemeContext = createContext<ThemeContextType>(initialTheme);
@@ -27,10 +25,14 @@ type props = {
 const ThemeContextProvider = ({ children }: props) => {
   const [theme, setTheme] = useState<string>(initialTheme.theme);
 
+  const switchTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <ThemeContext.Provider value={{
       theme,
-      setTheme,
+      switchTheme,
     }}
     >
       { children}
@@ -45,9 +47,9 @@ export const useTheme = () => {
 };
 
 export const useSwitchTheme = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { switchTheme } = useContext(ThemeContext);
 
-  setTheme(theme === 'dark' ? 'light' : 'dark');
+  return switchTheme;
 };
 
 export default ThemeContextProvider;

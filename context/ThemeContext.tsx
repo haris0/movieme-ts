@@ -38,6 +38,12 @@ const ThemeContextProvider = ({ children }: props) => {
   );
 };
 
+export const useTheme = () => {
+  const { theme } = useContext(ThemeContext);
+
+  return theme;
+};
+
 export const useSwitchTheme = () => {
   const { theme, setTheme } = useContext(ThemeContext);
 

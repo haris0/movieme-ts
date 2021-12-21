@@ -12,6 +12,7 @@ import styles from './Navbar.module.scss';
 const NavigationBar = () => {
   const router = useRouter();
   const pageRoutes = ['movie', 'show', 'people'];
+  console.log(router.pathname);
 
   return (
     <Navbar fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
@@ -32,12 +33,8 @@ const NavigationBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {pageRoutes.map((route) => (
-              <Link href={`/${route}`} passHref>
-                <Nav.Link
-                  className={
-                    router.pathname === `/${route}` ? 'active' : ''
-                  }
-                >
+              <Link href={`/${route}`} passHref key={route}>
+                <Nav.Link active={router.pathname === `/${route}`}>
                   <span style={{ textTransform: 'capitalize' }}>
                     {route}
                   </span>

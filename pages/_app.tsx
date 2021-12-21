@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import { useTheme } from 'context/ThemeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
+import NavigationBar from 'components/navbar';
 
 type props = {
   children: ReactNode;
@@ -30,6 +31,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
           content="Your Favorite Movie Database"
         />
       </Head>
+      <NavigationBar />
       <Component {...pageProps} />
     </ThemeController>
   </ContextProvider>

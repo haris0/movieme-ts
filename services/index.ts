@@ -1,8 +1,8 @@
-import { IDiscoverResponse } from 'types';
+import { IMovieListRes, ITvListRes } from 'types';
 import { axiosGet } from './axios-client';
 
 export const getDiscover = async (page:number): Promise<{
-  discoverResponse: IDiscoverResponse,
+  discoverResponse: IMovieListRes,
   discoverError: boolean
 }> => {
   const { data, error } = await axiosGet('discover/movie', {
@@ -19,4 +19,19 @@ export const getDiscover = async (page:number): Promise<{
   const discoverError = !!error;
 
   return { discoverResponse, discoverError };
+};
+
+export const getTrending = async (
+  media: 'tv' | 'movie',
+  type : 'day' | 'week',
+): Promise<{
+  trendingResponse: IMovieListRes | ITvListRes,
+  trendingError: boolean
+}> => {
+  const { data, error } = await axiosGet(`trending/${media}/${type}`);
+
+  const trendingResponse = data?.data;
+  const trendingError = !!error;
+
+  return { trendingResponse, trendingError };
 };

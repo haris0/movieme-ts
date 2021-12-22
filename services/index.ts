@@ -1,6 +1,8 @@
 import { IMovieListRes, ITvListRes } from 'types';
 import { axiosGet } from './axios-client';
 
+export { baseImageURL } from './axios-client';
+
 export const getDiscover = async (page:number): Promise<{
   discoverResponse: IMovieListRes,
   discoverError: boolean

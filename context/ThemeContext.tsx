@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 export interface ThemeContextType{
-  theme : string;
+  theme : 'dark' | 'light';
   switchTheme : () => void;
 }
 
@@ -23,7 +23,7 @@ type props = {
 };
 
 const ThemeContextProvider = ({ children }: props) => {
-  const [theme, setTheme] = useState<string>(initialTheme.theme);
+  const [theme, setTheme] = useState<'dark' | 'light'>(initialTheme.theme);
 
   const switchTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');

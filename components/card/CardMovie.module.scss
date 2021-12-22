@@ -1,0 +1,12 @@
+@import '../../styles/colors';
+
+.inline_title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+}

@@ -6,6 +6,8 @@ import {
   IMovieListRes, IMovie, ITvListRes, ITv,
 } from 'types';
 import { Container } from 'react-bootstrap';
+import { useTheme } from 'context/ThemeContext';
+import CardMovie from 'components/card/CardMovie';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage<{
@@ -23,35 +25,41 @@ const Home: NextPage<{
   trendingTvResponse,
   trendingTvError,
 }) => {
+  const theme = useTheme();
   const [discover, setDiscover] = useState<IMovie[]>(discoverResponse.results);
   const [trendingMovie, setTrendingMovie] = useState<IMovie[]>(trendingMovieResponse.results);
   const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvResponse.results);
 
   return (
     <Container className="container-custome">
-      <h1>Movie Discover</h1>
+      <h3>Movie Discover</h3>
       {discover && (
-        <ul>
+        <div className={styles.scroll_container}>
           {discover.map((movie) => (
-            <li key={movie.id}>{movie.title}</li>
+            <div className={styles.skin_option} key={movie.id}>
+              <CardMovie movie={movie} theme={theme} />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
       {discoverError && (
         <div>Failed to Load Data</div>
       )}
-      <h1>Movie Trending</h1>
+      <br />
+      <h3>Movie Trending</h3>
       {trendingMovie && (
-        <ul>
+        <div className={styles.scroll_container}>
           {trendingMovie.map((movie) => (
-            <li key={movie.id}>{movie.title}</li>
+            <div className={styles.skin_option} key={movie.id}>
+              <CardMovie movie={movie} theme={theme} />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
       {trendingMovieError && (
         <div>Failed to Load Data</div>
       )}
-      <h1>Tv Trending</h1>
+      {/* <h1>Tv Trending</h1>
       {trendingTv && (
         <ul>
           {trendingTv.map((tv) => (
@@ -61,7 +69,7 @@ const Home: NextPage<{
       )}
       {trendingTvError && (
         <div>Failed to Load Data</div>
-      )}
+      )} */}
     </Container>
   );
 };

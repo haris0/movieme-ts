@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+export const baseURL = 'https://api.themoviedb.org/3/';
+export const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
+
 const axiosInstance = axios.create({
-  baseURL: 'https://api.themoviedb.org/3/',
+  baseURL,
   timeout: 3000,
   headers: {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_MDB_TOKEN}`,

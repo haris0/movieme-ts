@@ -1,12 +1,39 @@
 @import '../../styles/colors';
 
-.inline_title{
+.inline_title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.card_custome {
+  border-radius: 10px;
+}
+
 .card_dark {
   background-color: $bg-dark;
   color: $text-dark;
+}
+
+.image_custome {
+  border-radius: 10px;
+}
+
+.card_body {
+  margin-top: 10px;
+}
+
+.vote_average {
+  font-size: 12px;
+  padding: 10px;
+  position: absolute;
+  border-radius: 100%;
+  width: 38px;
+  height: 38px;
+  text-align: center;
+  right: 10px;
+  bottom: 72px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
 }

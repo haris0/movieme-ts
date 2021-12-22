@@ -10,7 +10,10 @@ type props = {
 }
 
 const CardMovie = ({ movie, theme }: props) => (
-  <Card style={{ width: '152px' }} className={styles[`card_${theme}`]}>
+  <Card
+    style={{ width: '152px' }}
+    className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
+  >
     <Image
       src={`${baseImageURL}${movie.poster_path}`}
       placeholder="blur"
@@ -19,8 +22,10 @@ const CardMovie = ({ movie, theme }: props) => (
       layout="fixed"
       width="150"
       height="225"
+      className={styles.image_custome}
     />
-    <Card.Body>
+    <div className={styles.vote_average}>{movie.vote_average}</div>
+    <Card.Body className={styles.card_body}>
       <div className={styles.inline_title}>
         <b>{movie.title}</b>
       </div>

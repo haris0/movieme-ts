@@ -4,7 +4,7 @@ import {
   Navbar,
   Nav,
 } from 'react-bootstrap';
-import SwitcherTheme from 'components/switcher';
+import SwitcherTheme from 'components/switcher/Switcher';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './Navbar.module.scss';
@@ -17,7 +17,7 @@ const NavigationBar = () => {
     <Navbar fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
       <Container>
         <Link href="/" passHref>
-          <Navbar.Brand className={styles.navBrand}>
+          <Navbar.Brand className={styles.nav_brand}>
             <img
               alt=""
               src="/play.png"

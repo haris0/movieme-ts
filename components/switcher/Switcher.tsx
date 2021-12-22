@@ -20,16 +20,16 @@ const SwitcherTheme = () => {
       offColor="#38c0fc"
       onColor="#888"
       checkedIcon={(
-        <div className={styles.swicherIcon}>
+        <div className={styles.swicher_icon}>
           <Image
             src={light}
-            height={20}
-            width={20}
+            height={19}
+            width={19}
           />
         </div>
       )}
       uncheckedIcon={(
-        <div className={styles.swicherIcon}>
+        <div className={styles.swicher_icon}>
           <Image
             src={dark}
             height={16}

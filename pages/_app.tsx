@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { useTheme } from 'context/ThemeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
-import NavigationBar from 'components/navbar';
+import NavigationBar from 'components/navbar/Navbar';
 
 type props = {
   children: ReactNode;

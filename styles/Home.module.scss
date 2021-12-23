@@ -1,3 +1,16 @@
+@import 'colors';
+
+.container_home {
+  margin-top: -8rem !important;
+  position: relative;
+  z-index: 60;
+  padding-bottom: 3rem;
+}
+
+.first_title {
+  color: $text-dark;
+}
+
 .scroll_container {
   display: flex;
   overflow-x: auto;

@@ -1,0 +1,23 @@
+.banner {
+  width: 100%;
+  height:25rem;
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.search_container {
+  position: absolute;
+  top: 56px;
+  color: white;
+  display: table;
+  width: 100%;
+  height: 14rem;
+}
+
+.container_body {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}

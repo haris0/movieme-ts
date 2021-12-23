@@ -4,6 +4,14 @@ import { baseImageURL } from 'services';
 import { IMovie } from 'types';
 import styles from './CardMovie.module.scss';
 
+const convertDate = (date: Date): string => {
+  const monthLetter = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
+
+  const [year, month, day] = date.toString().split('-');
+
+  return `${monthLetter[(+month) - 1]} ${day}, ${year}`;
+};
+
 type props = {
   movie: IMovie
   theme: 'dark' | 'light';
@@ -29,7 +37,7 @@ const CardMovie = ({ movie, theme }: props) => (
       <div className={styles.inline_title}>
         <b>{movie.title}</b>
       </div>
-      <span>{movie.release_date}</span>
+      <span>{convertDate(movie.release_date)}</span>
     </Card.Body>
   </Card>
 );

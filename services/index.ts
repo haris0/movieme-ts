@@ -3,37 +3,44 @@ import { axiosGet } from './axios-client';
 
 export { baseImageURL } from './axios-client';
 
-export const getDiscover = async (page:number): Promise<{
-  discoverResponse: IMovieListRes,
-  discoverError: boolean
+export const getNowPlaying = async (
+  media: 'tv' | 'movie',
+  page: number = 1,
+): Promise<{
+  nowPlayingRes: IMovieListRes,
+  nowPlayingErr: boolean
 }> => {
-  const { data, error } = await axiosGet('discover/movie', {
+  const path = media === 'movie' ? '/movie/now_playing' : '/tv/on_the_air';
+
+  const { data, error } = await axiosGet(path, {
     params: {
       language: 'en-US',
-      sort_by: 'popularity.desc',
-      include_adult: false,
-      include_video: false,
       page,
     },
   });
 
-  const discoverResponse = data?.data;
-  const discoverError = !!error;
+  const nowPlayingRes = data?.data;
+  const nowPlayingErr = !!error;
 
-  return { discoverResponse, discoverError };
+  return { nowPlayingRes, nowPlayingErr };
 };
 
 export const getTrending = async (
   media: 'tv' | 'movie',
   type : 'day' | 'week',
+  page : number = 1,
 ): Promise<{
-  trendingResponse: IMovieListRes | ITvListRes,
-  trendingError: boolean
+  trendingRes: IMovieListRes | ITvListRes,
+  trendingErr: boolean
 }> => {
-  const { data, error } = await axiosGet(`trending/${media}/${type}`);
+  const { data, error } = await axiosGet(`/trending/${media}/${type}`, {
+    params: {
+      page,
+    },
+  });
 
-  const trendingResponse = data?.data;
-  const trendingError = !!error;
+  const trendingRes = data?.data;
+  const trendingErr = !!error;
 
-  return { trendingResponse, trendingError };
+  return { trendingRes, trendingErr };
 };

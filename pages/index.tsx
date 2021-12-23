@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import type { GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
-import { getDiscover, getTrending } from 'services';
+import { getNowPlaying, getTrending } from 'services';
 import {
   IMovieListRes, IMovie, ITvListRes, ITv,
 } from 'types';
@@ -11,97 +11,149 @@ import CardMovie from 'components/card/CardMovie';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage<{
-  discoverResponse: IMovieListRes,
-  discoverError: Boolean,
-  trendingMovieResponse: IMovieListRes,
-  trendingMovieError: Boolean,
-  trendingTvResponse: ITvListRes,
-  trendingTvError: Boolean,
+  inTheatresRes: IMovieListRes,
+  inTheatresErr: Boolean,
+  onTheAirRes: ITvListRes,
+  onTheAirErr: Boolean,
+  trendingMovieRes: IMovieListRes,
+  trendingMovieErr: Boolean,
+  trendingTvRes: ITvListRes,
+  trendingTvErr: Boolean,
 }> = ({
-  discoverResponse,
-  discoverError,
-  trendingMovieResponse,
-  trendingMovieError,
-  trendingTvResponse,
-  trendingTvError,
+  inTheatresRes,
+  inTheatresErr,
+  onTheAirRes,
+  onTheAirErr,
+  trendingMovieRes,
+  trendingMovieErr,
+  trendingTvRes,
+  trendingTvErr,
 }) => {
   const theme = useTheme();
-  const [discover, setDiscover] = useState<IMovie[]>(discoverResponse.results);
-  const [trendingMovie, setTrendingMovie] = useState<IMovie[]>(trendingMovieResponse.results);
-  const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvResponse.results);
+  const [inTheatres, setInTheatres] = useState<IMovie[]>(inTheatresRes.results);
+  const [onTheAir, setOnTheAir] = useState<ITv[]>(onTheAirRes.results);
+  const [trendingMovie, setTrendingMovie] = useState<IMovie[]>(trendingMovieRes.results);
+  const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvRes.results);
 
   return (
     <Container className="container-custome">
-      <h3>Movie Discover</h3>
-      {discover && (
-        <div className={styles.scroll_container}>
-          {discover.map((movie) => (
-            <div className={styles.skin_option} key={movie.id}>
-              <CardMovie movie={movie} theme={theme} />
-            </div>
-          ))}
-        </div>
-      )}
-      {discoverError && (
-        <div>Failed to Load Data</div>
-      )}
-      <br />
-      <h3>Movie Trending</h3>
+      <h3>Trending Movie</h3>
       {trendingMovie && (
         <div className={styles.scroll_container}>
           {trendingMovie.map((movie) => (
             <div className={styles.skin_option} key={movie.id}>
-              <CardMovie movie={movie} theme={theme} />
+              <CardMovie
+                posterPath={movie.poster_path}
+                voteAverage={movie.vote_average}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                theme={theme}
+              />
             </div>
           ))}
         </div>
       )}
-      {trendingMovieError && (
+      {trendingMovieErr && (
         <div>Failed to Load Data</div>
       )}
-      {/* <h1>Tv Trending</h1>
+      <br />
+      <h3>Trending Tv Show</h3>
       {trendingTv && (
-        <ul>
+        <div className={styles.scroll_container}>
           {trendingTv.map((tv) => (
-            <li key={tv.id}>{tv.name}</li>
+            <div className={styles.skin_option} key={tv.id}>
+              <CardMovie
+                posterPath={tv.poster_path}
+                voteAverage={tv.vote_average}
+                title={tv.name}
+                releaseDate={tv.first_air_date}
+                theme={theme}
+              />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
-      {trendingTvError && (
+      {trendingTvErr && (
         <div>Failed to Load Data</div>
-      )} */}
+      )}
+      <br />
+      <h3>Movie In Theatres</h3>
+      {inTheatres && (
+        <div className={styles.scroll_container}>
+          {inTheatres.map((movie) => (
+            <div className={styles.skin_option} key={movie.id}>
+              <CardMovie
+                posterPath={movie.poster_path}
+                voteAverage={movie.vote_average}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                theme={theme}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      {inTheatresErr && (
+        <div>Failed to Load Data</div>
+      )}
+      <h3>Tv Show On The Air</h3>
+      {onTheAir && (
+        <div className={styles.scroll_container}>
+          {onTheAir.map((tv) => (
+            <div className={styles.skin_option} key={tv.id}>
+              <CardMovie
+                posterPath={tv.poster_path}
+                voteAverage={tv.vote_average}
+                title={tv.name}
+                releaseDate={tv.first_air_date}
+                theme={theme}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      {trendingTvErr && (
+        <div>Failed to Load Data</div>
+      )}
     </Container>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const [discover, trendingMovie, trendingTv] = await Promise.all([
-    getDiscover(1),
+  const [inTheatres, onTheAir, trendingMovie, trendingTv] = await Promise.all([
+    getNowPlaying('movie'),
+    getNowPlaying('tv'),
     getTrending('movie', 'day'),
     getTrending('tv', 'day'),
   ]);
 
   const {
-    discoverResponse,
-    discoverError,
-  } = discover;
+    nowPlayingRes: inTheatresRes,
+    nowPlayingErr: inTheatresErr,
+  } = inTheatres;
   const {
-    trendingResponse: trendingMovieResponse,
-    trendingError: trendingMovieError,
+    nowPlayingRes: onTheAirRes,
+    nowPlayingErr: onTheAirErr,
+  } = onTheAir;
+  const {
+    trendingRes: trendingMovieRes,
+    trendingErr: trendingMovieErr,
   } = trendingMovie;
   const {
-    trendingResponse: trendingTvResponse,
-    trendingError: trendingTvError,
+    trendingRes: trendingTvRes,
+    trendingErr: trendingTvErr,
   } = trendingTv;
 
   return {
     props: {
-      discoverResponse,
-      discoverError,
-      trendingMovieResponse,
-      trendingMovieError,
-      trendingTvResponse,
-      trendingTvError,
+      inTheatresRes,
+      inTheatresErr,
+      onTheAirRes,
+      onTheAirErr,
+      trendingMovieRes,
+      trendingMovieErr,
+      trendingTvRes,
+      trendingTvErr,
     },
   };
 };

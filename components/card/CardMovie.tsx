@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import { baseImageURL } from 'services';
-import { IMovie } from 'types';
 import styles from './CardMovie.module.scss';
 
 const convertDate = (date: Date): string => {
@@ -13,31 +12,40 @@ const convertDate = (date: Date): string => {
 };
 
 type props = {
-  movie: IMovie
+  posterPath: string;
+  voteAverage: number;
+  title: string;
+  releaseDate: Date;
   theme: 'dark' | 'light';
 }
 
-const CardMovie = ({ movie, theme }: props) => (
+const CardMovie = ({
+  posterPath,
+  voteAverage,
+  title,
+  releaseDate,
+  theme,
+}: props) => (
   <Card
     style={{ width: '152px' }}
     className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
   >
     <Image
-      src={`${baseImageURL}${movie.poster_path}`}
+      src={`${baseImageURL}${posterPath}`}
       placeholder="blur"
-      blurDataURL={`${baseImageURL}${movie.poster_path}`}
-      alt={movie.title}
+      blurDataURL={`${baseImageURL}${posterPath}`}
+      alt={title}
       layout="fixed"
       width="150"
       height="225"
       className={styles.image_custome}
     />
-    <div className={styles.vote_average}>{movie.vote_average}</div>
+    <div className={styles.vote_average}>{voteAverage}</div>
     <Card.Body className={styles.card_body}>
       <div className={styles.inline_title}>
-        <b>{movie.title}</b>
+        <b>{title}</b>
       </div>
-      <span>{convertDate(movie.release_date)}</span>
+      <span>{convertDate(releaseDate)}</span>
     </Card.Body>
   </Card>
 );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = 'https://api.themoviedb.org/3/';
+export const baseURL = 'https://api.themoviedb.org/3';
 export const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
 const axiosInstance = axios.create({
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   },
 });
 
-const axiosGet = async (url: string, config?: {}): Promise<any> => {
+export const axiosGet = async (url: string, config?: {}): Promise<any> => {
   let data = null;
   let error = null;
 
@@ -24,5 +24,3 @@ const axiosGet = async (url: string, config?: {}): Promise<any> => {
 
   return { data, error };
 };
-
-export { axiosGet };

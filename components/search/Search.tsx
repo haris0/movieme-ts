@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
   ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
 } from 'react';
 import styles from './Search.module.scss';
 
@@ -27,26 +25,22 @@ const SearchBar = ({
         placeholder="Search for a movie, tv show, person..."
         value={keyword}
         onChange={onKeyWordChange}
-        onKeyDown={
-          (event) => {
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              onSearch();
-            }
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            onSearch();
           }
-        }
+        }}
       />
     </div>
     <div className={styles.normal}>
       <button
         type="button"
         className={styles.search_button}
-        onClick={
-          (event: MouseEvent<HTMLButtonElement>) => {
-            event.preventDefault();
-            onSearch();
-          }
-        }
+        onClick={(event) => {
+          event.preventDefault();
+          onSearch();
+        }}
       >
         Search
       </button>

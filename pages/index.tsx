@@ -11,6 +11,7 @@ import CardMovie from 'components/card/CardMovie';
 import Banner from 'components/benner/Banner';
 import SearchBar from 'components/search/Search';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage<{
@@ -33,6 +34,7 @@ const Home: NextPage<{
   trendingTvErr,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
   const [trendingMovie, setTrendingMovie] = useState<IMovie[]>(trendingMovieRes.results);
   const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvRes.results);
   const [inTheatres, setInTheatres] = useState<IMovie[]>(inTheatresRes.results);
@@ -63,6 +65,10 @@ const Home: NextPage<{
 
   const handleSearch = (word: string) => {
     console.log(`search: ${word}`);
+    router.push({
+      pathname: '/search',
+      query: { keyword: word },
+    });
   };
 
   return (

@@ -1,3 +1,5 @@
+@import './../../styles/colors';
+
 .banner {
   width: 100%;
   height:25rem;
@@ -8,16 +10,38 @@
 }
 
 .search_container {
-  position: absolute;
+  height: 23rem;
   top: 56px;
   color: white;
   display: table;
   width: 100%;
-  height: 14rem;
 }
 
 .container_body {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+}
+
+.search_input {
+  width: 100%;
+  height: 46px;
+  line-height: 46px;
+  font-size: 1.1em;
+  color: rgba(0,0,0,0.5);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+
+.search_input:focus {
+  outline: none
+}
+
+.search_button {
+  border-top-right-radius: 30px !important;
+  border-bottom-right-radius: 30px !important;
+  background-color: $primary-color;
+  color: black !important;
+  width: 10rem;
 }

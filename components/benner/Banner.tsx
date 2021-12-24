@@ -21,11 +21,15 @@ const Banner = ({ backdropPath }: props) => (
       // animation: 'fade 3s infinite',
     }}
   >
-    <div className={styles.search_container}>
-      <Container className={styles.container_body}>
-        Banner Search
-      </Container>
-    </div>
+    <Container className={styles.search_container}>
+      <div className={styles.container_body}>
+        <input
+          type="text"
+          className={styles.search_input}
+          placeholder="Search for a movie, tv show, person"
+        />
+      </div>
+    </Container>
   </div>
 );
 

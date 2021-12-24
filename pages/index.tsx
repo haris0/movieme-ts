@@ -36,24 +36,31 @@ const Home: NextPage<{
   const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvRes.results);
   const [inTheatres, setInTheatres] = useState<IMovie[]>(inTheatresRes.results);
   const [onTheAir, setOnTheAir] = useState<ITv[]>(onTheAirRes.results);
-  const [backdropIdx, setBackdropIdx] = useState(1);
 
-  const changeBackdropIdx = (index: number) => (index === 20 ? 1 : index + 1);
+  const useBannerChange = (movieList: IMovie[] | ITv[]) => {
+    const [movieIdx, setMovieIdx] = useState(0);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setBackdropIdx((prev) => changeBackdropIdx(prev));
-    }, 10000);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setMovieIdx((prev) => (
+          prev === movieList.length ? 0 : prev + 1
+        ));
+      }, 10000);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [backdropIdx]);
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [movieIdx, movieList.length]);
+
+    return (
+      <Banner backdropPath={movieList[movieIdx]?.backdrop_path} theme={theme} />
+    );
+  };
 
   return (
     <>
       <div>
-        <Banner backdropPath={inTheatres[backdropIdx]?.backdrop_path} theme={theme} />
+        {useBannerChange(inTheatres)}
       </div>
       <Container className={styles.container_home}>
         <h3 className={styles.first_title}>Trending Movie</h3>

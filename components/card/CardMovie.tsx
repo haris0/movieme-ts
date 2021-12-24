@@ -47,7 +47,17 @@ const CardMovie = ({
         height="225"
         className={styles.image_custome}
       />
-      <div className={styles.vote_average}>{voteAverage}</div>
+      <div className={styles.vote_average}>
+        <span>
+          {voteAverage * 10}
+        </span>
+        <span
+          style={{
+            fontSize: '6px',
+          }}
+        >%
+        </span>
+      </div>
       <Card.Body className={styles.card_body}>
         <div className={styles.inline_title}>
           <b>{title}</b>

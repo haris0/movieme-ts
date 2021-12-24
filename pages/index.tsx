@@ -42,7 +42,6 @@ const Home: NextPage<{
   useEffect(() => {
     const timer = setTimeout(() => {
       setBackdropIdx((prev) => changeBackdropIdx(prev));
-      console.log(backdropIdx);
     }, 10000);
 
     return () => {

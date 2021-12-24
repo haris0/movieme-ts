@@ -24,11 +24,20 @@ const Banner = ({ backdropPath, theme }: props) => (
   >
     <Container className={styles.search_container}>
       <div className={styles.container_body}>
-        <input
-          type="text"
-          className={`${styles.search_input} ${styles[`search_${theme}`]}`}
-          placeholder="Search for a movie, tv show, person"
-        />
+        <section className={styles.flexbox}>
+          <div className={styles.stretch}>
+            <input
+              type="text"
+              className={`${styles.search_input} ${styles[`search_${theme}`]}`}
+              placeholder="Search for a movie, tv show, person..."
+            />
+          </div>
+          <div className={styles.normal}>
+            <button type="button" className={styles.search_button}>
+              Search
+            </button>
+          </div>
+        </section>
       </div>
     </Container>
   </div>

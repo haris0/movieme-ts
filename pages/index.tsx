@@ -9,6 +9,7 @@ import { Container } from 'react-bootstrap';
 import { useTheme } from 'context/ThemeContext';
 import CardMovie from 'components/card/CardMovie';
 import Banner from 'components/benner/Banner';
+import Link from 'next/link';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage<{
@@ -59,15 +60,18 @@ const Home: NextPage<{
         {trendingMovie && (
           <div className={styles.scroll_container}>
             {trendingMovie.map((movie) => (
-              <div className={styles.skin_option} key={movie.id}>
-                <CardMovie
-                  posterPath={movie.poster_path}
-                  voteAverage={movie.vote_average}
-                  title={movie.title}
-                  releaseDate={movie.release_date}
-                  theme={theme}
-                />
-              </div>
+              <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
+                <div className={styles.skin_option}>
+                  <CardMovie
+                    href={`/movie/${movie.id}`}
+                    posterPath={movie.poster_path}
+                    voteAverage={movie.vote_average}
+                    title={movie.title}
+                    releaseDate={movie.release_date}
+                    theme={theme}
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         )}
@@ -79,15 +83,18 @@ const Home: NextPage<{
         {trendingTv && (
           <div className={styles.scroll_container}>
             {trendingTv.map((tv) => (
-              <div className={styles.skin_option} key={tv.id}>
-                <CardMovie
-                  posterPath={tv.poster_path}
-                  voteAverage={tv.vote_average}
-                  title={tv.name}
-                  releaseDate={tv.first_air_date}
-                  theme={theme}
-                />
-              </div>
+              <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
+                <div className={styles.skin_option}>
+                  <CardMovie
+                    href={`/tv/${tv.id}`}
+                    posterPath={tv.poster_path}
+                    voteAverage={tv.vote_average}
+                    title={tv.name}
+                    releaseDate={tv.first_air_date}
+                    theme={theme}
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         )}
@@ -99,15 +106,18 @@ const Home: NextPage<{
         {inTheatres && (
           <div className={styles.scroll_container}>
             {inTheatres.map((movie) => (
-              <div className={styles.skin_option} key={movie.id}>
-                <CardMovie
-                  posterPath={movie.poster_path}
-                  voteAverage={movie.vote_average}
-                  title={movie.title}
-                  releaseDate={movie.release_date}
-                  theme={theme}
-                />
-              </div>
+              <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
+                <div className={styles.skin_option}>
+                  <CardMovie
+                    href={`/movie/${movie.id}`}
+                    posterPath={movie.poster_path}
+                    voteAverage={movie.vote_average}
+                    title={movie.title}
+                    releaseDate={movie.release_date}
+                    theme={theme}
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         )}
@@ -119,15 +129,18 @@ const Home: NextPage<{
         {onTheAir && (
           <div className={styles.scroll_container}>
             {onTheAir.map((tv) => (
-              <div className={styles.skin_option} key={tv.id}>
-                <CardMovie
-                  posterPath={tv.poster_path}
-                  voteAverage={tv.vote_average}
-                  title={tv.name}
-                  releaseDate={tv.first_air_date}
-                  theme={theme}
-                />
-              </div>
+              <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
+                <div className={styles.skin_option}>
+                  <CardMovie
+                    href={`/tv/${tv.id}`}
+                    posterPath={tv.poster_path}
+                    voteAverage={tv.vote_average}
+                    title={tv.name}
+                    releaseDate={tv.first_air_date}
+                    theme={theme}
+                  />
+                </div>
+              </Link>
             ))}
           </div>
         )}

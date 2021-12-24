@@ -11,7 +11,7 @@ import styles from './Navbar.module.scss';
 
 const NavigationBar = () => {
   const router = useRouter();
-  const pageRoutes = ['movie', 'show', 'people'];
+  const pageRoutes = ['movie', 'tv', 'people'];
 
   return (
     <Navbar fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
@@ -35,7 +35,7 @@ const NavigationBar = () => {
               <Link href={`/${route}`} passHref key={route}>
                 <Nav.Link active={router.pathname === `/${route}`}>
                   <span style={{ textTransform: 'capitalize' }}>
-                    {route === 'show' ? 'Tv' : ''} {route}
+                    {route} {route === 'tv' ? 'Show' : ''}
                   </span>
                 </Nav.Link>
               </Link>

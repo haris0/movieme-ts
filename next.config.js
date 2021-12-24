@@ -4,4 +4,10 @@ module.exports = {
   images: {
     domains: ['image.tmdb.org'],
   },
+  devIndicators: {
+    buildActivity: false,
+  },
+  experimental: {
+    scrollRestoration: true,
+  },
 };

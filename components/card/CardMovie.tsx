@@ -12,6 +12,7 @@ const convertDate = (date: Date): string => {
 };
 
 type props = {
+  href: string;
   posterPath: string;
   voteAverage: number;
   title: string;
@@ -20,34 +21,41 @@ type props = {
 }
 
 const CardMovie = ({
+  href,
   posterPath,
   voteAverage,
   title,
   releaseDate,
   theme,
 }: props) => (
-  <Card
-    style={{ width: '152px' }}
-    className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
-  >
-    <Image
-      src={`${baseImageURL}${posterPath}`}
-      placeholder="blur"
-      blurDataURL={`${baseImageURL}${posterPath}`}
-      alt={title}
-      layout="fixed"
-      width="150"
-      height="225"
-      className={styles.image_custome}
-    />
-    <div className={styles.vote_average}>{voteAverage}</div>
-    <Card.Body className={styles.card_body}>
-      <div className={styles.inline_title}>
-        <b>{title}</b>
-      </div>
-      <span>{convertDate(releaseDate)}</span>
-    </Card.Body>
-  </Card>
+
+  <a href={href} className={styles.card_anchor}>
+    <Card
+      style={{
+        width: '152px',
+        margin: '10px',
+      }}
+      className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
+    >
+      <Image
+        src={`${baseImageURL}${posterPath}`}
+        placeholder="blur"
+        blurDataURL={`${baseImageURL}${posterPath}`}
+        alt={title}
+        layout="fixed"
+        width="150"
+        height="225"
+        className={styles.image_custome}
+      />
+      <div className={styles.vote_average}>{voteAverage}</div>
+      <Card.Body className={styles.card_body}>
+        <div className={styles.inline_title}>
+          <b>{title}</b>
+        </div>
+        <span>{convertDate(releaseDate)}</span>
+      </Card.Body>
+    </Card>
+  </a>
 );
 
 export default CardMovie;

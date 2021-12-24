@@ -176,6 +176,7 @@ export const getStaticProps: GetStaticProps = async () => {
       trendingTvRes,
       trendingTvErr,
     },
+    revalidate: 10,
   };
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import type { GetStaticProps, NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { getNowPlaying, getTrending } from 'services';
 import {
   IMovieListRes, IMovie, ITvListRes, ITv,
@@ -9,6 +9,7 @@ import { Container } from 'react-bootstrap';
 import { useTheme } from 'context/ThemeContext';
 import CardMovie from 'components/card/CardMovie';
 import Banner from 'components/benner/Banner';
+import SearchBar from 'components/search/Search';
 import Link from 'next/link';
 import styles from '../styles/Home.module.scss';
 
@@ -37,6 +38,11 @@ const Home: NextPage<{
   const [inTheatres, setInTheatres] = useState<IMovie[]>(inTheatresRes.results);
   const [onTheAir, setOnTheAir] = useState<ITv[]>(onTheAirRes.results);
 
+  const [keyword, setKeyword] = useState('');
+  const handleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
   const useBannerChange = (movieList: IMovie[] | ITv[]) => {
     const [movieIdx, setMovieIdx] = useState(0);
 
@@ -52,15 +58,24 @@ const Home: NextPage<{
       };
     }, [movieIdx, movieList.length]);
 
-    return (
-      <Banner backdropPath={movieList[movieIdx]?.backdrop_path} theme={theme} />
-    );
+    return movieList[movieIdx]?.backdrop_path;
+  };
+
+  const handleSearch = (word: string) => {
+    console.log(`search: ${word}`);
   };
 
   return (
     <>
       <div>
-        {useBannerChange(inTheatres)}
+        <Banner backdropPath={useBannerChange(inTheatres)}>
+          <SearchBar
+            theme={theme}
+            keyword={keyword}
+            onSearch={() => handleSearch(keyword)}
+            onKeyWordChange={handleKeyWord}
+          />
+        </Banner>
       </div>
       <Container className={styles.container_home}>
         <h3 className={styles.first_title}>Trending Movie</h3>

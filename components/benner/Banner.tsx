@@ -4,9 +4,10 @@ import styles from './Banner.module.scss';
 
 type props = {
   backdropPath: string;
+  theme: 'dark' | 'light';
 }
 
-const Banner = ({ backdropPath }: props) => (
+const Banner = ({ backdropPath, theme }: props) => (
   <div
     className={styles.banner}
     style={{
@@ -25,7 +26,7 @@ const Banner = ({ backdropPath }: props) => (
       <div className={styles.container_body}>
         <input
           type="text"
-          className={styles.search_input}
+          className={`${styles.search_input} ${styles[`search_${theme}`]}`}
           placeholder="Search for a movie, tv show, person"
         />
       </div>

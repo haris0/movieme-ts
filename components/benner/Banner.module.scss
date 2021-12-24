@@ -34,14 +34,11 @@
   padding: 10px 20px;
 }
 
-.search_input:focus {
-  outline: none
+.search_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
 }
 
-.search_button {
-  border-top-right-radius: 30px !important;
-  border-bottom-right-radius: 30px !important;
-  background-color: $primary-color;
-  color: black !important;
-  width: 10rem;
+.search_input:focus {
+  outline: none
 }

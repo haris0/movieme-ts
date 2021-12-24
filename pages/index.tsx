@@ -53,7 +53,7 @@ const Home: NextPage<{
   return (
     <>
       <div>
-        <Banner backdropPath={inTheatres[backdropIdx]?.backdrop_path} />
+        <Banner backdropPath={inTheatres[backdropIdx]?.backdrop_path} theme={theme} />
       </div>
       <Container className={styles.container_home}>
         <h3 className={styles.first_title}>Trending Movie</h3>

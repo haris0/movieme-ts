@@ -1,0 +1,11 @@
+@import '../../styles/colors';
+
+.card_custome {
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.card_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+}

@@ -1,4 +1,4 @@
-import { IMovieListRes, ITvListRes } from 'types';
+import { IGenreListRes, IMovieListRes, ITvListRes } from 'types';
 import { axiosGet } from './axios-client';
 
 export { baseImageURL } from './axios-client';
@@ -43,4 +43,16 @@ export const getTrending = async (
   const trendingErr = !!error;
 
   return { trendingRes, trendingErr };
+};
+
+export const getGenreList = async (): Promise<{
+  genreRes: IGenreListRes,
+  genreErr: boolean
+}> => {
+  const { data, error } = await axiosGet('/genre/movie/list');
+
+  const genreRes = data?.data;
+  const genreErr = !!error;
+
+  return { genreRes, genreErr };
 };

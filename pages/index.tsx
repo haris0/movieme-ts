@@ -44,6 +44,12 @@ const Home: NextPage<{
   const handleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   };
+  const handleSearch = (searchKey: string) => {
+    router.push({
+      pathname: '/search',
+      query: searchKey ? { keyword: searchKey } : {},
+    });
+  };
 
   const useBannerChange = (movieList: IMovie[] | ITv[]) => {
     const [movieIdx, setMovieIdx] = useState(0);
@@ -61,14 +67,6 @@ const Home: NextPage<{
     }, [movieIdx, movieList.length]);
 
     return movieList[movieIdx]?.backdrop_path;
-  };
-
-  const handleSearch = (word: string) => {
-    console.log(`search: ${word}`);
-    router.push({
-      pathname: '/search',
-      query: { keyword: word },
-    });
   };
 
   return (

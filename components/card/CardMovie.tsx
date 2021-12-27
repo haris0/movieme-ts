@@ -1,15 +1,8 @@
+import { convertDate } from 'mixin';
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
 import { baseImageURL } from 'services';
 import styles from './CardMovie.module.scss';
-
-const convertDate = (date: Date): string => {
-  const monthLetter = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
-
-  const [year, month, day] = date.toString().split('-');
-
-  return `${monthLetter[(+month) - 1]} ${day}, ${year}`;
-};
 
 type props = {
   href: string;

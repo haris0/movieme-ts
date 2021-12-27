@@ -1,9 +1,10 @@
 import CardGenre from 'components/card/CardGenre';
 import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
+import { useDebouncedEffect } from 'mixin';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getGenreList } from 'services';
 import styles from 'styles/Search.module.scss';
@@ -18,18 +19,28 @@ const Search: NextPage<{
 }) => {
   const router = useRouter();
   const { keyword } = router.query;
+  const { genres } = genreRes;
   const theme = useTheme();
 
   const [searchKey, setSearchKey] = useState(keyword as string || '');
-  const handleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchKey(event.target.value);
+  const useHandleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchKey(value);
   };
-
-  const { genres } = genreRes;
-
   const handleSearch = (search: string) => {
     console.log(`Search : ${search}`);
   };
+
+  useDebouncedEffect(() => {
+    router.push({
+      pathname: '/search',
+      query: searchKey ? { keyword: searchKey } : {},
+    });
+  }, [searchKey], 1000);
+
+  useEffect(() => {
+    setSearchKey(keyword as string || '');
+  }, [keyword]);
 
   return (
     <Container className="container-custome">
@@ -37,10 +48,15 @@ const Search: NextPage<{
         theme={theme}
         keyword={searchKey}
         onSearch={() => handleSearch(searchKey)}
-        onKeyWordChange={handleKeyWord}
+        onKeyWordChange={useHandleKeyWord}
       />
+      {searchKey && (
+        <div className={styles.margin_top}>
+          <h3>Search for: {searchKey}</h3>
+        </div>
+      )}
       {!searchKey && (
-        <div className={styles.genre_list}>
+        <div className={styles.margin_top}>
           {genres && (
             <Row>
               {genres.map((genre) => (

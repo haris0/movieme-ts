@@ -29,7 +29,7 @@ const CardSearch = ({
     <div style={{ display: 'flex' }}>
       <div className={styles.image_custome}>
         <Image
-          src={`${baseImageURL}${posterPath}`}
+          src={posterPath ? `${baseImageURL}${posterPath}` : '/thumbnail.png'}
           placeholder="blur"
           blurDataURL={`${baseImageURL}${posterPath}`}
           alt={title}

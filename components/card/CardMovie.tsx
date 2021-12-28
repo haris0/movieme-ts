@@ -30,16 +30,17 @@ const CardMovie = ({
       }}
       className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
     >
-      <Image
-        src={`${baseImageURL}${posterPath}`}
-        placeholder="blur"
-        blurDataURL={`${baseImageURL}${posterPath}`}
-        alt={title}
-        layout="fixed"
-        width="150"
-        height="225"
-        className={styles.image_custome}
-      />
+      <div className={styles.image_custome}>
+        <Image
+          src={`${baseImageURL}${posterPath}`}
+          placeholder="blur"
+          blurDataURL={`${baseImageURL}${posterPath}`}
+          alt={title}
+          layout="fixed"
+          width="150"
+          height="225"
+        />
+      </div>
       <div className={styles.vote_average}>
         <span>
           {voteAverage * 10}

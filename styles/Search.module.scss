@@ -1,3 +1,12 @@
+@import 'colors';
+
 .margin_top {
   margin-top: 2rem;
+}
+
+.section_title {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-left: 7px solid $primary-color;
+  padding: 0.7rem 1rem;
 }

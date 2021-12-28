@@ -1,10 +1,13 @@
 import CardGenre from 'components/card/CardGenre';
+import CardSearch from 'components/card/CardSearch';
 import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
 import { useDebouncedEffect } from 'mixin';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useState,
+} from 'react';
 import {
   Col,
   Container,
@@ -41,6 +44,8 @@ const Search: NextPage<{
   const useHandleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchKey(value);
+
+    if (value) setSearchLoading(true);
   };
   const handleSearch = (search: string) => {
     console.log(`Search : ${search}`);
@@ -49,29 +54,34 @@ const Search: NextPage<{
   useDebouncedEffect(async () => {
     router.push({
       pathname: '/search',
-      query: searchKey ? { keyword: searchKey } : {},
+      query: searchKey ? { keyword: searchKey.trim() } : {},
     });
 
     if (searchKey) {
-      setSearchLoading(true);
       const { searchRes, searchErr } = await getSearchByKeyword(searchKey);
       setMovieResuls(searchRes.movieResultsRes.results);
       setTvResult(searchRes.tvResultsRes.results);
       setPeopleResult(searchRes.peopleResultsRes.results);
-      setSearchLoading(false);
       console.log(searchRes, searchErr);
+      setSearchLoading(false);
+      return;
     }
 
     if (!searchKey) {
       setMovieResuls(undefined);
       setTvResult(undefined);
       setPeopleResult(undefined);
+      setSearchLoading(false);
     }
   }, [searchKey], 1000);
 
   useEffect(() => {
     setSearchKey(keyword as string || '');
   }, [keyword]);
+
+  useEffect(() => {
+    setSearchLoading(true);
+  }, []);
 
   return (
     <Container className="container-custome">
@@ -94,33 +104,53 @@ const Search: NextPage<{
       )}
       {searchKey && !!movieResuls?.length && !searchLoading && (
         <div>
-          <h4>Movie Result</h4>
-          <ul>
-            {movieResuls.map((movie) => (
-              <li key={movie.id}>{movie.title}</li>
-            ))}
-          </ul>
+          <h4 className={styles.section_title}>Movie Result</h4>
+          {movieResuls.map((movie) => (
+            <CardSearch
+              key={movie.id}
+              theme={theme}
+              posterPath={movie.poster_path}
+              title={movie.title}
+              description={movie.overview}
+            />
+          ))}
         </div>
       )}
       {searchKey && !!tvResult?.length && !searchLoading && (
         <div>
-          <h4>Tv Show Result</h4>
-          <ul>
-            {tvResult.map((tv) => (
-              <li key={tv.id}>{tv.name}</li>
-            ))}
-          </ul>
+          <h4 className={styles.section_title}>Tv Show Result</h4>
+          {tvResult.map((tv) => (
+            <CardSearch
+              key={tv.id}
+              theme={theme}
+              posterPath={tv.poster_path}
+              title={tv.name}
+              description={tv.overview}
+            />
+          ))}
         </div>
       )}
       {searchKey && !!peopleResult?.length && !searchLoading && (
         <div>
-          <h4>People Result</h4>
-          <ul>
-            {peopleResult.map((people) => (
-              <li key={people.id}>{people.name}</li>
-            ))}
-          </ul>
+          <h4 className={styles.section_title}>People Result</h4>
+          {peopleResult.map((people) => (
+            <CardSearch
+              key={people.id}
+              theme={theme}
+              posterPath={people?.profile_path}
+              title={people.name}
+              description={people.known_for_department}
+              peopleKnowFor={people.known_for.map((movie) => movie.title || movie.name)}
+            />
+          ))}
         </div>
+      )}
+      {searchKey
+      && !movieResuls?.length
+      && !tvResult?.length
+      && !peopleResult?.length
+      && !searchLoading && (
+        <div>No results found for {searchKey}</div>
       )}
       {!searchKey && (
         <div className={styles.margin_top}>

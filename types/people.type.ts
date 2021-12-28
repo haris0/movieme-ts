@@ -9,12 +9,12 @@ export interface KnownFor {
   overview: string;
   poster_path: string;
   release_date?: Date;
-  title?: string;
+  title: string;
   video?: boolean;
   vote_average: number;
   vote_count: number;
   first_air_date?: Date;
-  name?: string;
+  name: string;
   origin_country?: string[];
   original_name?: string;
 }
@@ -27,7 +27,7 @@ export interface IPeople {
   known_for_department: string;
   name: string;
   popularity: number;
-  profile_path: null | string;
+  profile_path: string;
 }
 
 export interface IPeopleListRes {

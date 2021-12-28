@@ -1,0 +1,29 @@
+@import '../../styles/colors';
+
+.card_custome {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+}
+
+.image_custome {
+  border-radius: 20px 0px 0px 20px;
+  overflow: hidden;
+  display: contents !important;
+}
+
+.card_body {
+  padding: 1rem;
+  width: 100%;
+}
+
+.card_text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

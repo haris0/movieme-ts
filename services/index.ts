@@ -1,4 +1,9 @@
-import { IGenreListRes, IMovieListRes, ITvListRes } from 'types';
+import {
+  IGenreListRes,
+  IMovieListRes,
+  ITvListRes,
+  IPeopleListRes,
+} from 'types';
 import { axiosGet } from './axios-client';
 
 export { baseImageURL } from './axios-client';
@@ -55,4 +60,36 @@ export const getGenreList = async (): Promise<{
   const genreErr = !!error;
 
   return { genreRes, genreErr };
+};
+
+export const getSearchByKeyword = async (word: string, page: number = 1): Promise<{
+  searchRes: {
+    movieResultsRes: IMovieListRes,
+    tvResultsRes: ITvListRes,
+    peopleResultsRes: IPeopleListRes,
+  },
+  searchErr: boolean[]
+}> => {
+  const params = {
+    params: {
+      language: 'en-US',
+      include_adult: false,
+      page,
+      query: word,
+    },
+  };
+
+  const medias = ['movie', 'tv', 'person'];
+  const [movieResult, tvResult, peopleResult] = await Promise.all(
+    medias.map((media) => axiosGet(`/search/${media}`, params)),
+  );
+
+  const searchRes = {
+    movieResultsRes: movieResult.data?.data,
+    tvResultsRes: tvResult.data?.data,
+    peopleResultsRes: peopleResult.data?.data,
+  };
+  const searchErr = [!!movieResult.error, !!tvResult.error, !!peopleResult.error];
+
+  return { searchRes, searchErr };
 };

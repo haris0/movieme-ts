@@ -9,3 +9,9 @@
   background-color: $bg-dark;
   color: $text-dark;
 }
+
+.card_body {
+  border-left: 0.5rem solid $primary-color;
+  border-radius: 10px;
+  font-weight: bold;
+}

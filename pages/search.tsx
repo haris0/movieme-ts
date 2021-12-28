@@ -61,6 +61,12 @@ const Search: NextPage<{
       setSearchLoading(false);
       console.log(searchRes, searchErr);
     }
+
+    if (!searchKey) {
+      setMovieResuls(undefined);
+      setTvResult(undefined);
+      setPeopleResult(undefined);
+    }
   }, [searchKey], 1000);
 
   useEffect(() => {

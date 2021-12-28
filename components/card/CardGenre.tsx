@@ -8,7 +8,7 @@ type props = {
 
 const CardGenre = ({ theme, name }: props) => (
   <Card className={`${styles[`card_${theme}`]} ${styles.card_custome}`}>
-    <Card.Body>{name}</Card.Body>
+    <Card.Body className={styles.card_body}>{name}</Card.Body>
   </Card>
 );
 

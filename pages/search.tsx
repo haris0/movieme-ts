@@ -4,6 +4,7 @@ import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
 import { useDebouncedEffect } from 'mixin';
 import { GetStaticProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
   ChangeEvent, useEffect, useState,
@@ -157,12 +158,21 @@ const Search: NextPage<{
           {genres && (
             <Row>
               {genres.map((genre) => (
-                <Col sm={6} md={4} key={genre.id}>
-                  <CardGenre
-                    theme={theme}
-                    name={genre.name}
-                  />
-                </Col>
+                <Link
+                  href={{
+                    pathname: '/movie',
+                    query: { genre: genre.name.toLowerCase() },
+                  }}
+                  passHref
+                  key={genre.id}
+                >
+                  <Col sm={6} md={4}>
+                    <CardGenre
+                      theme={theme}
+                      name={genre.name}
+                    />
+                  </Col>
+                </Link>
               ))}
             </Row>
           )}

@@ -7,9 +7,14 @@ type props = {
 }
 
 const CardGenre = ({ theme, name }: props) => (
-  <Card className={`${styles[`card_${theme}`]} ${styles.card_custome}`}>
-    <Card.Body className={styles.card_body}>{name}</Card.Body>
-  </Card>
+  <a
+    href={`/movie?genre=${name.toLowerCase()}`}
+    className={styles.card_anchor}
+  >
+    <Card className={`${styles[`card_${theme}`]} ${styles.card_custome}`}>
+      <Card.Body className={styles.card_body}>{name}</Card.Body>
+    </Card>
+  </a>
 );
 
 export default CardGenre;

@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+
+.card_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+}
+
+.select_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+  border: $text-light 1px solid;
+}
+
+.select_light {
+  background-color: $bg-light;
+  color: $text-light;
+  border: $text-dark 1px solid;
+}
+
+.select_genre {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border-radius: 0.25rem;
+}
+
+.select_genre:focus {
+  outline: none
+}

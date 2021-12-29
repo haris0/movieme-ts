@@ -93,3 +93,29 @@ export const getSearchByKeyword = async (word: string, page: number = 1): Promis
 
   return { searchRes, searchErr };
 };
+
+export const getDiscover = async (
+  media: 'movie' | 'tv',
+  genre: number = 0,
+  page: number = 1,
+): Promise<{
+  discoverRes: IMovieListRes | ITvListRes
+  discoverErr: boolean
+}> => {
+  const params = {
+    params: {
+      language: 'en-US',
+      sort_by: 'popularity.desc',
+      include_adult: false,
+      with_genres: genre || '',
+      page,
+    },
+  };
+
+  const { data, error } = await axiosGet(`/discover/${media}`, params);
+
+  const discoverRes = data?.data;
+  const discoverErr = !!error;
+
+  return { discoverRes, discoverErr };
+};

@@ -49,7 +49,7 @@ const Search: NextPage<{
     mediaName: string,
   ) => {
     const query: {[key: string]: string} = {};
-    if (keywordName) query.keyword = keywordName;
+    if (keywordName) query.keyword = keywordName.trim();
     if (mediaName) query.media = mediaName;
     return query;
   };
@@ -79,7 +79,7 @@ const Search: NextPage<{
     if (searchKey) {
       router.push({
         pathname: '/search',
-        query: populateQuery(searchKey, selectedMedia),
+        query: populateQuery(searchKey, media as string),
       });
       const { searchRes, searchErr } = await getSearchByKeyword(searchKey);
       setMovieResuls(searchRes.movieResultsRes.results);

@@ -7,9 +7,10 @@ import {
   Col,
   Container,
   Row,
+  Spinner,
 } from 'react-bootstrap';
 import { getDiscover, getGenreList } from 'services';
-import { IGenreListRes, IMovieListRes } from 'types';
+import { IGenreListRes, IMovie, IMovieListRes } from 'types';
 import Link from 'next/link';
 import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
@@ -31,7 +32,9 @@ const Movie: NextPage<{
   const theme = useTheme();
 
   const [discoverMovie, setDiscoverMovie] = useState(discoverRes.results);
+  const [currentPage, setCurrentPage] = useState(discoverRes.page);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const handleGenreChange = (event: ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
@@ -41,6 +44,27 @@ const Movie: NextPage<{
       pathname: '/movie',
       query: genreName ? { genre: genreName } : {},
     });
+  };
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    let genreId = 0;
+    if (genre) {
+      const genreObj = genreRes.genres.find((gen) => gen.name.toLowerCase() === genre);
+      genreId = genreObj?.id as number;
+    }
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    const {
+      discoverRes: discoverResNext,
+      discoverErr: discoverErrNext,
+    } = await getDiscover('movie', +genreId, nextPage);
+    console.log(discoverResNext, discoverErrNext);
+    setDiscoverMovie((prev) => [
+      ...prev,
+      ...discoverResNext.results as IMovie[],
+    ]);
+    setLoadingMore(false);
   };
 
   useEffect(() => {
@@ -80,6 +104,21 @@ const Movie: NextPage<{
                 </Col>
               </Link>
             ))}
+            <button
+              type="button"
+              className={styles.load_button}
+              disabled={loadingMore}
+              onClick={handleLoadMore}
+            >
+              {loadingMore && (
+                <Spinner animation="border" role="status" className={styles.spinner}>
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              )}
+              {!loadingMore && (
+                <span>Load More</span>
+              )}
+            </button>
           </Row>
         </Col>
       </Row>

@@ -50,11 +50,11 @@ export const getTrending = async (
   return { trendingRes, trendingErr };
 };
 
-export const getGenreList = async (): Promise<{
+export const getGenreList = async (media: 'movie' | 'tv'): Promise<{
   genreRes: IGenreListRes,
   genreErr: boolean
 }> => {
-  const { data, error } = await axiosGet('/genre/movie/list');
+  const { data, error } = await axiosGet(`/genre/${media}/list`);
 
   const genreRes = data?.data;
   const genreErr = !!error;

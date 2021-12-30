@@ -146,7 +146,7 @@ const Movie: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { genre, loaded } = query;
-  const { genreRes, genreErr } = await getGenreList();
+  const { genreRes, genreErr } = await getGenreList('movie');
   let genreId = 0;
 
   if (genre) {

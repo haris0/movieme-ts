@@ -250,7 +250,7 @@ const Search: NextPage<{
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { genreRes, genreErr } = await getGenreList();
+  const { genreRes, genreErr } = await getGenreList('movie');
 
   return {
     props: {

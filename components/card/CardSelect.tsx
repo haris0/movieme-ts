@@ -2,34 +2,36 @@
 import { ChangeEvent } from 'react';
 import { Card } from 'react-bootstrap';
 import { IGenre } from 'types';
-import styles from './CardSelectGenre.module.scss';
+import styles from './CardSelect.module.scss';
 
 type props = {
   theme: 'dark' | 'light';
-  options: IGenre[];
+  title: string;
+  options: string[];
   selected: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const CardSelectGenre = ({
+const CardSelect = ({
   theme,
+  title,
   options,
   selected,
   onChange,
 }: props) => (
   <Card className={styles[`card_${theme}`]}>
-    <Card.Header as="h5">Genre</Card.Header>
+    <Card.Header as="h5">{title}</Card.Header>
     <Card.Body>
-      <div style={{ marginBottom: '10px' }}>Filter Results by Genre</div>
+      <div style={{ marginBottom: '10px' }}>Filter Results by {title}</div>
       <Card.Text>
         <select
           className={`${styles[`select_${theme}`]} ${styles.select_genre}`}
           value={selected}
           onChange={(event) => onChange(event)}
         >
-          <option value="">All Genre</option>
-          {options.map((genre) => (
-            <option key={genre.id} value={genre.name.toLowerCase()}>{genre.name}</option>
+          <option value="">All {title}</option>
+          {options.map((option) => (
+            <option key={option} value={option.toLowerCase()}>{option}</option>
           ))}
         </select>
       </Card.Text>
@@ -37,4 +39,4 @@ const CardSelectGenre = ({
   </Card>
 );
 
-export default CardSelectGenre;
+export default CardSelect;

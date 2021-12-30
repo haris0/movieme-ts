@@ -11,7 +11,7 @@ import {
 import { getDiscover, getGenreList } from 'services';
 import { IGenreListRes, IMovieListRes } from 'types';
 import Link from 'next/link';
-import CardSelectGenre from 'components/card/CardSelectGenre';
+import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
 
 const Movie: NextPage<{
@@ -55,9 +55,10 @@ const Movie: NextPage<{
       <h3>Discover Movie</h3>
       <Row style={{ marginTop: '1rem' }}>
         <Col sm={3} style={{ marginBottom: '1.5rem' }}>
-          <CardSelectGenre
+          <CardSelect
             theme={theme}
-            options={genreRes.genres}
+            title="Genre"
+            options={genreRes.genres.map((gen) => gen.name)}
             selected={selectedGenre}
             onChange={handleGenreChange}
           />

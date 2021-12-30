@@ -10,31 +10,40 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import { getDiscover, getGenreList } from 'services';
-import { IGenreListRes, IMovie, IMovieListRes } from 'types';
+import {
+  IGenreListRes, IMovie,
+} from 'types';
 import Link from 'next/link';
 import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
 import styles from 'styles/Movie.module.scss';
 
 const Movie: NextPage<{
-  discoverRes: IMovieListRes
-  discoverErr: boolean,
+  discoverResult: IMovie[]
+  discoverError: boolean[],
   genreRes: IGenreListRes,
   genreErr: boolean,
 }> = ({
-  discoverRes,
-  discoverErr,
+  discoverResult,
+  discoverError,
   genreRes,
   genreErr,
 }) => {
   const router = useRouter();
-  const { genre } = router.query;
+  const { genre, loaded } = router.query;
   const theme = useTheme();
 
-  const [discoverMovie, setDiscoverMovie] = useState(discoverRes.results);
-  const [currentPage, setCurrentPage] = useState(discoverRes.page);
+  const [discoverMovie, setDiscoverMovie] = useState(discoverResult);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [loadedPage, setLoadedPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  const populateQuery = (genreName: string, loadedContent: number) => {
+    const query: {[key: string]: string | number} = {};
+    if (genreName) query.genre = genreName;
+    if (loadedContent > 1) query.loaded = loadedContent;
+    return query;
+  };
 
   const handleGenreChange = (event: ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
@@ -42,7 +51,7 @@ const Movie: NextPage<{
     setSelectedGenre(genreName);
     router.push({
       pathname: '/movie',
-      query: genreName ? { genre: genreName } : {},
+      query: populateQuery(genreName, 1),
     });
   };
 
@@ -53,8 +62,14 @@ const Movie: NextPage<{
       const genreObj = genreRes.genres.find((gen) => gen.name.toLowerCase() === genre);
       genreId = genreObj?.id as number;
     }
-    const nextPage = currentPage + 1;
-    setCurrentPage(nextPage);
+    const nextPage = loadedPage + 1;
+    setLoadedPage(nextPage);
+
+    router.push({
+      pathname: '/movie',
+      query: populateQuery(selectedGenre, nextPage),
+    }, undefined, { shallow: true });
+
     const {
       discoverRes: discoverResNext,
       discoverErr: discoverErrNext,
@@ -68,12 +83,13 @@ const Movie: NextPage<{
   };
 
   useEffect(() => {
-    setDiscoverMovie(discoverRes.results);
-  }, [discoverRes.results]);
+    setDiscoverMovie(discoverResult);
+  }, [discoverResult]);
 
   useEffect(() => {
     setSelectedGenre(genre as string || '');
-  }, [genre]);
+    setLoadedPage(+(loaded as string) || 1);
+  }, [genre, loaded]);
 
   return (
     <Container className="container-custome">
@@ -104,21 +120,23 @@ const Movie: NextPage<{
                 </Col>
               </Link>
             ))}
-            <button
-              type="button"
-              className={styles.load_button}
-              disabled={loadingMore}
-              onClick={handleLoadMore}
-            >
-              {loadingMore && (
-                <Spinner animation="border" role="status" className={styles.spinner}>
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              )}
-              {!loadingMore && (
-                <span>Load More</span>
-              )}
-            </button>
+            <div style={{ textAlign: 'center' }}>
+              <button
+                type="button"
+                className={styles.load_button}
+                disabled={loadingMore}
+                onClick={handleLoadMore}
+              >
+                {loadingMore && (
+                  <Spinner animation="border" role="status" className={styles.spinner}>
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                )}
+                {!loadingMore && (
+                  <span>Load More</span>
+                )}
+              </button>
+            </div>
           </Row>
         </Col>
       </Row>
@@ -127,7 +145,7 @@ const Movie: NextPage<{
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { genre } = query;
+  const { genre, loaded } = query;
   const { genreRes, genreErr } = await getGenreList();
   let genreId = 0;
 
@@ -136,12 +154,26 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     genreId = genreObj?.id as number;
   }
 
-  const { discoverRes, discoverErr } = await getDiscover('movie', +genreId);
+  const loadedPage = +(loaded as string) || 1;
+  const loadedPageArr = Array.from(Array(loadedPage + 1).keys());
+  loadedPageArr.shift();
+
+  const discoverResults = await Promise.all(
+    loadedPageArr.map(
+      (page) => (getDiscover('movie', +genreId, page)),
+    ),
+  );
+
+  const alldiscoverRes = discoverResults?.map((res) => res.discoverRes);
+  const alldiscoverErr = discoverResults?.map((res) => res.discoverErr);
+
+  const discoverResult = alldiscoverRes.map(({ results }) => results).flat();
+  const discoverError = alldiscoverErr.map((error) => error).flat();
 
   return {
     props: {
-      discoverRes,
-      discoverErr,
+      discoverResult,
+      discoverError,
       genreRes,
       genreErr,
     },

@@ -33,12 +33,13 @@ const CardSearch = ({
           placeholder="blur"
           blurDataURL={`${baseImageURL}${posterPath}`}
           alt={title}
+          layout="fixed"
           width="100"
-          height="150"
+          height="140"
         />
       </div>
       <Card.Body className={styles.card_body}>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title className={styles.card_title}>{title}</Card.Title>
         <Card.Text className={styles.card_text}>
           {description}
           <br />

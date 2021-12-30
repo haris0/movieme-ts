@@ -13,6 +13,7 @@ import { IGenreListRes, IMovieListRes } from 'types';
 import Link from 'next/link';
 import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
+import styles from 'styles/Movie.module.scss';
 
 const Movie: NextPage<{
   discoverRes: IMovieListRes
@@ -53,8 +54,8 @@ const Movie: NextPage<{
   return (
     <Container className="container-custome">
       <h3>Discover Movie</h3>
-      <Row style={{ marginTop: '1rem' }}>
-        <Col sm={3} style={{ marginBottom: '1.5rem' }}>
+      <Row className={styles.row_margin}>
+        <Col lg={3} className={styles.col_left_margin}>
           <CardSelect
             theme={theme}
             title="Genre"
@@ -63,11 +64,11 @@ const Movie: NextPage<{
             onChange={handleGenreChange}
           />
         </Col>
-        <Col sm={9} style={{ marginTop: '-10px' }}>
-          <Row>
+        <Col lg={9} className={styles.col_right_margin}>
+          <Row className={styles.row_custome}>
             {discoverMovie.map((movie) => (
               <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
-                <Col xs={6} sm="auto">
+                <Col xs={6} sm="auto" className={styles.center_content}>
                   <CardMovie
                     href={`/movie/${movie.id}`}
                     posterPath={movie.poster_path}

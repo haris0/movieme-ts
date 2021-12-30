@@ -21,6 +21,13 @@
   width: 100%;
 }
 
+.card_title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .card_text {
   overflow: hidden;
   display: -webkit-box;

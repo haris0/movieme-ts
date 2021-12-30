@@ -1,5 +1,6 @@
 import CardGenre from 'components/card/CardGenre';
 import CardSearch from 'components/card/CardSearch';
+import CardSelect from 'components/card/CardSelect';
 import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
 import { useDebouncedEffect } from 'mixin';
@@ -32,7 +33,7 @@ const Search: NextPage<{
   genreErr,
 }) => {
   const router = useRouter();
-  const { keyword } = router.query;
+  const { keyword, media } = router.query;
   const { genres } = genreRes;
   const theme = useTheme();
 
@@ -40,25 +41,46 @@ const Search: NextPage<{
   const [tvResult, setTvResult] = useState<ITv[]>();
   const [peopleResult, setPeopleResult] = useState<IPeople[]>();
   const [searchLoading, setSearchLoading] = useState(false);
-
+  const [selectedMedia, setSelectedMedia] = useState('');
   const [searchKey, setSearchKey] = useState(keyword as string || '');
-  const useHandleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
+
+  const populateQuery = (
+    keywordName: string,
+    mediaName: string,
+  ) => {
+    const query: {[key: string]: string} = {};
+    if (keywordName) query.keyword = keywordName;
+    if (mediaName) query.media = mediaName;
+    return query;
+  };
+
+  const handleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchKey(value);
 
     if (value) setSearchLoading(true);
   };
+
   const handleSearch = (search: string) => {
     console.log(`Search : ${search}`);
   };
 
-  useDebouncedEffect(async () => {
+  const handleMediaChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    const mediaName = event.target.value;
+    setSelectedMedia(mediaName);
     router.push({
       pathname: '/search',
-      query: searchKey ? { keyword: searchKey.trim() } : {},
+      query: populateQuery(searchKey, mediaName),
     });
+  };
 
+  useDebouncedEffect(async () => {
     if (searchKey) {
+      router.push({
+        pathname: '/search',
+        query: populateQuery(searchKey, selectedMedia),
+      });
       const { searchRes, searchErr } = await getSearchByKeyword(searchKey);
       setMovieResuls(searchRes.movieResultsRes.results);
       setTvResult(searchRes.tvResultsRes.results);
@@ -69,16 +91,22 @@ const Search: NextPage<{
     }
 
     if (!searchKey) {
+      router.push({
+        pathname: '/search',
+        query: populateQuery(searchKey, ''),
+      });
       setMovieResuls(undefined);
       setTvResult(undefined);
       setPeopleResult(undefined);
       setSearchLoading(false);
+      setSelectedMedia('');
     }
   }, [searchKey], 1000);
 
   useEffect(() => {
     setSearchKey(keyword as string || '');
-  }, [keyword]);
+    setSelectedMedia(media as string || '');
+  }, [keyword, media]);
 
   useEffect(() => {
     setSearchLoading(true);
@@ -90,68 +118,104 @@ const Search: NextPage<{
         theme={theme}
         keyword={searchKey}
         onSearch={() => handleSearch(searchKey)}
-        onKeyWordChange={useHandleKeyWord}
+        onKeyWordChange={handleKeyWord}
       />
       {searchKey && (
-        <div className={styles.margin_top}>
-          {searchLoading && (
-            <div style={{ textAlign: 'center' }}>
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            </div>
-          )}
-        </div>
-      )}
-      {searchKey && !!movieResuls?.length && !searchLoading && (
-        <div>
-          <h4 className={styles.section_title}>Movie Result</h4>
-          {movieResuls.map((movie) => (
-            <CardSearch
-              key={movie.id}
+        <Row className={styles.margin_top}>
+          <Col lg={3} className={styles.margin_bottom}>
+            <CardSelect
               theme={theme}
-              posterPath={movie.poster_path}
-              title={movie.title}
-              description={movie.overview}
+              title="Media"
+              options={['Movie', 'Tv', 'People']}
+              selected={selectedMedia}
+              onChange={handleMediaChange}
             />
-          ))}
-        </div>
-      )}
-      {searchKey && !!tvResult?.length && !searchLoading && (
-        <div>
-          <h4 className={styles.section_title}>Tv Show Result</h4>
-          {tvResult.map((tv) => (
-            <CardSearch
-              key={tv.id}
-              theme={theme}
-              posterPath={tv.poster_path}
-              title={tv.name}
-              description={tv.overview}
-            />
-          ))}
-        </div>
-      )}
-      {searchKey && !!peopleResult?.length && !searchLoading && (
-        <div>
-          <h4 className={styles.section_title}>People Result</h4>
-          {peopleResult.map((people) => (
-            <CardSearch
-              key={people.id}
-              theme={theme}
-              posterPath={people?.profile_path}
-              title={people.name}
-              description={people.known_for_department}
-              peopleKnowFor={people.known_for.map((movie) => movie.title || movie.name)}
-            />
-          ))}
-        </div>
-      )}
-      {searchKey
-      && !movieResuls?.length
-      && !tvResult?.length
-      && !peopleResult?.length
-      && !searchLoading && (
-        <div>No results found for {searchKey}</div>
+          </Col>
+          <Col lg={9}>
+            {searchLoading && (
+              <div style={{ textAlign: 'center' }}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
+            {!searchLoading && (
+              <div>
+                {(selectedMedia === 'movie' || selectedMedia === '') && (
+                  <div>
+                    {!!movieResuls?.length && (
+                      <div className={styles.margin_bottom}>
+                        <h4 className={styles.section_title}>Movie Result</h4>
+                        {movieResuls.map((movie) => (
+                          <CardSearch
+                            key={movie.id}
+                            theme={theme}
+                            posterPath={movie.poster_path}
+                            title={movie.title}
+                            description={movie.overview}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {!movieResuls?.length && selectedMedia !== '' && (
+                      <div>No {selectedMedia} found for: {searchKey}</div>
+                    )}
+                  </div>
+                )}
+                {(selectedMedia === 'tv' || selectedMedia === '') && (
+                  <div>
+                    {!!tvResult?.length && (
+                      <div className={styles.margin_bottom}>
+                        <h4 className={styles.section_title}>Tv Show Result</h4>
+                        {tvResult.map((tv) => (
+                          <CardSearch
+                            key={tv.id}
+                            theme={theme}
+                            posterPath={tv.poster_path}
+                            title={tv.name}
+                            description={tv.overview}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {!tvResult?.length && selectedMedia !== '' && (
+                      <div>No {selectedMedia} found for: {searchKey}</div>
+                    )}
+                  </div>
+                )}
+                {(selectedMedia === 'people' || selectedMedia === '') && (
+                  <div>
+                    {!!peopleResult?.length && (
+                      <div className={styles.margin_bottom}>
+                        <h4 className={styles.section_title}>People Result</h4>
+                        {peopleResult.map((people) => (
+                          <CardSearch
+                            key={people.id}
+                            theme={theme}
+                            posterPath={people?.profile_path}
+                            title={people.name}
+                            description={people.known_for_department}
+                            peopleKnowFor={people.known_for.map(
+                              (movie) => movie.title || movie.name,
+                            )}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {!peopleResult?.length && selectedMedia !== '' && (
+                      <div>No {selectedMedia} found for: {searchKey}</div>
+                    )}
+                  </div>
+                )}
+                {!movieResuls?.length
+                && !tvResult?.length
+                && !peopleResult?.length && (
+                  <div>No results found for: {searchKey}</div>
+                )}
+              </div>
+            )}
+          </Col>
+        </Row>
       )}
       {!searchKey && (
         <div className={styles.margin_top}>

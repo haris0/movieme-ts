@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+
+.card_anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card_anchor:hover {
+  color:inherit;
+}
+
+.inline_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card_custome {
+  border-radius: 20px;
+}
+
+.card_dark {
+  background-color: $bg-dark;
+  color: $text-dark;
+}
+
+.image_custome {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 180px;
+}
+
+.card_body {
+  text-align: left;
+}

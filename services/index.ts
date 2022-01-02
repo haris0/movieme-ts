@@ -50,6 +50,25 @@ export const getTrending = async (
   return { trendingRes, trendingErr };
 };
 
+export const getPopulerPeople = async (
+  page : number = 1,
+): Promise<{
+  peopleRes: IPeopleListRes,
+  peopleErr: boolean
+}> => {
+  const { data, error } = await axiosGet('/person/popular', {
+    params: {
+      language: 'en-US',
+      page,
+    },
+  });
+
+  const peopleRes = data?.data;
+  const peopleErr = !!error;
+
+  return { peopleRes, peopleErr };
+};
+
 export const getGenreList = async (media: 'movie' | 'tv'): Promise<{
   genreRes: IGenreListRes,
   genreErr: boolean

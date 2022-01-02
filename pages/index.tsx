@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 import type { GetStaticProps, NextPage } from 'next';
 import { useState, useEffect, ChangeEvent } from 'react';
-import { getNowPlaying, getTrending } from 'services';
+import { getNowPlaying, getPopulerPeople, getTrending } from 'services';
 import {
-  IMovieListRes, IMovie, ITvListRes, ITv,
+  IMovieListRes,
+  IMovie,
+  ITvListRes,
+  ITv,
+  IPeopleListRes,
 } from 'types';
 import { Container } from 'react-bootstrap';
 import { useTheme } from 'context/ThemeContext';
 import CardMovie from 'components/card/CardMovie';
+import CardPeople from 'components/card/CardPeople';
 import Banner from 'components/benner/Banner';
 import SearchBar from 'components/search/Search';
 import Link from 'next/link';
@@ -23,6 +28,8 @@ const Home: NextPage<{
   trendingMovieErr: Boolean,
   trendingTvRes: ITvListRes,
   trendingTvErr: Boolean,
+  popularPeopleRes: IPeopleListRes,
+  popularPeopleErr: Boolean,
 }> = ({
   inTheatresRes,
   inTheatresErr,
@@ -32,13 +39,16 @@ const Home: NextPage<{
   trendingMovieErr,
   trendingTvRes,
   trendingTvErr,
+  popularPeopleRes,
+  popularPeopleErr,
 }) => {
   const theme = useTheme();
   const router = useRouter();
-  const [trendingMovie, setTrendingMovie] = useState<IMovie[]>(trendingMovieRes.results);
-  const [trendingTv, setTrendingTv] = useState<ITv[]>(trendingTvRes.results);
-  const [inTheatres, setInTheatres] = useState<IMovie[]>(inTheatresRes.results);
-  const [onTheAir, setOnTheAir] = useState<ITv[]>(onTheAirRes.results);
+  const trendingMovie = trendingMovieRes.results;
+  const trendingTv = trendingTvRes.results;
+  const inTheatres = inTheatresRes.results;
+  const onTheAir = onTheAirRes.results;
+  const popularPeople = popularPeopleRes.results;
 
   const [keyword, setKeyword] = useState('');
   const handleKeyWord = (event: ChangeEvent<HTMLInputElement>) => {
@@ -173,17 +183,42 @@ const Home: NextPage<{
         {onTheAirErr && (
           <div>Failed to Load Data</div>
         )}
+        <br />
+        <h3>Popular People</h3>
+        {popularPeople && (
+          <div className={styles.scroll_container}>
+            {popularPeople.map((people) => (
+              <Link href={`/people/${people.id}`} passHref key={people.id}>
+                <div className={styles.skin_option}>
+                  <CardPeople
+                    href={`/people/${people.id}`}
+                    name={people.name}
+                    profilePath={people.profile_path}
+                    peopleKnowFor={people.known_for.map(
+                      (movie) => movie.title || movie.name,
+                    )}
+                    theme={theme}
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+        {popularPeopleErr && (
+          <div>Failed to Load Data</div>
+        )}
       </Container>
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const [inTheatres, onTheAir, trendingMovie, trendingTv] = await Promise.all([
+  const [inTheatres, onTheAir, trendingMovie, trendingTv, popularPeople] = await Promise.all([
     getNowPlaying('movie'),
     getNowPlaying('tv'),
     getTrending('movie', 'day'),
     getTrending('tv', 'day'),
+    getPopulerPeople(),
   ]);
 
   const {
@@ -202,6 +237,10 @@ export const getStaticProps: GetStaticProps = async () => {
     trendingRes: trendingTvRes,
     trendingErr: trendingTvErr,
   } = trendingTv;
+  const {
+    peopleRes: popularPeopleRes,
+    peopleErr: popularPeopleErr,
+  } = popularPeople;
 
   return {
     props: {
@@ -213,6 +252,8 @@ export const getStaticProps: GetStaticProps = async () => {
       trendingMovieErr,
       trendingTvRes,
       trendingTvErr,
+      popularPeopleRes,
+      popularPeopleErr,
     },
     revalidate: 10,
   };

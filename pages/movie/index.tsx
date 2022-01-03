@@ -17,6 +17,7 @@ import Link from 'next/link';
 import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
 import styles from 'styles/Movie.module.scss';
+import ButtonLoadMore from 'components/button/ButtonLoadMore';
 
 const Movie: NextPage<{
   discoverResult: IMovie[]
@@ -120,23 +121,10 @@ const Movie: NextPage<{
                 </Col>
               </Link>
             ))}
-            <div style={{ textAlign: 'center' }}>
-              <button
-                type="button"
-                className={styles.load_button}
-                disabled={loadingMore}
-                onClick={handleLoadMore}
-              >
-                {loadingMore && (
-                  <Spinner animation="border" role="status" className={styles.spinner}>
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                )}
-                {!loadingMore && (
-                  <span>Load More</span>
-                )}
-              </button>
-            </div>
+            <ButtonLoadMore
+              loadingMore={loadingMore}
+              handleLoadMore={() => handleLoadMore()}
+            />
           </Row>
         </Col>
       </Row>

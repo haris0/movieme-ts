@@ -12,6 +12,7 @@ import styles from 'styles/Tv.module.scss';
 import CardSelect from 'components/card/CardSelect';
 import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
+import ButtonLoadMore from 'components/button/ButtonLoadMore';
 
 const Show: NextPage<{
   discoverResult: ITv[]
@@ -115,23 +116,10 @@ const Show: NextPage<{
                 </Col>
               </Link>
             ))}
-            <div style={{ textAlign: 'center' }}>
-              <button
-                type="button"
-                className={styles.load_button}
-                disabled={loadingMore}
-                onClick={handleLoadMore}
-              >
-                {loadingMore && (
-                  <Spinner animation="border" role="status" className={styles.spinner}>
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                )}
-                {!loadingMore && (
-                  <span>Load More</span>
-                )}
-              </button>
-            </div>
+            <ButtonLoadMore
+              loadingMore={loadingMore}
+              handleLoadMore={() => handleLoadMore()}
+            />
           </Row>
         </Col>
       </Row>

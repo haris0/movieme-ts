@@ -11,6 +11,7 @@ import { IPeople } from 'types';
 import styles from 'styles/People.module.scss';
 import { useRouter } from 'next/router';
 import { useTheme } from 'context/ThemeContext';
+import ButtonLoadMore from 'components/button/ButtonLoadMore';
 
 const People: NextPage<{
   peopleResult: IPeople[],
@@ -72,23 +73,10 @@ const People: NextPage<{
             </Col>
           </Link>
         ))}
-        <div style={{ textAlign: 'center' }}>
-          <button
-            type="button"
-            className={styles.load_button}
-            disabled={loadingMore}
-            onClick={handleLoadMore}
-          >
-            {loadingMore && (
-              <Spinner animation="border" role="status" className={styles.spinner}>
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            )}
-            {!loadingMore && (
-              <span>Load More</span>
-            )}
-          </button>
-        </div>
+        <ButtonLoadMore
+          loadingMore={loadingMore}
+          handleLoadMore={() => handleLoadMore()}
+        />
       </Row>
     </Container>
   );

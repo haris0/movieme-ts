@@ -14,7 +14,7 @@ import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
 
-const Show: NextPage<{
+const Tv: NextPage<{
   discoverResult: ITv[]
   discoverError: boolean[],
   genreRes: IGenreListRes,
@@ -164,4 +164,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-export default Show;
+export default Tv;

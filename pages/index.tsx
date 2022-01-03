@@ -65,14 +65,14 @@ const Home: NextPage<{
     const [movieIdx, setMovieIdx] = useState(0);
 
     useEffect(() => {
-      const timer = setTimeout(() => {
+      const timer = setInterval(() => {
         setMovieIdx((prev) => (
           prev === movieList.length ? 0 : prev + 1
         ));
       }, 10000);
 
       return () => {
-        clearTimeout(timer);
+        clearInterval(timer);
       };
     }, [movieIdx, movieList.length]);
 

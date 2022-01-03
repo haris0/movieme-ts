@@ -105,6 +105,7 @@ const Home: NextPage<{
                     title={movie.title}
                     releaseDate={movie.release_date}
                     theme={theme}
+                    favorited
                   />
                 </div>
               </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { convertDate } from 'mixin';
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
@@ -11,6 +12,7 @@ type props = {
   title: string;
   releaseDate: Date;
   theme: 'dark' | 'light';
+  favorited?: boolean;
 }
 
 const CardMovie = ({
@@ -20,6 +22,7 @@ const CardMovie = ({
   title,
   releaseDate,
   theme,
+  favorited = false,
 }: props) => (
 
   <a href={href} className={styles.card_anchor}>
@@ -41,6 +44,28 @@ const CardMovie = ({
           height="225"
         />
       </div>
+      {favorited && (
+        <div className={styles.favorited_icon}>
+          <Image
+            src="/favorited.png"
+            alt="favorite"
+            layout="fixed"
+            width="22"
+            height="22"
+          />
+        </div>
+      )}
+      {!favorited && (
+        <div className={styles.unfavorite_icon}>
+          <Image
+            src="/unfavorite.png"
+            alt="favorite"
+            layout="fixed"
+            width="22"
+            height="22"
+          />
+        </div>
+      )}
       <div className={styles.vote_average}>
         <span>
           {voteAverage * 10}

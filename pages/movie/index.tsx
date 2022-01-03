@@ -7,7 +7,6 @@ import {
   Col,
   Container,
   Row,
-  Spinner,
 } from 'react-bootstrap';
 import { getDiscover, getGenreList } from 'services';
 import {

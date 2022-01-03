@@ -4,7 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState, useEffect } from 'react';
 import {
-  Col, Container, Row, Spinner,
+  Col, Container, Row,
 } from 'react-bootstrap';
 import { getDiscover, getGenreList } from 'services';
 import { IGenreListRes, ITv } from 'types';

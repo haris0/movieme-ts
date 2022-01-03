@@ -4,7 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
-  Col, Container, Row, Spinner,
+  Col, Container, Row,
 } from 'react-bootstrap';
 import { getPopulerPeople } from 'services';
 import { IPeople } from 'types';

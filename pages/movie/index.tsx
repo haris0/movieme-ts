@@ -83,6 +83,10 @@ const Movie: NextPage<{
   };
 
   useEffect(() => {
+    setDiscoverMovie(discoverResult);
+  }, [discoverResult]);
+
+  useEffect(() => {
     setSelectedGenre(genre as string || '');
     setLoadedPage(+(loaded as string) || 1);
   }, [genre, loaded]);

@@ -78,6 +78,10 @@ const Show: NextPage<{
   };
 
   useEffect(() => {
+    setDiscoverTv(discoverResult);
+  }, [discoverResult]);
+
+  useEffect(() => {
     setSelectedGenre(genre as string || '');
     setLoadedPage(+(loaded as string) || 1);
   }, [genre, loaded]);

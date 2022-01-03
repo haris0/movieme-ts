@@ -24,9 +24,9 @@ const CardPeople = ({
         width: '152px',
         margin: '10px',
       }}
-      className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
+      className={`${styles[`card_${theme}`]} ${styles.card_custom}`}
     >
-      <div className={styles.image_custome}>
+      <div className={styles.image_custom}>
         <Image
           src={profilePath ? `${baseImageURL}${profilePath}` : '/thumbnail.png'}
           placeholder="blur"

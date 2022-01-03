@@ -88,7 +88,7 @@ const Tv: NextPage<{
   }, [genre, loaded]);
 
   return (
-    <Container className="container-custome">
+    <Container className="container-custom">
       <h3>Discover Tv Show</h3>
       <Row className={styles.row_margin}>
         <Col lg={3} className={styles.col_left_margin}>
@@ -101,7 +101,7 @@ const Tv: NextPage<{
           />
         </Col>
         <Col lg={9} className={styles.col_right_margin}>
-          <Row className={styles.row_custome}>
+          <Row className={styles.row_custom}>
             {discoverTv.map((tv) => (
               <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
                 <Col xs={6} sm="auto" className={styles.center_content}>

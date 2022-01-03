@@ -11,7 +11,7 @@ const CardGenre = ({ theme, name }: props) => (
     href={`/movie?genre=${name.toLowerCase()}`}
     className={styles.card_anchor}
   >
-    <Card className={`${styles[`card_${theme}`]} ${styles.card_custome}`}>
+    <Card className={`${styles[`card_${theme}`]} ${styles.card_custom}`}>
       <Card.Body className={styles.card_body}>{name}</Card.Body>
     </Card>
   </a>

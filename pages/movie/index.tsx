@@ -93,7 +93,7 @@ const Movie: NextPage<{
   }, [genre, loaded]);
 
   return (
-    <Container className="container-custome">
+    <Container className="container-custom">
       <h3>Discover Movie</h3>
       <Row className={styles.row_margin}>
         <Col lg={3} className={styles.col_left_margin}>
@@ -106,7 +106,7 @@ const Movie: NextPage<{
           />
         </Col>
         <Col lg={9} className={styles.col_right_margin}>
-          <Row className={styles.row_custome}>
+          <Row className={styles.row_custom}>
             {discoverMovie.map((movie) => (
               <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
                 <Col xs={6} sm="auto" className={styles.center_content}>

@@ -11,9 +11,9 @@ const Favorite: NextPage = () => {
   const theme = useTheme();
 
   return (
-    <Container className="container-custome">
+    <Container className="container-custom">
       <h3>Favorite</h3>
-      <Row className={styles.row_custome}>
+      <Row className={styles.row_custom}>
         {favorites.map((favorite) => (
           <Link href={favorite.href} passHref key={favorite.id}>
             <Col xs={6} sm="auto" xl={2} className={styles.center_content}>

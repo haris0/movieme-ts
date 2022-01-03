@@ -55,9 +55,9 @@ const People: NextPage<{
   }, [loaded]);
 
   return (
-    <Container className="container-custome">
+    <Container className="container-custom">
       <h3>Populer People</h3>
-      <Row className={styles.row_custome}>
+      <Row className={styles.row_custom}>
         {populerPeople.map((people) => (
           <Link href={`/people/${people.id}`} passHref key={people.id}>
             <Col xs={6} sm="auto" xl={2} className={styles.center_content}>

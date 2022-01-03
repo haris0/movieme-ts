@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { Container } from 'react-bootstrap';
 
 const MovieDetail: NextPage<{ movieId: string}> = ({ movieId }) => (
-  <Container className="container-custome">
+  <Container className="container-custom">
     <h1>Movie Detail {movieId}</h1>
   </Container>
 );

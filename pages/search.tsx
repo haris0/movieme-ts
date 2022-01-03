@@ -113,7 +113,7 @@ const Search: NextPage<{
   }, []);
 
   return (
-    <Container className="container-custome">
+    <Container className="container-custom">
       <SearchBar
         theme={theme}
         keyword={searchKey}

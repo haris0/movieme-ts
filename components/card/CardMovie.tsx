@@ -62,9 +62,9 @@ const CardMovie = ({
           width: '152px',
           margin: '10px',
         }}
-        className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
+        className={`${styles[`card_${theme}`]} ${styles.card_custom}`}
       >
-        <div className={styles.image_custome}>
+        <div className={styles.image_custom}>
           <Image
             src={posterPath ? `${baseImageURL}${posterPath}` : '/thumbnail.png'}
             placeholder="blur"

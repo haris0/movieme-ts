@@ -24,10 +24,10 @@ const CardSearch = ({
       width: '100%',
       margin: '10px 0',
     }}
-    className={`${styles[`card_${theme}`]} ${styles.card_custome}`}
+    className={`${styles[`card_${theme}`]} ${styles.card_custom}`}
   >
     <div style={{ display: 'flex' }}>
-      <div className={styles.image_custome}>
+      <div className={styles.image_custom}>
         <Image
           src={posterPath ? `${baseImageURL}${posterPath}` : '/thumbnail.png'}
           placeholder="blur"

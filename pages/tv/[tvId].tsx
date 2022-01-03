@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { Container } from 'react-bootstrap';
 
 const TvDetail: NextPage<{ tvId: string}> = ({ tvId }) => (
-  <Container className="container-custome">
+  <Container className="container-custom">
     <h1>Tv Show Detail {tvId}</h1>
   </Container>
 );

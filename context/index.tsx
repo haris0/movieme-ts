@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import ThemeContextProvider from './ThemeContext';
+import FavoriteContextProvider from './FavoriteContext';
 
 type props = {
   children: ReactNode
@@ -17,6 +18,7 @@ const combineProviders = (providers: any): FC => providers.reduce(
 
 const ContextProvider = combineProviders([
   ThemeContextProvider,
+  FavoriteContextProvider,
 ]);
 
 export default ContextProvider;

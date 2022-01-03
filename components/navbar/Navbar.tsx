@@ -7,11 +7,13 @@ import {
 import SwitcherTheme from 'components/switcher/Switcher';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCountFavorite } from 'context/FavoriteContext';
 import styles from './Navbar.module.scss';
 
 const NavigationBar = () => {
   const router = useRouter();
   const pageRoutes = ['movie', 'tv', 'people'];
+  const countFav = useCountFavorite();
 
   return (
     <Navbar fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
@@ -42,7 +44,16 @@ const NavigationBar = () => {
             ))}
           </Nav>
           <Nav>
-            <Nav.Link style={{ marginRight: '2rem' }} href="#deets">My Movie</Nav.Link>
+            <Link href="/favorite" passHref>
+              <Nav.Link
+                style={{ marginRight: '2rem' }}
+                active={router.pathname === '/favorite'}
+              >
+                <b className={styles.count_favorite}>
+                  {countFav()} Favorites
+                </b>
+              </Nav.Link>
+            </Link>
             <SwitcherTheme />
           </Nav>
         </Navbar.Collapse>

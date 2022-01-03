@@ -4,6 +4,14 @@
   background-color: $primary-bg;
 }
 
-.nav_brand{
+.nav_brand {
   color: $primary-color !important;
+}
+
+.count_favorite {
+  font-size: 14px;
+  margin-left: 10px;
+  background: rgba(0,0,0,.8);
+  border-radius: 32px;
+  padding: 5px 15px;
 }

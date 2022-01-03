@@ -99,6 +99,7 @@ const Home: NextPage<{
               <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
+                    id={movie.id}
                     href={`/movie/${movie.id}`}
                     posterPath={movie.poster_path}
                     voteAverage={movie.vote_average}
@@ -123,6 +124,7 @@ const Home: NextPage<{
               <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
+                    id={tv.id}
                     href={`/tv/${tv.id}`}
                     posterPath={tv.poster_path}
                     voteAverage={tv.vote_average}
@@ -146,6 +148,7 @@ const Home: NextPage<{
               <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
+                    id={movie.id}
                     href={`/movie/${movie.id}`}
                     posterPath={movie.poster_path}
                     voteAverage={movie.vote_average}
@@ -169,6 +172,7 @@ const Home: NextPage<{
               <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
+                    id={tv.id}
                     href={`/tv/${tv.id}`}
                     posterPath={tv.poster_path}
                     voteAverage={tv.vote_average}

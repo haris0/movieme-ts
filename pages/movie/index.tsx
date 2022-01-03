@@ -111,6 +111,7 @@ const Movie: NextPage<{
               <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
                 <Col xs={6} sm="auto" className={styles.center_content}>
                   <CardMovie
+                    id={movie.id}
                     href={`/movie/${movie.id}`}
                     posterPath={movie.poster_path}
                     voteAverage={movie.vote_average}

@@ -106,6 +106,7 @@ const Show: NextPage<{
               <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
                 <Col xs={6} sm="auto" className={styles.center_content}>
                   <CardMovie
+                    id={tv.id}
                     href={`/tv/${tv.id}`}
                     posterPath={tv.poster_path}
                     voteAverage={tv.vote_average}

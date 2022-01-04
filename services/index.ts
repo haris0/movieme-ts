@@ -3,6 +3,7 @@ import {
   IMovieListRes,
   ITvListRes,
   IPeopleListRes,
+  IMovieDetail,
 } from 'types';
 import { axiosGet } from './axios-client';
 
@@ -137,4 +138,43 @@ export const getDiscover = async (
   const discoverErr = !!error;
 
   return { discoverRes, discoverErr };
+};
+
+export const getDetailMovie = async (id: number): Promise<{
+  detailMovieRes: IMovieDetail,
+  detailMovieErr: boolean
+}> => {
+  const [
+    movieDetail,
+    movieKeyWords,
+    movieSosmed,
+    movieCredit,
+    movieVideos,
+    movieRecomm,
+  ] = await Promise.all([
+    axiosGet(`/movie/${id}`),
+    axiosGet(`/movie/${id}/keywords`),
+    axiosGet(`/movie/${id}/external_ids`),
+    axiosGet(`/movie/${id}/credits`),
+    axiosGet(`/movie/${id}/videos`),
+    axiosGet(`/movie/${id}/recommendations`),
+  ]);
+
+  const { data: detailRes, error: detailErr } = movieDetail;
+  const { data: keywordRes } = movieKeyWords;
+  const { data: sosmedRes } = movieSosmed;
+  const { data: creditRes } = movieCredit;
+  const { data: videosRes } = movieVideos;
+  const { data: recommRes } = movieRecomm;
+
+  const detailMovieRes = detailRes?.data;
+  detailMovieRes.keywords = keywordRes?.data.keywords || [];
+  detailMovieRes.sosial_media = sosmedRes?.data || undefined;
+  detailMovieRes.cast = creditRes?.data.cast || [];
+  detailMovieRes.crew = creditRes?.data.crew || [];
+  detailMovieRes.videos = videosRes?.data.results || [];
+  detailMovieRes.recommendations = recommRes?.data.results || [];
+  const detailMovieErr = !!detailErr;
+
+  return { detailMovieRes, detailMovieErr };
 };

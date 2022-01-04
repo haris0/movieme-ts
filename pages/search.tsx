@@ -149,13 +149,17 @@ const Search: NextPage<{
                       <div className={styles.margin_bottom}>
                         <h4 className={styles.section_title}>Movie Result</h4>
                         {movieResuls.map((movie) => (
-                          <CardSearch
-                            key={movie.id}
-                            theme={theme}
-                            posterPath={movie.poster_path}
-                            title={movie.title}
-                            description={movie.overview}
-                          />
+                          <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
+                            <div>
+                              <CardSearch
+                                theme={theme}
+                                href={`/movie/${movie.id}`}
+                                posterPath={movie.poster_path}
+                                title={movie.title}
+                                description={movie.overview}
+                              />
+                            </div>
+                          </Link>
                         ))}
                       </div>
                     )}
@@ -170,13 +174,17 @@ const Search: NextPage<{
                       <div className={styles.margin_bottom}>
                         <h4 className={styles.section_title}>Tv Show Result</h4>
                         {tvResult.map((tv) => (
-                          <CardSearch
-                            key={tv.id}
-                            theme={theme}
-                            posterPath={tv.poster_path}
-                            title={tv.name}
-                            description={tv.overview}
-                          />
+                          <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
+                            <div>
+                              <CardSearch
+                                theme={theme}
+                                href={`/tv/${tv.id}`}
+                                posterPath={tv.poster_path}
+                                title={tv.name}
+                                description={tv.overview}
+                              />
+                            </div>
+                          </Link>
                         ))}
                       </div>
                     )}
@@ -191,16 +199,20 @@ const Search: NextPage<{
                       <div className={styles.margin_bottom}>
                         <h4 className={styles.section_title}>People Result</h4>
                         {peopleResult.map((people) => (
-                          <CardSearch
-                            key={people.id}
-                            theme={theme}
-                            posterPath={people?.profile_path}
-                            title={people.name}
-                            description={people.known_for_department}
-                            peopleKnowFor={people.known_for.map(
-                              (movie) => movie.title || movie.name,
-                            )}
-                          />
+                          <Link href={`/people/${people.id}`} passHref key={people.id}>
+                            <div>
+                              <CardSearch
+                                theme={theme}
+                                href={`/people/${people.id}`}
+                                posterPath={people?.profile_path}
+                                title={people.name}
+                                description={people.known_for_department}
+                                peopleKnowFor={people.known_for.map(
+                                  (movie) => movie.title || movie.name,
+                                )}
+                              />
+                            </div>
+                          </Link>
                         ))}
                       </div>
                     )}

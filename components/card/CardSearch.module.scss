@@ -1,5 +1,14 @@
 @import '../../styles/colors';
 
+.card_anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card_anchor:hover {
+  color:inherit;
+}
+
 .card_custom {
   border-radius: 20px;
   overflow: hidden;

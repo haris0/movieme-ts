@@ -4,6 +4,7 @@ import {
   createContext,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import { IFavorite } from 'types';
@@ -51,6 +52,14 @@ const FavoriteContextProvider = ({ children }: props) => {
   const checkFavorite = (id: number) => favorites.some((item) => item.id === id);
 
   const countFavorite = () => favorites.length;
+
+  useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem('favorites') as string) || []);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   return (
     <FavoriteContext.Provider value={{

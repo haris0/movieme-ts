@@ -10,6 +10,8 @@ import { IFavorite } from 'types';
 
 export interface FavoriteContextType{
   favorites : IFavorite[];
+  favoritesMovie: IFavorite[];
+  favoritesTv: IFavorite[];
   addFavorite : (favorites : IFavorite) => void;
   removeFavorite : (id : number) => void;
   checkFavorite : (id : number) => boolean;
@@ -18,6 +20,8 @@ export interface FavoriteContextType{
 
 const initialTheme: FavoriteContextType = {
   favorites: [],
+  favoritesMovie: [],
+  favoritesTv: [],
   addFavorite: () => {},
   removeFavorite: () => {},
   checkFavorite: () => false,
@@ -32,6 +36,9 @@ type props = {
 
 const FavoriteContextProvider = ({ children }: props) => {
   const [favorites, setFavorites] = useState<IFavorite[]>(initialTheme.favorites);
+
+  const favoritesMovie = favorites.filter((fav) => fav.href.split('/')[1] === 'movie');
+  const favoritesTv = favorites.filter((fav) => fav.href.split('/')[1] === 'tv');
 
   const addFavorite = (newFavorites: IFavorite) => {
     setFavorites((prev) => [...prev, newFavorites]);
@@ -48,6 +55,8 @@ const FavoriteContextProvider = ({ children }: props) => {
   return (
     <FavoriteContext.Provider value={{
       favorites,
+      favoritesMovie,
+      favoritesTv,
       addFavorite,
       removeFavorite,
       checkFavorite,
@@ -63,6 +72,18 @@ export const useFavorites = () => {
   const { favorites } = useContext(FavoriteContext);
 
   return favorites;
+};
+
+export const useFavoritesMovie = () => {
+  const { favoritesMovie } = useContext(FavoriteContext);
+
+  return favoritesMovie;
+};
+
+export const useFavoritesTv = () => {
+  const { favoritesTv } = useContext(FavoriteContext);
+
+  return favoritesTv;
 };
 
 export const useAddFavorite = () => {

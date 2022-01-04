@@ -209,7 +209,8 @@ const Search: NextPage<{
                 )}
                 {!movieResuls?.length
                 && !tvResult?.length
-                && !peopleResult?.length && (
+                && !peopleResult?.length
+                && selectedMedia === '' && (
                   <div>No results found for: {searchKey}</div>
                 )}
               </div>

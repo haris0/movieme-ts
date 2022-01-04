@@ -1,34 +1,113 @@
 import CardMovie from 'components/card/CardMovie';
-import { useFavorites } from 'context/FavoriteContext';
+import CardSelect from 'components/card/CardSelect';
+import { useFavoritesMovie, useFavoritesTv } from 'context/FavoriteContext';
 import { useTheme } from 'context/ThemeContext';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import styles from 'styles/Favorite.module.scss';
 
 const Favorite: NextPage = () => {
-  const favorites = useFavorites();
+  const router = useRouter();
+  const { media } = router.query;
   const theme = useTheme();
+  const favoritesMovie = useFavoritesMovie();
+  const favoritesTv = useFavoritesTv();
+
+  const [selectedMedia, setSelectedMedia] = useState('');
+
+  const handleMediaChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    const mediaName = event.target.value;
+    setSelectedMedia(mediaName);
+    router.push({
+      pathname: '/favorite',
+      query: mediaName ? { media: mediaName } : {},
+    });
+  };
+
+  useEffect(() => {
+    setSelectedMedia(media as string || '');
+  }, [media]);
 
   return (
     <Container className="container-custom">
       <h3>Favorite</h3>
-      <Row className={styles.row_custom}>
-        {favorites.map((favorite) => (
-          <Link href={favorite.href} passHref key={favorite.id}>
-            <Col xs={6} sm="auto" xl={2} className={styles.center_content}>
-              <CardMovie
-                id={favorite.id}
-                href={favorite.href}
-                posterPath={favorite.posterPath}
-                voteAverage={favorite.voteAverage}
-                title={favorite.title}
-                releaseDate={favorite.releaseDate}
-                theme={theme}
-              />
-            </Col>
-          </Link>
-        ))}
+      <Row className={styles.row_margin}>
+        <Col lg={3} className={styles.col_left_margin}>
+          <CardSelect
+            theme={theme}
+            title="Media"
+            options={['Movie', 'Tv']}
+            selected={selectedMedia}
+            onChange={handleMediaChange}
+          />
+        </Col>
+        <Col lg={9}>
+          <Row>
+            {(selectedMedia === 'movie' || selectedMedia === '') && (
+              <>
+                {!!favoritesMovie.length && (
+                  <>
+                    <h4 className={styles.section_title}>Movie</h4>
+                    {favoritesMovie.map((favorite) => (
+                      <Link href={favorite.href} passHref key={favorite.id}>
+                        <Col xs={6} sm="auto" className={styles.center_content}>
+                          <CardMovie
+                            id={favorite.id}
+                            href={favorite.href}
+                            posterPath={favorite.posterPath}
+                            voteAverage={favorite.voteAverage}
+                            title={favorite.title}
+                            releaseDate={favorite.releaseDate}
+                            theme={theme}
+                          />
+                        </Col>
+                      </Link>
+                    ))}
+                  </>
+                )}
+                {!favoritesMovie.length && selectedMedia !== '' && (
+                  <div>No Favorite Movie</div>
+                )}
+              </>
+            )}
+            {(selectedMedia === 'tv' || selectedMedia === '') && (
+              <>
+                {!!favoritesTv.length && (
+                  <>
+                    <h4 className={styles.section_title}>Tv</h4>
+                    {favoritesTv.map((favorite) => (
+                      <Link href={favorite.href} passHref key={favorite.id}>
+                        <Col xs={6} sm="auto" className={styles.center_content}>
+                          <CardMovie
+                            id={favorite.id}
+                            href={favorite.href}
+                            posterPath={favorite.posterPath}
+                            voteAverage={favorite.voteAverage}
+                            title={favorite.title}
+                            releaseDate={favorite.releaseDate}
+                            theme={theme}
+                          />
+                        </Col>
+                      </Link>
+                    ))}
+                  </>
+                )}
+                {!favoritesTv.length && selectedMedia !== '' && (
+                  <div>No Favorite Tv</div>
+                )}
+              </>
+            )}
+            {!favoritesMovie?.length
+            && !favoritesTv?.length
+            && selectedMedia === '' && (
+              <div>No Favorites</div>
+            )}
+          </Row>
+        </Col>
       </Row>
     </Container>
   );

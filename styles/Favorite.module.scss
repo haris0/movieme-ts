@@ -1,10 +1,23 @@
 @import 'colors';
 
-.row_custom {
+.row_margin {
   margin-top: 1rem;
+}
+
+.row_custom {
   justify-content: center;
+}
+
+.col_left_margin {
+  margin-bottom: 1.5rem;
 }
 
 .center_content {
   text-align: -webkit-center;
+}
+
+.section_title {
+  margin-bottom: 1.5rem;
+  border-left: 7px solid $primary-color;
+  padding: 0.7rem 1rem;
 }

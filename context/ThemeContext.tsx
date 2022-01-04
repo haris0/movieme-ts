@@ -3,6 +3,7 @@ import {
   createContext,
   ReactNode,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 
@@ -28,6 +29,14 @@ const ThemeContextProvider = ({ children }: props) => {
   const switchTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  useEffect(() => {
+    setTheme(JSON.parse(localStorage.getItem('theme') as string) || 'dark');
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme));
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{

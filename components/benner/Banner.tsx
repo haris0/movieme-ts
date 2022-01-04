@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Container } from 'react-bootstrap';
-import { baseImageURL } from 'services';
+import { baseImageURLOrigin } from 'services';
 import styles from './Banner.module.scss';
 
 type props = {
@@ -15,7 +15,7 @@ const Banner = ({ backdropPath, children }: props) => (
       backgroundImage: `
         linear-gradient( rgba(0, 0, 0, 0.6), 
         rgba(0, 0, 0, 0.6) ), 
-        url(${baseImageURL + backdropPath})
+        url(${baseImageURLOrigin + backdropPath})
       `,
       transition: 'background-image 2s linear',
     }}

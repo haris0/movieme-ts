@@ -80,7 +80,7 @@ const Favorite: NextPage = () => {
               <>
                 {!!favoritesTv.length && (
                   <>
-                    <div className={styles.margin_top}>
+                    <div className={selectedMedia === 'tv' ? '' : styles.margin_top}>
                       <h4 className={styles.section_title}>Tv</h4>
                     </div>
                     {favoritesTv.map((favorite) => (

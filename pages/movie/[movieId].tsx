@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { Container } from 'react-bootstrap';
-import { getDetailMovie, getDiscover } from 'services';
+import { getDetail, getDiscover } from 'services';
 import { IMovieDetail } from 'types';
 
 const MovieDetail: NextPage<{
-  detailMovieRes: IMovieDetail,
-  detailMovieErr: boolean,
+  detailRes: IMovieDetail,
+  detailErr: boolean,
  }> = ({
-   detailMovieRes,
-   detailMovieErr,
+   detailRes,
+   detailErr,
  }) => {
-   const detailMovie = detailMovieRes;
+   const detailMovie = detailRes;
+   console.log(detailMovie);
 
    return (
      <Container className="container-custom">
@@ -39,12 +40,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const movieId = params?.movieId as string || 0;
 
-  const { detailMovieRes, detailMovieErr } = await getDetailMovie(+movieId);
+  const { detailRes, detailErr } = await getDetail('movie', +movieId);
 
   return {
     props: {
-      detailMovieRes,
-      detailMovieErr,
+      detailRes,
+      detailErr,
     },
     revalidate: 10,
   };

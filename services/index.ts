@@ -4,6 +4,7 @@ import {
   ITvListRes,
   IPeopleListRes,
   IMovieDetail,
+  ITvDetail,
 } from 'types';
 import { axiosGet } from './axios-client';
 
@@ -140,41 +141,41 @@ export const getDiscover = async (
   return { discoverRes, discoverErr };
 };
 
-export const getDetailMovie = async (id: number): Promise<{
-  detailMovieRes: IMovieDetail,
-  detailMovieErr: boolean
+export const getDetail = async (media: 'movie' | 'tv', id: number): Promise<{
+  detailRes: IMovieDetail | ITvDetail,
+  detailErr: boolean
 }> => {
   const [
-    movieDetail,
-    movieKeyWords,
-    movieSosmed,
-    movieCredit,
-    movieVideos,
-    movieRecomm,
+    itemDetail,
+    itemKeyWords,
+    itemSosmed,
+    itemCredit,
+    itemVideos,
+    itemRecomm,
   ] = await Promise.all([
-    axiosGet(`/movie/${id}`),
-    axiosGet(`/movie/${id}/keywords`),
-    axiosGet(`/movie/${id}/external_ids`),
-    axiosGet(`/movie/${id}/credits`),
-    axiosGet(`/movie/${id}/videos`),
-    axiosGet(`/movie/${id}/recommendations`),
+    axiosGet(`/${media}/${id}`),
+    axiosGet(`/${media}/${id}/keywords`),
+    axiosGet(`/${media}/${id}/external_ids`),
+    axiosGet(`/${media}/${id}/credits`),
+    axiosGet(`/${media}/${id}/videos`),
+    axiosGet(`/${media}/${id}/recommendations`),
   ]);
 
-  const { data: detailRes, error: detailErr } = movieDetail;
-  const { data: keywordRes } = movieKeyWords;
-  const { data: sosmedRes } = movieSosmed;
-  const { data: creditRes } = movieCredit;
-  const { data: videosRes } = movieVideos;
-  const { data: recommRes } = movieRecomm;
+  const { data, error } = itemDetail;
+  const { data: keywordRes } = itemKeyWords;
+  const { data: sosmedRes } = itemSosmed;
+  const { data: creditRes } = itemCredit;
+  const { data: videosRes } = itemVideos;
+  const { data: recommRes } = itemRecomm;
 
-  const detailMovieRes = detailRes?.data;
-  detailMovieRes.keywords = keywordRes?.data.keywords || [];
-  detailMovieRes.sosial_media = sosmedRes?.data || undefined;
-  detailMovieRes.cast = creditRes?.data.cast || [];
-  detailMovieRes.crew = creditRes?.data.crew || [];
-  detailMovieRes.videos = videosRes?.data.results || [];
-  detailMovieRes.recommendations = recommRes?.data.results || [];
-  const detailMovieErr = !!detailErr;
+  const detailRes = data?.data;
+  detailRes.keywords = keywordRes?.data.keywords || keywordRes?.data.results || [];
+  detailRes.sosial_media = sosmedRes?.data || undefined;
+  detailRes.cast = creditRes?.data.cast || [];
+  detailRes.crew = creditRes?.data.crew || [];
+  detailRes.videos = videosRes?.data.results || [];
+  detailRes.recommendations = recommRes?.data.results || [];
+  const detailErr = !!error;
 
-  return { detailMovieRes, detailMovieErr };
+  return { detailRes, detailErr };
 };

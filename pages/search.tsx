@@ -72,7 +72,7 @@ const Search: NextPage<{
     router.push({
       pathname: '/search',
       query: populateQuery(searchKey, mediaName),
-    });
+    }, undefined, { shallow: true });
   };
 
   useDebouncedEffect(async () => {
@@ -80,7 +80,8 @@ const Search: NextPage<{
       router.push({
         pathname: '/search',
         query: populateQuery(searchKey, media as string),
-      });
+      }, undefined, { shallow: true });
+
       const { searchRes, searchErr } = await getSearchByKeyword(searchKey);
       setMovieResuls(searchRes.movieResultsRes.results);
       setTvResult(searchRes.tvResultsRes.results);
@@ -94,7 +95,8 @@ const Search: NextPage<{
       router.push({
         pathname: '/search',
         query: populateQuery(searchKey, ''),
-      });
+      }, undefined, { shallow: true });
+
       setMovieResuls(undefined);
       setTvResult(undefined);
       setPeopleResult(undefined);

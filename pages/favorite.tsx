@@ -25,7 +25,7 @@ const Favorite: NextPage = () => {
     router.push({
       pathname: '/favorite',
       query: mediaName ? { media: mediaName } : {},
-    });
+    }, undefined, { shallow: true });
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Favorite: NextPage = () => {
   return (
     <Container className="container-custom">
       <h3>Favorite</h3>
-      <Row className={styles.row_margin}>
+      <Row className={styles.margin_top}>
         <Col lg={3} className={styles.col_left_margin}>
           <CardSelect
             theme={theme}
@@ -51,7 +51,9 @@ const Favorite: NextPage = () => {
               <>
                 {!!favoritesMovie.length && (
                   <>
-                    <h4 className={styles.section_title}>Movie</h4>
+                    <div>
+                      <h4 className={styles.section_title}>Movie</h4>
+                    </div>
                     {favoritesMovie.map((favorite) => (
                       <Link href={favorite.href} passHref key={favorite.id}>
                         <Col xs={6} sm="auto" className={styles.center_content}>
@@ -78,7 +80,9 @@ const Favorite: NextPage = () => {
               <>
                 {!!favoritesTv.length && (
                   <>
-                    <h4 className={styles.section_title}>Tv</h4>
+                    <div className={styles.margin_top}>
+                      <h4 className={styles.section_title}>Tv</h4>
+                    </div>
                     {favoritesTv.map((favorite) => (
                       <Link href={favorite.href} passHref key={favorite.id}>
                         <Col xs={6} sm="auto" className={styles.center_content}>

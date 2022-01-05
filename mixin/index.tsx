@@ -2,8 +2,9 @@
 import { useEffect } from 'react';
 
 export const convertDate = (date: Date): string => {
-  const monthLetter = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
+  if (!date) return '-';
 
+  const monthLetter = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'];
   const [year, month, day] = date.toString().split('-');
 
   return `${monthLetter[(+month) - 1]} ${day}, ${year}`;

@@ -6,6 +6,9 @@ import { IPeopleDetail } from 'types';
 import Image from 'next/image';
 import styles from 'styles/PeopleDetail.module.scss';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import CardMovie from 'components/card/CardMovie';
+import { useTheme } from 'context/ThemeContext';
 
 const PeopleDetail: NextPage<{
   detailRes: IPeopleDetail,
@@ -14,7 +17,10 @@ const PeopleDetail: NextPage<{
   detailRes,
   detailErr,
 }) => {
+  const theme = useTheme();
   const people = detailRes;
+  const knownFor = (people?.cast?.length as number) > (people?.crew?.length as number)
+    ? people.cast : people.crew;
   const [clamped, setClamped] = useState<'clamped' | 'unclamp'>('clamped');
   const [bioLine, setBioLine] = useState(0);
 
@@ -51,6 +57,60 @@ const PeopleDetail: NextPage<{
               objectFit="cover"
             />
           </div>
+          <div className={styles.sosmed_wrapper}>
+            {people.sosial_media?.facebook_id && (
+              <div className={styles.sosmed_logo}>
+                <a target="_blank" href={`https://www.facebook.com/${people.sosial_media.facebook_id}`} rel="noreferrer">
+                  <Image
+                    src="/facebook.png"
+                    alt={people.name}
+                    width="35"
+                    height="35"
+                    layout="fixed"
+                  />
+                </a>
+              </div>
+            )}
+            {people.sosial_media?.twitter_id && (
+              <div className={styles.sosmed_logo}>
+                <a target="_blank" href={`https://twitter.com/${people.sosial_media.twitter_id}`} rel="noreferrer">
+                  <Image
+                    src="/twitter.png"
+                    alt={people.name}
+                    width="35"
+                    height="35"
+                    layout="fixed"
+                  />
+                </a>
+              </div>
+            )}
+            {people.sosial_media?.instagram_id && (
+              <div className={styles.sosmed_logo}>
+                <a target="_blank" href={`https://www.instagram.com/${people.sosial_media.instagram_id}`} rel="noreferrer">
+                  <Image
+                    src="/instagram.png"
+                    alt={people.name}
+                    width="35"
+                    height="35"
+                    layout="fixed"
+                  />
+                </a>
+              </div>
+            )}
+            {people.homepage && (
+              <div className={styles.sosmed_logo}>
+                <a target="_blank" href={people.homepage} rel="noreferrer">
+                  <Image
+                    src="/link.png"
+                    alt={people.name}
+                    width="38"
+                    height="38"
+                    layout="fixed"
+                  />
+                </a>
+              </div>
+            )}
+          </div>
         </Col>
         <Col sm={6} md={8} lg={9}>
           <div>
@@ -78,6 +138,28 @@ const PeopleDetail: NextPage<{
                       Show Less
                     </button>
                   )}
+                </div>
+              )}
+            </div>
+            <div>
+              <h5 className={styles.sub_title}>Known For:</h5>
+              {!!knownFor?.length && (
+                <div className={styles.scroll_container}>
+                  {knownFor.map((cast) => (
+                    <Link href={`/${cast.media_type}/${cast.id}`} passHref key={cast.id}>
+                      <div className={styles.skin_option}>
+                        <CardMovie
+                          id={cast.id}
+                          href={`/${cast.media_type}/${cast.id}`}
+                          posterPath={cast.poster_path as string}
+                          voteAverage={cast.vote_average}
+                          title={cast.title || cast.name}
+                          releaseDate={(cast.release_date || cast.first_air_date) as Date}
+                          theme={theme}
+                        />
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

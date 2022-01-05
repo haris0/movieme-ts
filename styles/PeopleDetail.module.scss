@@ -36,3 +36,23 @@
   padding: 0;
   color: $primary-color;
 }
+
+.scroll_container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.sub_title {
+  margin-top: 1.5rem;
+}
+
+.sosmed_wrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sosmed_logo {
+  margin: 10px;
+}

@@ -11,12 +11,11 @@ const TvDetail: NextPage<{
    detailRes,
    detailErr,
  }) => {
-   const detailTv = detailRes;
-   console.log(detailTv);
+   const tv = detailRes;
 
    return (
      <Container className="container-custom">
-       <h3>Tv Show Detail {detailTv.name}</h3>
+       <h3>Tv Show Detail {tv.name}</h3>
      </Container>
    );
  };

@@ -46,6 +46,21 @@ export interface Cast {
   order?: number;
   department?: string;
   job?: string;
+  overview: string;
+  release_date?: string;
+  backdrop_path: null | string;
+  genre_ids: number[];
+  vote_count: number;
+  original_language: 'en';
+  original_title?: string;
+  poster_path: null | string;
+  title?: string;
+  video?: boolean;
+  vote_average: number;
+  media_type: 'movie' | 'tv';
+  first_air_date?: Date;
+  origin_country?: string[];
+  episode_count?: number;
 }
 
 export interface SosialMedia {
@@ -76,40 +91,6 @@ export interface Video {
   official: boolean;
   published_at: Date;
   id: string;
-}
-
-export interface IMovieDetail {
-  adult: boolean;
-  backdrop_path: string;
-  belongs_to_collection: BelongsToCollection;
-  budget: number;
-  genres: Genre[];
-  homepage: string;
-  id: number;
-  imdb_id: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
-  release_date: Date;
-  revenue: number;
-  runtime: number;
-  spoken_languages: SpokenLanguage[];
-  status: string;
-  tagline: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-  keywords?: Keyword[];
-  sosial_media?: SosialMedia;
-  cast?: Cast[];
-  crew?: Cast[];
-  videos?: Video[];
-  recommendations?: IMovie[];
 }
 
 export interface CreatedBy {
@@ -150,6 +131,40 @@ export interface Season {
   season_number: number;
 }
 
+export interface IMovieDetail {
+  adult: boolean;
+  backdrop_path: string;
+  belongs_to_collection: BelongsToCollection;
+  budget: number;
+  genres: Genre[];
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: ProductionCompany[];
+  production_countries: ProductionCountry[];
+  release_date: Date;
+  revenue: number;
+  runtime: number;
+  spoken_languages: SpokenLanguage[];
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  keywords?: Keyword[];
+  sosial_media?: SosialMedia;
+  cast?: Cast[];
+  crew?: Cast[];
+  videos?: Video[];
+  recommendations?: IMovie[];
+}
+
 export interface ITvDetail {
   backdrop_path: string;
   created_by: CreatedBy[];
@@ -188,4 +203,24 @@ export interface ITvDetail {
   crew?: Cast[];
   videos?: Video[];
   recommendations?: ITv[];
+}
+
+export interface IPeopleDetail {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: Date;
+  deathday: null;
+  gender: number;
+  homepage: null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  sosial_media?: SosialMedia;
+  cast?: Cast[];
+  crew?: Cast[];
 }

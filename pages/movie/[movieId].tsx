@@ -11,12 +11,11 @@ const MovieDetail: NextPage<{
    detailRes,
    detailErr,
  }) => {
-   const detailMovie = detailRes;
-   console.log(detailMovie);
+   const movie = detailRes;
 
    return (
      <Container className="container-custom">
-       <h3>Movie Detail {detailMovie.title}</h3>
+       <h3>Movie Detail {movie.title}</h3>
      </Container>
    );
  };

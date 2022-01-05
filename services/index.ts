@@ -5,6 +5,7 @@ import {
   IPeopleListRes,
   IMovieDetail,
   ITvDetail,
+  IPeopleDetail,
 } from 'types';
 import { axiosGet } from './axios-client';
 
@@ -175,6 +176,33 @@ export const getDetail = async (media: 'movie' | 'tv', id: number): Promise<{
   detailRes.crew = creditRes?.data.crew || [];
   detailRes.videos = videosRes?.data.results || [];
   detailRes.recommendations = recommRes?.data.results || [];
+  const detailErr = !!error;
+
+  return { detailRes, detailErr };
+};
+
+export const getDetailPeople = async (id: number): Promise<{
+  detailRes: IPeopleDetail,
+  detailErr: boolean
+}> => {
+  const [
+    peopleDetail,
+    peopleSosmed,
+    peopleCredit,
+  ] = await Promise.all([
+    axiosGet(`/person/${id}`),
+    axiosGet(`/person/${id}/external_ids`),
+    axiosGet(`/person/${id}/combined_credits`),
+  ]);
+
+  const { data, error } = peopleDetail;
+  const { data: sosmedRes } = peopleSosmed;
+  const { data: creditRes } = peopleCredit;
+
+  const detailRes = data?.data;
+  detailRes.sosial_media = sosmedRes?.data || undefined;
+  detailRes.cast = creditRes?.data.cast || [];
+  detailRes.crew = creditRes?.data.crew || [];
   const detailErr = !!error;
 
   return { detailRes, detailErr };

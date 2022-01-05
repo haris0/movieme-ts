@@ -13,6 +13,7 @@ export {
   baseImageURL,
   baseImageURLOrigin,
   baseProfileURL,
+  baseProfileDetailURL,
 } from './axios-client';
 
 export const getNowPlaying = async (

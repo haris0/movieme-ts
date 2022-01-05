@@ -1,0 +1,38 @@
+@import 'colors';
+
+.col_center {
+  text-align: -webkit-center;
+  margin-bottom: 1.5rem;
+}
+
+.image_wrapper {
+  width: 90%;
+  height: 0;
+  position: relative;
+  padding-bottom: 130%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.bio_wrapper {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.clamped {
+  -webkit-line-clamp: 4;
+}
+
+.bio_paragraph {
+  white-space: pre-line;
+}
+
+.show {
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: $primary-color;
+}

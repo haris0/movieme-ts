@@ -9,7 +9,11 @@ import {
 } from 'types';
 import { axiosGet } from './axios-client';
 
-export { baseImageURL, baseImageURLOrigin } from './axios-client';
+export {
+  baseImageURL,
+  baseImageURLOrigin,
+  baseProfileURL,
+} from './axios-client';
 
 export const getNowPlaying = async (
   media: 'tv' | 'movie',

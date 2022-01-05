@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 import Image from 'next/image';
-import { baseImageURL } from 'services';
+import { baseProfileURL } from 'services';
 import styles from './CardPeople.module.scss';
 
 type props = {
@@ -28,13 +28,13 @@ const CardPeople = ({
     >
       <div className={styles.image_custom}>
         <Image
-          src={profilePath ? `${baseImageURL}${profilePath}` : '/thumbnail.png'}
+          src={profilePath ? `${baseProfileURL}${profilePath}` : '/thumbnail.png'}
           placeholder="blur"
-          blurDataURL={`${baseImageURL}${profilePath}`}
+          blurDataURL={`${baseProfileURL}${profilePath}`}
           alt={name}
           layout="fixed"
           width="150"
-          height="180"
+          height="150"
         />
       </div>
       <Card.Body className={styles.card_body}>

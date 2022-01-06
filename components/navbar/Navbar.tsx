@@ -12,6 +12,7 @@ import styles from './Navbar.module.scss';
 
 const NavigationBar = () => {
   const router = useRouter();
+  const { pathname } = router;
   const pageRoutes = ['movie', 'tv', 'people'];
   const countFav = useCountFavorite();
 
@@ -35,7 +36,7 @@ const NavigationBar = () => {
           <Nav className="me-auto">
             {pageRoutes.map((route) => (
               <Link href={`/${route}`} passHref key={route}>
-                <Nav.Link active={router.pathname === `/${route}`}>
+                <Nav.Link active={pathname === `/${route}`}>
                   <span style={{ textTransform: 'capitalize' }}>
                     {route} {route === 'tv' ? 'Show' : ''}
                   </span>
@@ -44,10 +45,26 @@ const NavigationBar = () => {
             ))}
           </Nav>
           <Nav>
+            {pathname !== '/' && pathname !== '/search' && (
+              <Link href="/search" passHref>
+                <Nav.Link
+                  style={{ marginRight: '0.5rem' }}
+                  active={pathname === '/favorite'}
+                >
+                  <img
+                    alt="search"
+                    src="/images/search.png"
+                    width="23"
+                    height="23"
+                    className="d-inline-block align-top"
+                  />
+                </Nav.Link>
+              </Link>
+            )}
             <Link href="/favorite" passHref>
               <Nav.Link
                 style={{ marginRight: '2rem' }}
-                active={router.pathname === '/favorite'}
+                active={pathname === '/favorite'}
               >
                 <b className={styles.count_favorite}>
                   {countFav()} Favorites

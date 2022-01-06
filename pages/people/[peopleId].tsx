@@ -19,8 +19,11 @@ const PeopleDetail: NextPage<{
 }) => {
   const theme = useTheme();
   const people = detailRes;
-  const knownFor = (people?.cast?.length as number) > (people?.crew?.length as number)
-    ? people.cast : people.crew;
+  const peopleAsCast = people.cast?.sort((a, b) => b.vote_count - a.vote_count);
+  const peopleAsCrew = people.crew?.sort((a, b) => b.vote_count - a.vote_count);
+  const knownFor = (peopleAsCast?.length as number) > (peopleAsCrew?.length as number)
+    ? peopleAsCast?.slice(0, 9) : peopleAsCrew?.slice(0, 9);
+
   const [clamped, setClamped] = useState<'clamped' | 'unclamp'>('clamped');
   const [bioLine, setBioLine] = useState(0);
 

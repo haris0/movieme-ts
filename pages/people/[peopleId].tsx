@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Col, Container, Row } from 'react-bootstrap';
+import {
+  Card, Col, Container, ListGroup, ListGroupItem, Row,
+} from 'react-bootstrap';
 import { baseProfileDetailURL, getDetailPeople, getPopulerPeople } from 'services';
-import { IPeopleDetail } from 'types';
+import { ICast, IPeopleDetail } from 'types';
 import Image from 'next/image';
 import styles from 'styles/PeopleDetail.module.scss';
 import { useEffect, useState } from 'react';
@@ -20,11 +22,13 @@ const PeopleDetail: NextPage<{
 }) => {
   const theme = useTheme();
   const people = detailRes;
-  const peopleAsCast = people.cast?.sort((a, b) => b.vote_count - a.vote_count);
-  const peopleAsCrew = people.crew?.sort((a, b) => b.vote_count - a.vote_count);
+  const peopleAsCast = people?.cast?.sort((a, b) => b.vote_count - a.vote_count);
+  const peopleAsCrew = people?.crew?.sort((a, b) => b.vote_count - a.vote_count);
   const knownFor = (peopleAsCast?.length as number) > (peopleAsCrew?.length as number)
     ? peopleAsCast?.slice(0, 9) : peopleAsCrew?.slice(0, 9);
   const creditCount = (peopleAsCast?.length as number) + (peopleAsCrew?.length as number);
+  let creditsByJob: ICast[] | undefined = [];
+  let creditsByYear: {group: string, credits: ICast[]}[] = [];
 
   const [clamped, setClamped] = useState<'clamped' | 'unclamp'>('clamped');
   const [bioLine, setBioLine] = useState(0);
@@ -32,6 +36,48 @@ const PeopleDetail: NextPage<{
   const handleShowBio = () => {
     setClamped(clamped === 'clamped' ? 'unclamp' : 'clamped');
   };
+
+  const filterCreditsByJob = (
+    job: string,
+    cast: ICast[] | undefined,
+    crew: ICast[] | undefined,
+  ) => {
+    if (job === 'Acting') {
+      return cast;
+    }
+
+    return crew?.filter((cr) => cr.department === job);
+  };
+  const sortAndGroupCreditsByYear = (credits: ICast[] | undefined) => {
+    const sorted = credits?.sort((a, b) => {
+      const dateA = new Date((
+        a.release_date
+        || a.first_air_date
+        || new Date().setFullYear(new Date().getFullYear() + 10)
+      ) as Date)?.getTime();
+      const dateB = new Date((b.release_date || b.first_air_date || new Date()) as Date)?.getTime();
+      return dateA > dateB ? -1 : 1;
+    });
+
+    const grouped = sorted?.reduce((obj: any, item) => {
+      const year = new Date((item.release_date || item.first_air_date) as Date).getFullYear() || '';
+      item.release_year = year;
+      obj[year] = obj[year] || [];
+      obj[year].push(item);
+      return obj;
+    }, {});
+
+    const groupsArr = Object.keys(grouped).map(
+      (key) => ({ group: key, credits: grouped[key] }),
+    );
+
+    const sortedGroupsArr: any = groupsArr?.sort((a, b) => +b.group - +a.group);
+    if (sortedGroupsArr[sortedGroupsArr.length - 1].group === '') sortedGroupsArr.unshift(sortedGroupsArr.pop());
+
+    return sortedGroupsArr;
+  };
+  creditsByJob = filterCreditsByJob(people.known_for_department, people.cast, people.crew);
+  creditsByYear = sortAndGroupCreditsByYear(creditsByJob);
 
   useEffect(() => {
     const getbioLine = () => {
@@ -151,11 +197,11 @@ const PeopleDetail: NextPage<{
             <div className={styles.sub_info}>
               <h6>Also Known As</h6>
               <div className={styles.bio_paragraph}>
-                {!people.also_known_as && '-'}
-                {people.also_known_as && (
+                {!people.also_known_as.length && '-'}
+                {!!people.also_known_as.length && (
                   <div>
                     {people.also_known_as.map((known) => (
-                      <div>{known}</div>
+                      <div key={known}>{known}</div>
                     ))}
                   </div>
                 )}
@@ -216,6 +262,46 @@ const PeopleDetail: NextPage<{
                   ))}
                 </div>
               )}
+              <h5 className={styles.sub_title}>{people.known_for_department}</h5>
+              <Card className={`${styles[`card_${theme}`]}`}>
+                <ListGroup className="list-group-flush">
+                  {creditsByYear.map((credits) => (
+                    <ListGroupItem
+                      key={credits.group}
+                      className={`${styles[`card_${theme}`]} ${styles.credits_group}`}
+                    >
+                      {credits.credits.map((credit) => (
+                        <div key={credit.id} className={styles.credits_item}>
+                          <div>
+                            <span className={styles.credit_year}>
+                              {credit.release_year || '—'}
+                            </span>
+                          </div>
+                          <div>
+                            <span className={styles.credit_devider}> ■ </span>
+                          </div>
+                          <Link href={`/${credit.media_type}/${credit.id}`}>
+                            <a
+                              href={`/${credit.media_type}/${credit.id}`}
+                              className={styles.credit_anchor}
+                            >
+                              <div className={styles.credit_title}>
+                                <span>
+                                  <b>{credit.title || credit.name}</b>
+                                </span>
+                                <span>
+                                  <span className={styles.credit_as}>as</span>
+                                  {credit.character || credit.job}
+                                </span>
+                              </div>
+                            </a>
+                          </Link>
+                        </div>
+                      ))}
+                    </ListGroupItem>
+                  ))}
+                </ListGroup>
+              </Card>
             </div>
           </div>
         </Col>
@@ -236,7 +322,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }));
   }
 
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

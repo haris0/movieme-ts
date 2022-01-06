@@ -48,7 +48,7 @@ const NavigationBar = () => {
             {pathname !== '/' && pathname !== '/search' && (
               <Link href="/search" passHref>
                 <Nav.Link
-                  style={{ marginRight: '0.5rem' }}
+                  style={{ marginRight: '1rem' }}
                   active={pathname === '/favorite'}
                 >
                   <img

@@ -31,7 +31,7 @@ export interface SpokenLanguage {
   name: string;
 }
 
-export interface Cast {
+export interface ICast {
   adult: boolean;
   gender: number;
   id: number;
@@ -47,7 +47,7 @@ export interface Cast {
   department?: string;
   job?: string;
   overview: string;
-  release_date?: string;
+  release_date?: Date;
   backdrop_path: null | string;
   genre_ids: number[];
   vote_count: number;
@@ -61,6 +61,7 @@ export interface Cast {
   first_air_date?: Date;
   origin_country?: string[];
   episode_count?: number;
+  release_year?: number | '';
 }
 
 export interface SosialMedia {
@@ -159,8 +160,8 @@ export interface IMovieDetail {
   vote_count: number;
   keywords?: Keyword[];
   sosial_media?: SosialMedia;
-  cast?: Cast[];
-  crew?: Cast[];
+  cast?: ICast[];
+  crew?: ICast[];
   videos?: Video[];
   recommendations?: IMovie[];
 }
@@ -199,8 +200,8 @@ export interface ITvDetail {
   vote_count: number;
   keywords?: Keyword[];
   sosial_media?: SosialMedia;
-  cast?: Cast[];
-  crew?: Cast[];
+  cast?: ICast[];
+  crew?: ICast[];
   videos?: Video[];
   recommendations?: ITv[];
 }
@@ -221,6 +222,6 @@ export interface IPeopleDetail {
   popularity: number;
   profile_path: string;
   sosial_media?: SosialMedia;
-  cast?: Cast[];
-  crew?: Cast[];
+  cast?: ICast[];
+  crew?: ICast[];
 }

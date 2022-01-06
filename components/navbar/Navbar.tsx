@@ -22,7 +22,7 @@ const NavigationBar = () => {
           <Navbar.Brand className={styles.nav_brand}>
             <img
               alt=""
-              src="/play.png"
+              src="/images/play.png"
               width="30"
               height="30"
               className="d-inline-block align-top"

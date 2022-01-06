@@ -66,7 +66,7 @@ const CardMovie = ({
       >
         <div className={styles.image_custom}>
           <Image
-            src={posterPath ? `${baseImageURL}${posterPath}` : '/thumbnail.png'}
+            src={posterPath ? `${baseImageURL}${posterPath}` : '/images/thumbnail.png'}
             placeholder="blur"
             blurDataURL={`${baseImageURL}${posterPath}`}
             alt={title}
@@ -82,11 +82,11 @@ const CardMovie = ({
             className={styles.favorited_icon}
           >
             <Image
-              src="/favorited.png"
+              src="/images/favorited.png"
               alt="favorite"
               layout="fixed"
-              width="22"
-              height="22"
+              width="20"
+              height="20"
             />
           </button>
         )}
@@ -104,11 +104,11 @@ const CardMovie = ({
             className={styles.unfavorite_icon}
           >
             <Image
-              src="/unfavorite.png"
+              src="/images/unfavorite.png"
               alt="favorite"
               layout="fixed"
-              width="22"
-              height="22"
+              width="20"
+              height="20"
             />
           </button>
         )}

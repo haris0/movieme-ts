@@ -28,7 +28,7 @@ const CardPeople = ({
     >
       <div className={styles.image_custom}>
         <Image
-          src={profilePath ? `${baseProfileURL}${profilePath}` : '/thumbnail.png'}
+          src={profilePath ? `${baseProfileURL}${profilePath}` : '/images/thumbnail.png'}
           placeholder="blur"
           blurDataURL={`${baseProfileURL}${profilePath}`}
           alt={name}

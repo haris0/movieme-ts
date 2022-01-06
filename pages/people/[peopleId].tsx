@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
+import { convertDate } from 'mixin';
 
 const PeopleDetail: NextPage<{
   detailRes: IPeopleDetail,
@@ -23,6 +24,7 @@ const PeopleDetail: NextPage<{
   const peopleAsCrew = people.crew?.sort((a, b) => b.vote_count - a.vote_count);
   const knownFor = (peopleAsCast?.length as number) > (peopleAsCrew?.length as number)
     ? peopleAsCast?.slice(0, 9) : peopleAsCrew?.slice(0, 9);
+  const creditCount = (peopleAsCast?.length as number) + (peopleAsCrew?.length as number);
 
   const [clamped, setClamped] = useState<'clamped' | 'unclamp'>('clamped');
   const [bioLine, setBioLine] = useState(0);
@@ -114,18 +116,67 @@ const PeopleDetail: NextPage<{
               </div>
             )}
           </div>
+          <h2>{people.name}</h2>
+          <br />
+          <div className={styles.personal_info}>
+            <h5>Personal Info</h5>
+            <div className={styles.sub_info}>
+              <h6>Know For</h6>
+              <div>{people.known_for_department}</div>
+            </div>
+            <div className={styles.sub_info}>
+              <h6>Known Credits</h6>
+              <div>{creditCount}</div>
+            </div>
+            <div className={styles.sub_info}>
+              <h6>Gender</h6>
+              <div>
+                {!people.gender && 'Unknown'}
+                {people.gender === 1 && 'Female'}
+                {people.gender === 2 && 'Male'}
+              </div>
+            </div>
+            <div className={styles.sub_info}>
+              <h6>Birthday</h6>
+              <div>
+                {people.birthday ? convertDate(people.birthday) : '-'}
+              </div>
+            </div>
+            <div className={styles.sub_info}>
+              <h6>Place of Birth</h6>
+              <div>
+                {people.place_of_birth || '-'}
+              </div>
+            </div>
+            <div className={styles.sub_info}>
+              <h6>Also Known As</h6>
+              <div className={styles.bio_paragraph}>
+                {!people.also_known_as && '-'}
+                {people.also_known_as && (
+                  <div>
+                    {people.also_known_as.map((known) => (
+                      <div>{known}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </Col>
         <Col sm={6} md={8} lg={9}>
           <div>
-            <h2>{people.name}</h2>
-            <br />
             <h5>Biography</h5>
             <div className={`${styles.bio_wrapper} ${styles[clamped]}`}>
               <p
                 id="biography"
                 className={styles.bio_paragraph}
               >
-                {people.biography}
+                {!!people.biography && (
+                  people.biography
+                )}
+                {!people.biography && (
+                  `We don't have a biography for ${people.name}`
+                )}
               </p>
             </div>
             <div>

@@ -114,7 +114,7 @@ const CardMovie = ({
         )}
         <div className={styles.vote_average}>
           <span>
-            {voteAverage * 10}
+            {(Math.round(voteAverage * 10) / 10) * 10}
           </span>
           <span
             style={{

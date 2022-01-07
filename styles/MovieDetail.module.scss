@@ -6,7 +6,6 @@
 
 .col_center {
   text-align: -webkit-center;
-  margin-bottom: 1.5rem;
 }
 
 .image_wrapper {
@@ -19,14 +18,14 @@
   margin-top: -15rem;
 }
 
-.movie_icon {
+.movie_actions {
   display: flex;
-  margin: 1.2rem 0;
+  margin: 1rem 0;
   align-items: center;
 }
 
 .vote_average {
-  font-size: 20px;
+  font-size: 22px;
   padding: 11.5px 10px;
   border-radius: 100%;
   width: 55px;
@@ -49,14 +48,10 @@
 }
 
 .icon {
-  margin-top: 5px;
+  margin-top: 8px;
   background: transparent;
   border: none;
   padding: 0;
-}
-
-.opacity {
-  opacity: 0.7;
 }
 
 .trailer_text {
@@ -66,5 +61,44 @@
 
 .subtitle_separator {
   display: inline-block;
+  font-size: 18px;
   margin: 0 0.7rem;
+}
+
+.tagline {
+  margin: 0.7rem 0;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.sosmed_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sosmed_logo {
+  margin: 1rem;
+}
+
+.personal_info {
+  text-align: left;
+}
+
+.sub_info {
+  margin-top: 1.5rem
+}
+
+.badge_keywords {
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.recom_title {
+  margin-top: 1.5rem;
+}
+
+.scroll_container {
+  display: flex;
+  overflow-x: auto;
 }

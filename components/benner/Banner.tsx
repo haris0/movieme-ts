@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { ReactNode } from 'react';
 import { Container } from 'react-bootstrap';
 import { baseImageURLOrigin } from 'services';
@@ -5,10 +6,13 @@ import styles from './Banner.module.scss';
 
 type props = {
   backdropPath: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
-const Banner = ({ backdropPath, children }: props) => (
+const Banner = ({
+  backdropPath,
+  children,
+}: props) => (
   <div
     className={styles.banner}
     style={{
@@ -21,9 +25,11 @@ const Banner = ({ backdropPath, children }: props) => (
     }}
   >
     <Container className={styles.banner_container}>
-      <div className={styles.container_body}>
-        { children }
-      </div>
+      {children && (
+        <div className={styles.container_body}>
+          {children}
+        </div>
+      )}
     </Container>
   </div>
 );

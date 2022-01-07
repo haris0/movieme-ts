@@ -177,8 +177,12 @@ export const getDetail = async (media: 'movie' | 'tv', id: number): Promise<{
   const detailRes = data?.data;
   detailRes.keywords = keywordRes?.data.keywords || keywordRes?.data.results || [];
   detailRes.sosial_media = sosmedRes?.data || undefined;
-  detailRes.cast = creditRes?.data.cast || [];
-  detailRes.crew = creditRes?.data.crew || [];
+  detailRes.cast = Array.from(new Map(
+    creditRes?.data.cast.map((val: any) => [val.id, val]),
+  ).values()) || [];
+  detailRes.crew = Array.from(new Map(
+    creditRes?.data.crew.map((val: any) => [val.id, val]),
+  ).values()) || [];
   detailRes.videos = videosRes?.data.results || [];
   detailRes.recommendations = recommRes?.data.results || [];
   const detailErr = !!error;

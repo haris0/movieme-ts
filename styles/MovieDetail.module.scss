@@ -1,0 +1,70 @@
+@import 'colors';
+
+.movie_container {
+  margin-top: -4.5rem;
+}
+
+.col_center {
+  text-align: -webkit-center;
+  margin-bottom: 1.5rem;
+}
+
+.image_wrapper {
+  width: 90%;
+  height: 0;
+  position: relative;
+  padding-bottom: 130%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: -15rem;
+}
+
+.movie_icon {
+  display: flex;
+  margin: 1.2rem 0;
+  align-items: center;
+}
+
+.vote_average {
+  font-size: 20px;
+  padding: 11.5px 10px;
+  border-radius: 100%;
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  font-weight: bold;
+  color: $text-dark;
+  background-color: $primary-bg;
+  margin-right: 1.5rem;
+}
+
+.icon_rounded {
+  width: 55px;
+  height: 55px;
+  background-color: $primary-bg;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.icon {
+  margin-top: 5px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.opacity {
+  opacity: 0.7;
+}
+
+.trailer_text {
+  margin-left: -0.5rem;
+  font-size: 18px;
+}
+
+.subtitle_separator {
+  display: inline-block;
+  margin: 0 0.7rem;
+}

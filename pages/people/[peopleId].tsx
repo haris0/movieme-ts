@@ -278,7 +278,7 @@ const PeopleDetail: NextPage<{
                             </span>
                           </div>
                           <div>
-                            <span className={styles.credit_devider}> ■ </span>
+                            <span className={styles.credit_separator}> ■ </span>
                           </div>
                           <Link href={`/${credit.media_type}/${credit.id}`}>
                             <a

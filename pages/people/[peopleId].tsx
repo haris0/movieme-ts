@@ -289,10 +289,12 @@ const PeopleDetail: NextPage<{
                                 <span>
                                   <b>{credit.title || credit.name}</b>
                                 </span>
-                                <span>
-                                  <span className={styles.credit_as}>as</span>
-                                  {credit.character || credit.job}
-                                </span>
+                                {(credit.character || credit.job) && (
+                                  <span>
+                                    <span className={styles.credit_as}>as</span>
+                                    {credit.character || credit.job}
+                                  </span>
+                                )}
                               </div>
                             </a>
                           </Link>

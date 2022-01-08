@@ -42,7 +42,6 @@ const People: NextPage<{
       peopleRes: peopleResNext,
       peopleErr: peopleErrNext,
     } = await getPopulerPeople(nextPage);
-    console.log(peopleResNext, peopleErrNext);
     setPopulerPeople((prev) => [
       ...prev,
       ...peopleResNext.results as IPeople[],

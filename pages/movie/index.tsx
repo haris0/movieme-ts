@@ -74,7 +74,6 @@ const Movie: NextPage<{
       discoverRes: discoverResNext,
       discoverErr: discoverErrNext,
     } = await getDiscover('movie', +genreId, nextPage);
-    console.log(discoverResNext, discoverErrNext);
     setDiscoverMovie((prev) => [
       ...prev,
       ...discoverResNext.results as IMovie[],

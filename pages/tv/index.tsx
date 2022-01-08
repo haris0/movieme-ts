@@ -70,7 +70,6 @@ const Tv: NextPage<{
       discoverRes: discoverResNext,
       discoverErr: discoverErrNext,
     } = await getDiscover('tv', +genreId, nextPage);
-    console.log(discoverResNext, discoverErrNext);
     setDiscoverTv((prev) => [
       ...prev,
       ...discoverResNext.results as ITv[],

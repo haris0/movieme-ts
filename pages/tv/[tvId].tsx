@@ -7,18 +7,18 @@ import { ITvDetail } from 'types';
 const TvDetail: NextPage<{
   detailRes: ITvDetail,
   detailErr: boolean,
- }> = ({
-   detailRes,
-   detailErr,
- }) => {
-   const tv = detailRes;
+}> = ({
+  detailRes,
+  detailErr,
+}) => {
+  const tv = detailRes;
 
-   return (
-     <Container className="container-custom">
-       <h3>Tv Show Detail {tv.name}</h3>
-     </Container>
-   );
- };
+  return (
+    <Container className="container-custom">
+      <h3>Tv Show Detail {tv.name}</h3>
+    </Container>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { discoverRes, discoverErr } = await getDiscover('tv');

@@ -26,7 +26,7 @@ const MovieDetail: NextPage<{
    const releaseYear = getYear(movie.release_date);
    const duration = convertMinsToHrsMins(movie.runtime);
    const { recommendations } = movie;
-   console.log(movie);
+   //  console.log(movie);
 
    return (
      <div>

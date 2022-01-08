@@ -105,7 +105,7 @@ const MovieDetail: NextPage<{
              <div>
                <span>
                  {releaseDate} ({
-                   movie.production_countries[movie.production_countries.length - 1].iso_3166_1
+                   movie.production_companies[movie.production_companies.length - 1]?.origin_country
                  })
                </span>
                <span className={styles.subtitle_separator}>•</span>

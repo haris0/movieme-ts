@@ -54,9 +54,10 @@ const NavigationBar = () => {
                   <img
                     alt="search"
                     src="/images/search.png"
-                    width="23"
-                    height="23"
+                    width="20"
+                    height="20"
                     className="d-inline-block align-top"
+                    style={{ marginTop: '2px' }}
                   />
                 </Nav.Link>
               </Link>

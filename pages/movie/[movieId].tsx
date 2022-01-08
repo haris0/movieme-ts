@@ -146,83 +146,82 @@ const MovieDetail: NextPage<{
                  ))}
                </Row>
              </div>
+
              <div className={styles.movie_actions}>
-               <div className={styles.vote_average}>
+               <div className={styles.icon_vote}>
                  <span>
                    {movie.vote_average * 10}
                  </span>
-                 <span style={{ fontSize: '10px' }}>
+                 <span style={{ fontSize: '6px' }}>
                    %
                  </span>
                </div>
-               <div className={styles.icon_rounded}>
+               <div className={styles.icon_bookmark}>
                  <button
                    type="button"
-                   className={styles.icon}
+                   className={styles.button_icon}
                  >
                    <Image
                      src="/images/unfavorite_white.png"
                      alt="favorite"
                      layout="fixed"
-                     width="22"
-                     height="22"
+                     width="16"
+                     height="16"
                    />
                  </button>
                </div>
-               <div className={styles.icon_rounded}>
+               <div className={styles.icon_play}>
                  <button
                    type="button"
-                   className={styles.icon}
+                   className={styles.button_icon}
                  >
                    <Image
                      src="/images/play.png"
                      alt="favorite"
                      layout="fixed"
-                     width="27"
-                     height="27"
+                     width="19"
+                     height="19"
                    />
+                   <span className={styles.trailer_text}>
+                     <b>Play Trailer</b>
+                   </span>
                  </button>
                </div>
-               <span className={styles.trailer_text}>
-                 <b>Play Trailer</b>
-               </span>
              </div>
            </Col>
          </Row>
          <Row style={{ marginTop: '1rem' }}>
            <Col md={4} lg={3}>
-             <div>
-               <div className={styles.personal_info}>
-                 <h5>Movie Info</h5>
-                 <div className={styles.sub_info}>
-                   <h6>Status</h6>
-                   <div>{movie.status}</div>
-                 </div>
-                 <div className={styles.sub_info}>
-                   <h6>Original Language</h6>
-                   <div>{movie.spoken_languages[0].name}</div>
-                 </div>
-                 <div className={styles.sub_info}>
-                   <h6>Budget</h6>
-                   <div>$ {movie.budget.toLocaleString('en')}</div>
-                 </div>
-                 <div className={styles.sub_info}>
-                   <h6>Revenue</h6>
-                   <div>$ {movie.revenue.toLocaleString('en')}</div>
-                 </div>
-                 <div className={styles.sub_info}>
-                   <h6>Keyword</h6>
-                   <div>
-                     {movie.keywords?.map((keyword) => (
-                       <Badge
-                         bg="secondary"
-                         className={styles.badge_keywords}
-                         key={keyword.id}
-                       >
-                         {keyword.name}
-                       </Badge>
-                     ))}
-                   </div>
+             <div className={styles.personal_info}>
+               <h5>Movie Info</h5>
+               <div className={styles.sub_info}>
+                 <h6>Status</h6>
+                 <div>{movie.status}</div>
+               </div>
+               <div className={styles.sub_info}>
+                 <h6>Original Language</h6>
+                 <div>{movie.spoken_languages[0].name}</div>
+               </div>
+               <div className={styles.sub_info}>
+                 <h6>Budget</h6>
+                 <div>$ {movie.budget.toLocaleString('en')}</div>
+               </div>
+               <div className={styles.sub_info}>
+                 <h6>Revenue</h6>
+                 <div>$ {movie.revenue.toLocaleString('en')}</div>
+               </div>
+               <div className={styles.sub_info}>
+                 <h6>Keyword</h6>
+                 <div>
+                   {movie.keywords?.map((keyword) => (
+                     <Badge
+                       bg="secondary"
+                       className={styles.badge_keywords}
+                       key={keyword.id}
+                     >
+                       {keyword.name}
+                     </Badge>
+                   ))}
                  </div>
                </div>
              </div>
@@ -233,26 +232,32 @@ const MovieDetail: NextPage<{
                <div className={styles.tagline}>{movie.tagline}</div>
                <p>{movie.overview}</p>
                <div>
-                 <h5 className={styles.recom_title}>Cast and Crew</h5>
-                 {topCast && (
-                   <div className={styles.scroll_container}>
-                     {topCast.map((people) => (
-                       <Link href={`/people/${people.id}`} passHref key={people.id}>
-                         <div className={styles.skin_option}>
-                           <CardPeople
-                             href={`/people/${people.id}`}
-                             name={people.name}
-                             profilePath={people.profile_path as string}
-                             peopleKnowFor={[people.known_for_department]}
-                             theme={theme}
-                           />
+                 {!!topCast?.length && (
+                   <>
+                     <h5 className={styles.recom_title}>Top Billed Cast</h5>
+                     <div className={styles.scroll_container}>
+                       {topCast.map((people) => (
+                         <Link href={`/people/${people.id}`} passHref key={people.id}>
+                           <div className={styles.skin_option}>
+                             <CardPeople
+                               href={`/people/${people.id}`}
+                               name={people.name}
+                               profilePath={people.profile_path as string}
+                               peopleKnowFor={[people.known_for_department]}
+                               theme={theme}
+                             />
+                           </div>
+                         </Link>
+                       ))}
+                       <div className={styles.showmore_container}>
+                         <div className={styles.showmore_text}>
+                           <button type="button" className={styles.showmore_button}>
+                             <b>All Cast & Crew →</b>
+                           </button>
                          </div>
-                       </Link>
-                     ))}
-                     <div>
-                       <div>Show More</div>
+                       </div>
                      </div>
-                   </div>
+                   </>
                  )}
                </div>
              </div>

@@ -12,6 +12,7 @@ import { convertDate, convertMinsToHrsMins, getYear } from 'mixin';
 import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
+import CardPeople from 'components/card/CardPeople';
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,
@@ -25,6 +26,7 @@ const MovieDetail: NextPage<{
    const releaseDate = convertDate(movie.release_date);
    const releaseYear = getYear(movie.release_date);
    const duration = convertMinsToHrsMins(movie.runtime);
+   const topCast = movie?.cast?.slice(0, 9);
    const { recommendations } = movie;
    //  console.log(movie);
 
@@ -138,8 +140,8 @@ const MovieDetail: NextPage<{
                      src="/images/unfavorite_white.png"
                      alt="favorite"
                      layout="fixed"
-                     width="25"
-                     height="25"
+                     width="22"
+                     height="22"
                    />
                  </button>
                </div>
@@ -152,8 +154,8 @@ const MovieDetail: NextPage<{
                      src="/images/play.png"
                      alt="favorite"
                      layout="fixed"
-                     width="25"
-                     height="25"
+                     width="27"
+                     height="27"
                    />
                  </button>
                </div>
@@ -206,6 +208,29 @@ const MovieDetail: NextPage<{
                <h5>Overview</h5>
                <div className={styles.tagline}>{movie.tagline}</div>
                <p>{movie.overview}</p>
+               <div>
+                 <h5 className={styles.recom_title}>Cast and Crew</h5>
+                 {topCast && (
+                   <div className={styles.scroll_container}>
+                     {topCast.map((people) => (
+                       <Link href={`/people/${people.id}`} passHref key={people.id}>
+                         <div className={styles.skin_option}>
+                           <CardPeople
+                             href={`/people/${people.id}`}
+                             name={people.name}
+                             profilePath={people.profile_path as string}
+                             peopleKnowFor={[people.known_for_department]}
+                             theme={theme}
+                           />
+                         </div>
+                       </Link>
+                     ))}
+                     <div>
+                       <div>Show More</div>
+                     </div>
+                   </div>
+                 )}
+               </div>
              </div>
            </Col>
          </Row>

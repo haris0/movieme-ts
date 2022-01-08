@@ -187,9 +187,10 @@ export const getDetail = async (media: 'movie' | 'tv', id: number): Promise<{
   detailRes.cast = Array.from(new Map(
     creditRes?.data.cast.map((val: any) => [val.id, val]),
   ).values()) || [];
-  detailRes.crew = Array.from(new Map(
-    creditRes?.data.crew.map((val: any) => [val.id, val]),
-  ).values()) || [];
+  detailRes.crew = creditRes?.data.crew.reduce((
+    items: any,
+    item: any,
+  ) => (items.find((val: any) => val.id === item.id) ? [...items] : [...items, item]), []);
   detailRes.videos = videosRes?.data?.results || [];
   detailRes.recommendations = recommRes?.data?.results || [];
   const detailErr = !!error;

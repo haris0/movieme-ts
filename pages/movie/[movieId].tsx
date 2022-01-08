@@ -28,6 +28,7 @@ const MovieDetail: NextPage<{
    const duration = convertMinsToHrsMins(movie.runtime);
    const topCast = movie?.cast?.slice(0, 9);
    const { recommendations } = movie;
+   const writers = movie?.crew?.filter((crew) => crew.department === 'Writing');
    //  console.log(movie);
 
    return (
@@ -102,7 +103,7 @@ const MovieDetail: NextPage<{
                )}
              </div>
            </Col>
-           <Col sm={6} md={8} lg={9}>
+           <Col md={8} lg={9}>
              <h2>{movie.title} ({releaseYear})</h2>
              <div>
                <span>
@@ -121,6 +122,29 @@ const MovieDetail: NextPage<{
                ))}
                <span className={styles.subtitle_separator}>•</span>
                <span>{duration}</span>
+             </div>
+             <div className={styles.movie_writer}>
+               <Row>
+                 {writers?.map((writer) => (
+                   <Col
+                     key={writer.id}
+                     xs={6}
+                     sm={6}
+                     md={4}
+                     lg={3}
+                     className={styles.writer_col}
+                   >
+                     <Link href={`/people/${writer.id}`} passHref>
+                       <a href={`/people/${writer.id}`} className={styles.writer_anchor}>
+                         <div>
+                           <b>{writer.name}</b>
+                         </div>
+                         <div>{writer.job}</div>
+                       </a>
+                     </Link>
+                   </Col>
+                 ))}
+               </Row>
              </div>
              <div className={styles.movie_actions}>
                <div className={styles.vote_average}>
@@ -166,7 +190,7 @@ const MovieDetail: NextPage<{
            </Col>
          </Row>
          <Row style={{ marginTop: '1rem' }}>
-           <Col sm={6} md={4} lg={3}>
+           <Col md={4} lg={3}>
              <div>
                <div className={styles.personal_info}>
                  <h5>Movie Info</h5>

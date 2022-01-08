@@ -12,6 +12,7 @@ import styles from 'styles/People.module.scss';
 import { useRouter } from 'next/router';
 import { useTheme } from 'context/ThemeContext';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
+import { filterEmptyId } from 'mixin';
 
 const People: NextPage<{
   peopleResult: IPeople[],
@@ -97,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const allPeopleRes = populerPeopleResults?.map((res) => res.peopleRes);
   const allPeopleErr = populerPeopleResults?.map((res) => res.peopleErr);
 
-  const peopleResult = allPeopleRes.map(({ results }) => results).flat();
+  const peopleResult = filterEmptyId(allPeopleRes.map(({ results }) => results).flat());
   const peopleError = allPeopleErr.map((error) => error).flat();
 
   return {

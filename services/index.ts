@@ -32,7 +32,7 @@ export const getNowPlaying = async (
     },
   });
 
-  const nowPlayingRes = data?.data;
+  const nowPlayingRes = data?.data || {};
   const nowPlayingErr = !!error;
 
   return { nowPlayingRes, nowPlayingErr };
@@ -48,11 +48,12 @@ export const getTrending = async (
 }> => {
   const { data, error } = await axiosGet(`/trending/${media}/${type}`, {
     params: {
+      language: 'en-US',
       page,
     },
   });
 
-  const trendingRes = data?.data;
+  const trendingRes = data?.data || {};
   const trendingErr = !!error;
 
   return { trendingRes, trendingErr };
@@ -71,7 +72,7 @@ export const getPopulerPeople = async (
     },
   });
 
-  const peopleRes = data?.data;
+  const peopleRes = data?.data || {};
   const peopleErr = !!error;
 
   return { peopleRes, peopleErr };
@@ -141,7 +142,7 @@ export const getDiscover = async (
 
   const { data, error } = await axiosGet(`/discover/${media}`, params);
 
-  const discoverRes = data?.data;
+  const discoverRes = data?.data || {};
   const discoverErr = !!error;
 
   return { discoverRes, discoverErr };
@@ -174,17 +175,23 @@ export const getDetail = async (media: 'movie' | 'tv', id: number): Promise<{
   const { data: videosRes } = itemVideos;
   const { data: recommRes } = itemRecomm;
 
-  const detailRes = data?.data;
-  detailRes.keywords = keywordRes?.data.keywords || keywordRes?.data.results || [];
-  detailRes.sosial_media = sosmedRes?.data || undefined;
+  const detailRes = data?.data || {};
+  if (keywordRes.data.keywords) {
+    detailRes.keywords = keywordRes.data.keywords;
+  } else if (keywordRes?.data?.results) {
+    detailRes.keywords = keywordRes.data.results;
+  } else {
+    detailRes.keywords = [];
+  }
+  detailRes.sosial_media = sosmedRes?.data || {};
   detailRes.cast = Array.from(new Map(
     creditRes?.data.cast.map((val: any) => [val.id, val]),
   ).values()) || [];
   detailRes.crew = Array.from(new Map(
     creditRes?.data.crew.map((val: any) => [val.id, val]),
   ).values()) || [];
-  detailRes.videos = videosRes?.data.results || [];
-  detailRes.recommendations = recommRes?.data.results || [];
+  detailRes.videos = videosRes?.data?.results || [];
+  detailRes.recommendations = recommRes?.data?.results || [];
   const detailErr = !!error;
 
   return { detailRes, detailErr };
@@ -208,8 +215,12 @@ export const getDetailPeople = async (id: number): Promise<{
   const { data: sosmedRes } = peopleSosmed;
   const { data: creditRes } = peopleCredit;
 
-  const detailRes = data?.data;
-  detailRes.sosial_media = sosmedRes?.data || undefined;
+  const detailRes = data?.data || {};
+  if (sosmedRes?.data) {
+    detailRes.sosial_media = sosmedRes.data;
+  } else {
+    detailRes.sosial_media = {};
+  }
   detailRes.cast = Array.from(new Map(
     creditRes?.data.cast.map((val: any) => [val.id, val]),
   ).values()) || [];

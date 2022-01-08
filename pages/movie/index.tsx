@@ -17,6 +17,7 @@ import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
 import styles from 'styles/Movie.module.scss';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
+import { filterEmptyId } from 'mixin';
 
 const Movie: NextPage<{
   discoverResult: IMovie[]
@@ -154,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const alldiscoverRes = discoverResults?.map((res) => res.discoverRes);
   const alldiscoverErr = discoverResults?.map((res) => res.discoverErr);
 
-  const discoverResult = alldiscoverRes.map(({ results }) => results).flat();
+  const discoverResult = filterEmptyId(alldiscoverRes.map(({ results }) => results).flat());
   const discoverError = alldiscoverErr.map((error) => error).flat();
 
   return {

@@ -13,6 +13,7 @@ import CardSelect from 'components/card/CardSelect';
 import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
+import { filterEmptyId } from 'mixin';
 
 const Tv: NextPage<{
   discoverResult: ITv[]
@@ -150,7 +151,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const alldiscoverRes = discoverResults?.map((res) => res.discoverRes);
   const alldiscoverErr = discoverResults?.map((res) => res.discoverErr);
 
-  const discoverResult = alldiscoverRes.map(({ results }) => results).flat();
+  const discoverResult = filterEmptyId(alldiscoverRes.map(({ results }) => results).flat());
   const discoverError = alldiscoverErr.map((error) => error).flat();
 
   return {

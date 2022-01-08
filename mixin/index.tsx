@@ -29,3 +29,5 @@ export const useDebouncedEffect = (effect: Function, deps: Array<any>, delay: nu
     return () => clearTimeout(handler);
   }, [...deps || [], delay]);
 };
+
+export const filterEmptyId = (datas: any[]) => datas.filter((data) => !!data.id);

@@ -15,7 +15,7 @@ const TvDetail: NextPage<{
 
   return (
     <Container className="container-custom">
-      <h3>Tv Show Detail {tv.name}</h3>
+      <h3>Tv Show Detail {tv?.name}</h3>
     </Container>
   );
 };

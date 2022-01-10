@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
@@ -15,6 +15,7 @@ import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
 import CardPeople from 'components/card/CardPeople';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
+import ModalTrailer from 'components/modal/ModalTrailer';
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,
@@ -29,11 +30,15 @@ const MovieDetail: NextPage<{
   const releaseYear = getYear(movie.release_date);
   const duration = convertMinsToHrsMins(movie.runtime);
   const topCast = movie?.cast?.slice(0, 9);
+  const officialTrailer = movie?.videos?.find((video) => video.name === 'Official Trailer');
+  console.log(officialTrailer);
   const { recommendations } = movie;
   const writers = movie?.crew?.filter((crew) => crew.department === 'Writing');
 
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();
+
+  const [playTrailer, setPlayTrailer] = useState(false);
 
   const handleFavorite = (
     event: MouseEvent<HTMLButtonElement>,
@@ -58,6 +63,12 @@ const MovieDetail: NextPage<{
 
   return (
     <div>
+      <ModalTrailer
+        show={playTrailer}
+        onHide={() => setPlayTrailer(false)}
+        title={movie.title}
+        embedid={officialTrailer?.key}
+      />
       <Banner backdropPath={movie.backdrop_path} />
       <Container className={`${'container-custom'} ${styles.movie_container}`}>
         <Row>
@@ -224,6 +235,7 @@ const MovieDetail: NextPage<{
                 <button
                   type="button"
                   className={styles.button_icon}
+                  onClick={() => setPlayTrailer(true)}
                 >
                   <Image
                     src="/images/play.png"

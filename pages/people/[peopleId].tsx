@@ -100,6 +100,7 @@ const PeopleDetail: NextPage<{
     <>
       <Head>
         <title>{people?.name} - Movieme</title>
+        <meta name="description" content={people?.biography} />
         <meta property="og:title" content={people?.name} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={`${baseProfileDetailURL}${people?.profile_path}`} />

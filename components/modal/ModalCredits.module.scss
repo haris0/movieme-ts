@@ -1,3 +1,14 @@
+@import '../../styles/colors';
+
+.modal_dark {
+  background-color: $bg-dark !important;
+  color: $text-dark;
+}
+
+.modal_header {
+  border-bottom: 2px solid rgba(0,0,0,.125);
+}
+
 .margin_bottom {
   margin-bottom: 1.5rem;
 }

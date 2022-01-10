@@ -12,9 +12,10 @@ const ModalCredits = (props: any) => (
     {...props}
     size="lg"
     scrollable
+    contentClassName={`${styles[`modal_${props.theme}`]}`}
     aria-labelledby="credit-modal"
   >
-    <Modal.Header closeButton>
+    <Modal.Header closeButton className={styles.modal_header}>
       <Modal.Title id="credit-modal">
         All Cast & Crew
       </Modal.Title>

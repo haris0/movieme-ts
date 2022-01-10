@@ -75,6 +75,7 @@ const MovieDetail: NextPage<{
         embedid={officialTrailer?.key}
       />
       <ModalCredits
+        theme={theme}
         show={showAllCredits}
         onHide={() => setShowAllCredits(false)}
         cast={movie?.cast}

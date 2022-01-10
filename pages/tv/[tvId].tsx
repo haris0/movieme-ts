@@ -28,17 +28,16 @@ const TvDetail: NextPage<{
 }) => {
   const theme = useTheme();
   const tv = detailRes;
-  const releaseDate = convertDate(tv.first_air_date);
-  const releaseYear = getYear(tv.first_air_date);
-  const duration = convertMinsToHrsMins(tv.episode_run_time[0]);
+  const releaseDate = convertDate(tv?.first_air_date);
+  const releaseYear = getYear(tv?.first_air_date);
+  const duration = convertMinsToHrsMins(tv?.episode_run_time[0]);
   const topCast = tv?.cast?.slice(0, 9);
   const officialTrailer = tv?.videos?.find(
     (video) => video.name.includes('Official Trailer')
             || video.name.includes('Official Teaser')
             || (video.official && video.type === 'Trailer'),
   );
-  console.log(officialTrailer);
-  const { recommendations } = tv;
+  const recommendations = tv?.recommendations || [];
   const writers = tv?.crew?.filter((crew) => crew.department === 'Writing' || crew.job === 'Director');
 
   const addFavorite = useAddFavorite();
@@ -82,40 +81,40 @@ const TvDetail: NextPage<{
         cast={tv?.cast}
         crew={tv?.crew}
       />
-      <Banner backdropPath={tv.backdrop_path} />
+      <Banner backdropPath={tv?.backdrop_path} />
       <Container className={`${'container-custom'} ${styles.tv_container}`}>
         <Row>
           <Col sm={6} md={4} lg={3} className={styles.col_center}>
             <div className={styles.image_wrapper}>
               <Image
-                src={tv.poster_path ? `${baseProfileDetailURL}${tv.poster_path}` : '/images/thumbnail.png'}
+                src={tv?.poster_path ? `${baseProfileDetailURL}${tv?.poster_path}` : '/images/thumbnail.png'}
                 placeholder="blur"
-                blurDataURL={`${baseProfileDetailURL}${tv.poster_path}`}
-                alt={tv.name}
+                blurDataURL={`${baseProfileDetailURL}${tv?.poster_path}`}
+                alt={tv?.name}
                 layout="fill"
                 objectFit="cover"
               />
             </div>
 
             <IconLink
-              name={tv.name}
-              socialMedia={tv.sosial_media as ISocialMedia}
-              homepage={tv.homepage}
+              name={tv?.name}
+              socialMedia={tv?.sosial_media as ISocialMedia}
+              homepage={tv?.homepage}
             />
           </Col>
           <Col md={8} lg={9}>
-            <h2>{tv.name} ({releaseYear})</h2>
+            <h2>{tv?.name} ({releaseYear})</h2>
             <div>
               <span>
                 {releaseDate} ({
-                  tv.production_companies[tv.production_companies.length - 1]?.origin_country
+                  tv?.production_companies[tv.production_companies.length - 1]?.origin_country
                 })
               </span>
               <span className={styles.subtitle_separator}>•</span>
-              {tv.genres.map((genre, idx) => (
+              {tv?.genres?.map((genre, idx) => (
                 <span key={genre.id}>
                   {genre.name}
-                  {tv.genres.length !== (idx + 1) && (
+                  {tv?.genres.length !== (idx + 1) && (
                     <span>,{' '}</span>
                   )}
                 </span>
@@ -150,18 +149,18 @@ const TvDetail: NextPage<{
             <div className={styles.tv_actions}>
               <div className={styles.icon_vote}>
                 <span>
-                  {tv.vote_average * 10}
+                  {(tv?.vote_average || 0) * 10}
                 </span>
                 <span style={{ fontSize: '6px' }}>
                   %
                 </span>
               </div>
               <div className={styles.icon_bookmark}>
-                {useCheckFav(tv.id) && (
+                {useCheckFav(tv?.id) && (
                   <button
                     type="button"
                     className={styles.button_icon}
-                    onClick={(event) => handleUnFavorite(event, tv.id)}
+                    onClick={(event) => handleUnFavorite(event, tv?.id)}
                   >
                     <Image
                       src="/images/favorited.png"
@@ -172,17 +171,17 @@ const TvDetail: NextPage<{
                     />
                   </button>
                 )}
-                {!useCheckFav(tv.id) && (
+                {!useCheckFav(tv?.id) && (
                   <button
                     type="button"
                     className={styles.button_icon}
                     onClick={(event) => handleFavorite(event, {
-                      id: tv.id,
-                      href: `/movie/${tv.id}`,
-                      posterPath: tv.poster_path,
-                      voteAverage: tv.vote_average,
+                      id: tv?.id,
+                      href: `/movie/${tv?.id}`,
+                      posterPath: tv?.poster_path,
+                      voteAverage: tv?.vote_average,
                       title: tv.name,
-                      releaseDate: tv.first_air_date,
+                      releaseDate: tv?.first_air_date,
                     })}
                   >
                     <Image
@@ -224,28 +223,28 @@ const TvDetail: NextPage<{
               <h5>Tv Show Info</h5>
               <div className={styles.sub_info}>
                 <h6>Status</h6>
-                <div>{tv.status}</div>
+                <div>{tv?.status}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Original Language</h6>
-                <div>{tv.spoken_languages[0].name}</div>
+                <div>{tv?.spoken_languages[0].name}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Type</h6>
-                <div>{tv.type}</div>
+                <div>{tv?.type}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Networks</h6>
-                <div>{tv.networks[0].name}</div>
+                <div>{tv?.networks[0].name}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Season</h6>
-                <div>{tv.number_of_seasons} Seasons</div>
+                <div>{tv?.number_of_seasons} Seasons</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Keyword</h6>
                 <div>
-                  {tv.keywords?.map((keyword) => (
+                  {tv?.keywords?.map((keyword) => (
                     <Badge
                       bg="secondary"
                       className={styles.badge_keywords}
@@ -261,14 +260,14 @@ const TvDetail: NextPage<{
           <Col sm={6} md={8} lg={9}>
             <div>
               <h5>Overview</h5>
-              <div className={styles.tagline}>{tv.tagline}</div>
-              <p>{tv.overview}</p>
+              <div className={styles.tagline}>{tv?.tagline}</div>
+              <p>{tv?.overview}</p>
               <div>
                 {!!topCast?.length && (
                   <>
                     <h5 className={styles.recom_title}>Top Billed Cast</h5>
                     <div className={styles.scroll_container}>
-                      {topCast.map((people) => (
+                      {topCast?.map((people) => (
                         <Link href={`/people/${people.id}`} passHref key={people.id}>
                           <div className={styles.skin_option}>
                             <CardPeople
@@ -302,16 +301,16 @@ const TvDetail: NextPage<{
         <h5 className={styles.recom_title}>Recommendations</h5>
         {!!recommendations?.length && (
           <div className={styles.scroll_container}>
-            {recommendations.map((recom) => (
+            {recommendations?.map((recom) => (
               <Link href={`/movie/${recom.id}`} passHref key={recom.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
                     id={recom.id}
                     href={`/movie/${recom.id}`}
-                    posterPath={recom.poster_path as string}
-                    voteAverage={recom.vote_average}
+                    posterPath={recom?.poster_path as string}
+                    voteAverage={recom?.vote_average}
                     title={recom.name}
-                    releaseDate={recom.first_air_date as Date}
+                    releaseDate={recom?.first_air_date as Date}
                     theme={theme}
                   />
                 </div>
@@ -331,7 +330,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }];
 
   if (!discoverErr) {
-    paths = discoverRes.results.map((discover) => ({
+    paths = discoverRes.results?.map((discover) => ({
       params: { tvId: discover.id.toString() },
     }));
   }

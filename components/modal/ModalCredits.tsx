@@ -25,7 +25,7 @@ const ModalCredits = (props: any) => (
         <Row>
           <Col sm={6} className={styles.margin_bottom}>
             <h5>Cast</h5>
-            {props.cast.map((people: ICast) => (
+            {props.cast?.map((people: ICast) => (
               <div className={styles.people} key={people.id}>
                 <div className={styles.image_custom}>
                   <Image
@@ -48,7 +48,7 @@ const ModalCredits = (props: any) => (
           </Col>
           <Col sm={6}>
             <h5>Crew</h5>
-            {props.crew.map((people: ICast) => (
+            {props.crew?.map((people: ICast) => (
               <div className={styles.people} key={people.id}>
                 <div className={styles.image_custom}>
                   <Image

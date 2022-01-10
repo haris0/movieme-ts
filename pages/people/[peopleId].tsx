@@ -73,7 +73,7 @@ const PeopleDetail: NextPage<{
     );
 
     const sortedGroupsArr: any = groupsArr?.sort((a, b) => +b.group - +a.group);
-    if (sortedGroupsArr[sortedGroupsArr.length - 1].group === '') sortedGroupsArr.unshift(sortedGroupsArr.pop());
+    if (sortedGroupsArr[sortedGroupsArr.length - 1]?.group === '') sortedGroupsArr.unshift(sortedGroupsArr.pop());
 
     return sortedGroupsArr;
   };
@@ -219,7 +219,7 @@ const PeopleDetail: NextPage<{
                 <ListGroup className="list-group-flush">
                   {creditsByYear.map((credits) => (
                     <ListGroupItem
-                      key={credits.group}
+                      key={credits?.group}
                       className={`${styles[`card_${theme}`]} ${styles.credits_group}`}
                     >
                       {credits.credits.map((credit) => (

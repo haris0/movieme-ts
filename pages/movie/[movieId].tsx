@@ -75,7 +75,7 @@ const MovieDetail: NextPage<{
         <meta name="description" content={movie?.overview} />
         <meta property="og:title" content={movie.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={movie.poster_path} />
+        <meta property="og:image" content={`${baseProfileDetailURL}${movie.poster_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

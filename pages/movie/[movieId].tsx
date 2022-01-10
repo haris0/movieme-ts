@@ -73,11 +73,11 @@ const MovieDetail: NextPage<{
   return (
     <div>
       <Head>
-        <title>{movie.title} - Movieme</title>
+        <title>{movie?.title} - Movieme</title>
         <meta name="description" content={movie?.overview} />
-        <meta property="og:title" content={movie.title} />
+        <meta property="og:title" content={movie?.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={`${baseImageURLOrigin}${movie.backdrop_path}`} />
+        <meta property="og:image" content={`${baseImageURLOrigin}${movie?.backdrop_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

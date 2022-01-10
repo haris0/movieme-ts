@@ -99,10 +99,10 @@ const PeopleDetail: NextPage<{
   return (
     <>
       <Head>
-        <title>{people.name} - Movieme</title>
-        <meta property="og:title" content={people.name} />
+        <title>{people?.name} - Movieme</title>
+        <meta property="og:title" content={people?.name} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={`${baseProfileDetailURL}${people.profile_path}`} />
+        <meta property="og:image" content={`${baseProfileDetailURL}${people?.profile_path}`} />
       </Head>
       <Container className="container-custom">
         <Row>

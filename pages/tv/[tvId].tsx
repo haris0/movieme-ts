@@ -11,12 +11,13 @@ import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
 import { baseProfileDetailURL, getDetail, getDiscover } from 'services';
-import { IFavorite, ITvDetail } from 'types';
+import { IFavorite, ISocialMedia, ITvDetail } from 'types';
 import styles from 'styles/TvDetail.module.scss';
 import CardPeople from 'components/card/CardPeople';
 import CardMovie from 'components/card/CardMovie';
 import ModalTrailer from 'components/modal/ModalTrailer';
 import ModalCredits from 'components/modal/ModalCredits';
+import IconLink from 'components/IconLink/IconLink';
 
 const TvDetail: NextPage<{
   detailRes: ITvDetail,
@@ -96,60 +97,11 @@ const TvDetail: NextPage<{
               />
             </div>
 
-            <div className={styles.sosmed_wrapper}>
-              {tv.sosial_media?.facebook_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://www.facebook.com/${tv.sosial_media.facebook_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/facebook.png"
-                      alt={tv.name}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {tv.sosial_media?.twitter_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://twitter.com/${tv.sosial_media.twitter_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/twitter.png"
-                      alt={tv.name}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {tv.sosial_media?.instagram_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://www.instagram.com/${tv.sosial_media.instagram_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/instagram.png"
-                      alt={tv.name}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {tv.homepage && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={tv.homepage} rel="noreferrer">
-                    <Image
-                      src="/images/link.png"
-                      alt={tv.name}
-                      width="38"
-                      height="38"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-            </div>
+            <IconLink
+              name={tv.name}
+              socialMedia={tv.sosial_media as ISocialMedia}
+              homepage={tv.homepage}
+            />
           </Col>
           <Col md={8} lg={9}>
             <h2>{tv.name} ({releaseYear})</h2>

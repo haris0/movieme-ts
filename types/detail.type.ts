@@ -64,7 +64,7 @@ export interface ICast {
   release_year?: number | '';
 }
 
-export interface SosialMedia {
+export interface ISocialMedia {
   id: number;
   imdb_id: string;
   facebook_id?: string;
@@ -159,7 +159,7 @@ export interface IMovieDetail {
   vote_average: number;
   vote_count: number;
   keywords?: Keyword[];
-  sosial_media?: SosialMedia;
+  sosial_media?: ISocialMedia;
   cast?: ICast[];
   crew?: ICast[];
   videos?: Video[];
@@ -199,7 +199,7 @@ export interface ITvDetail {
   vote_average: number;
   vote_count: number;
   keywords?: Keyword[];
-  sosial_media?: SosialMedia;
+  sosial_media?: ISocialMedia;
   cast?: ICast[];
   crew?: ICast[];
   videos?: Video[];
@@ -221,7 +221,7 @@ export interface IPeopleDetail {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
-  sosial_media?: SosialMedia;
+  sosial_media?: ISocialMedia;
   cast?: ICast[];
   crew?: ICast[];
 }

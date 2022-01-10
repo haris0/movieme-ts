@@ -5,7 +5,7 @@ import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
 import { baseProfileDetailURL, getDetail, getDiscover } from 'services';
-import { IFavorite, IMovieDetail } from 'types';
+import { IFavorite, IMovieDetail, ISocialMedia } from 'types';
 import styles from 'styles/MovieDetail.module.scss';
 import Banner from 'components/benner/Banner';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ import CardPeople from 'components/card/CardPeople';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
 import ModalTrailer from 'components/modal/ModalTrailer';
 import ModalCredits from 'components/modal/ModalCredits';
+import IconLink from 'components/IconLink/IconLink';
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,
@@ -95,60 +96,11 @@ const MovieDetail: NextPage<{
               />
             </div>
 
-            <div className={styles.sosmed_wrapper}>
-              {movie.sosial_media?.facebook_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://www.facebook.com/${movie.sosial_media.facebook_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/facebook.png"
-                      alt={movie.title}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {movie.sosial_media?.twitter_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://twitter.com/${movie.sosial_media.twitter_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/twitter.png"
-                      alt={movie.title}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {movie.sosial_media?.instagram_id && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={`https://www.instagram.com/${movie.sosial_media.instagram_id}`} rel="noreferrer">
-                    <Image
-                      src="/images/instagram.png"
-                      alt={movie.title}
-                      width="35"
-                      height="35"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-              {movie.homepage && (
-                <div className={styles.sosmed_logo}>
-                  <a target="_blank" href={movie.homepage} rel="noreferrer">
-                    <Image
-                      src="/images/link.png"
-                      alt={movie.title}
-                      width="38"
-                      height="38"
-                      layout="fixed"
-                    />
-                  </a>
-                </div>
-              )}
-            </div>
+            <IconLink
+              name={movie.title}
+              socialMedia={movie.sosial_media as ISocialMedia}
+              homepage={movie.homepage}
+            />
           </Col>
           <Col md={8} lg={9}>
             <h2>{movie.title} ({releaseYear})</h2>

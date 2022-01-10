@@ -4,7 +4,7 @@ import {
   Card, Col, Container, ListGroup, ListGroupItem, Row,
 } from 'react-bootstrap';
 import { baseProfileDetailURL, getDetailPeople, getPopulerPeople } from 'services';
-import { ICast, IPeopleDetail } from 'types';
+import { ICast, IPeopleDetail, ISocialMedia } from 'types';
 import Image from 'next/image';
 import styles from 'styles/PeopleDetail.module.scss';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,7 @@ import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
 import { convertDate } from 'mixin';
+import IconLink from 'components/IconLink/IconLink';
 
 const PeopleDetail: NextPage<{
   detailRes: IPeopleDetail,
@@ -108,60 +109,11 @@ const PeopleDetail: NextPage<{
               objectFit="cover"
             />
           </div>
-          <div className={styles.sosmed_wrapper}>
-            {people.sosial_media?.facebook_id && (
-              <div className={styles.sosmed_logo}>
-                <a target="_blank" href={`https://www.facebook.com/${people.sosial_media.facebook_id}`} rel="noreferrer">
-                  <Image
-                    src="/images/facebook.png"
-                    alt={people.name}
-                    width="35"
-                    height="35"
-                    layout="fixed"
-                  />
-                </a>
-              </div>
-            )}
-            {people.sosial_media?.twitter_id && (
-              <div className={styles.sosmed_logo}>
-                <a target="_blank" href={`https://twitter.com/${people.sosial_media.twitter_id}`} rel="noreferrer">
-                  <Image
-                    src="/images/twitter.png"
-                    alt={people.name}
-                    width="35"
-                    height="35"
-                    layout="fixed"
-                  />
-                </a>
-              </div>
-            )}
-            {people.sosial_media?.instagram_id && (
-              <div className={styles.sosmed_logo}>
-                <a target="_blank" href={`https://www.instagram.com/${people.sosial_media.instagram_id}`} rel="noreferrer">
-                  <Image
-                    src="/images/instagram.png"
-                    alt={people.name}
-                    width="35"
-                    height="35"
-                    layout="fixed"
-                  />
-                </a>
-              </div>
-            )}
-            {people.homepage && (
-              <div className={styles.sosmed_logo}>
-                <a target="_blank" href={people.homepage} rel="noreferrer">
-                  <Image
-                    src="/images/link.png"
-                    alt={people.name}
-                    width="38"
-                    height="38"
-                    layout="fixed"
-                  />
-                </a>
-              </div>
-            )}
-          </div>
+          <IconLink
+            name={people.name}
+            socialMedia={people.sosial_media as ISocialMedia}
+            homepage={undefined}
+          />
           <h2>{people.name}</h2>
           <br />
           <div className={styles.personal_info}>

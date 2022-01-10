@@ -1,7 +1,7 @@
 import styles from './YoutubeEmbed.module.scss';
 
 type props = {
-  embedid: number
+  embedid: string,
 };
 
 const YoutubeEmbed = ({ embedid }: props) => (

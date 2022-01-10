@@ -4,7 +4,9 @@ import { MouseEvent, useState } from 'react';
 import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
-import { baseProfileDetailURL, getDetail, getDiscover } from 'services';
+import {
+  baseImageURLOrigin, baseProfileDetailURL, getDetail, getDiscover,
+} from 'services';
 import { IFavorite, IMovieDetail, ISocialMedia } from 'types';
 import styles from 'styles/MovieDetail.module.scss';
 import Banner from 'components/benner/Banner';
@@ -75,7 +77,7 @@ const MovieDetail: NextPage<{
         <meta name="description" content={movie?.overview} />
         <meta property="og:title" content={movie.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={`${baseProfileDetailURL}${movie.backdrop_path}`} />
+        <meta property="og:image" content={`${baseImageURLOrigin}${movie.backdrop_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

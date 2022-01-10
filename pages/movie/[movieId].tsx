@@ -30,8 +30,7 @@ const MovieDetail: NextPage<{
   const releaseYear = getYear(movie.release_date);
   const duration = convertMinsToHrsMins(movie.runtime);
   const topCast = movie?.cast?.slice(0, 9);
-  const officialTrailer = movie?.videos?.find((video) => video.name === 'Official Trailer');
-  console.log(officialTrailer);
+  const officialTrailer = movie?.videos?.find((video) => video.name.includes('Official Trailer'));
   const { recommendations } = movie;
   const writers = movie?.crew?.filter((crew) => crew.department === 'Writing');
 

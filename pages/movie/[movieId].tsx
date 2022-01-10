@@ -32,10 +32,9 @@ const MovieDetail: NextPage<{
   const duration = convertMinsToHrsMins(movie.runtime);
   const topCast = movie?.cast?.slice(0, 9);
   const officialTrailer = movie?.videos?.find(
-    (video, idx) => video.name.includes('Official Trailer')
+    (video) => video.name.includes('Official Trailer')
             || video.name.includes('Official Teaser')
-            || (video.official && video.type === 'Trailer')
-            || idx === 0,
+            || (video.official && video.type === 'Trailer'),
   );
   const { recommendations } = movie;
   const writers = movie?.crew?.filter((crew) => crew.department === 'Writing' || crew.job === 'Director');

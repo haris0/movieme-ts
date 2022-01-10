@@ -1,0 +1,165 @@
+@import 'colors';
+
+.tv_container {
+  margin-top: -4.5rem;
+}
+
+.col_center {
+  text-align: -webkit-center;
+}
+
+.image_wrapper {
+  width: 90%;
+  height: 0;
+  position: relative;
+  padding-bottom: 130%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: -15rem;
+}
+
+.tv_writer {
+  margin-top: 1rem;
+}
+
+.writer_col {
+  margin-bottom: 1rem;
+}
+
+.writer_anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.writer_anchor:hover {
+  color:inherit;
+}
+
+.tv_actions {
+  display: flex;
+  margin: 1.3rem 0;
+  align-items: center;
+}
+
+.icon_vote {
+  font-size: 12px;
+  padding: 8.5px 10px;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  font-weight: bold;
+  color: $text-dark;
+  background-color: $primary-bg;
+  margin-right: 1.5rem;
+}
+
+.icon_bookmark {
+  width: 35px;
+  height: 35px;
+  background-color: $primary-bg;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.icon_play {
+  width: fit-content;
+  padding: 0px 13px;
+  height: 35px;
+  background-color: $primary-bg;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.button_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.trailer_text {
+  margin-left: 0.5rem;
+  font-size: 14px;
+  color: #fff;
+}
+
+.subtitle_separator {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0 0.7rem;
+}
+
+.tagline {
+  margin: 0.7rem 0;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.sosmed_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sosmed_logo {
+  margin: 1rem;
+}
+
+.personal_info {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.sub_info {
+  margin-top: 1.5rem
+}
+
+.badge_keywords {
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.recom_title {
+  margin-top: 1.5rem;
+}
+
+.full_cast_crew {
+  margin: 2.2rem 0;
+}
+
+.scroll_container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.showmore_container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding: 0;
+  margin: 0 0.8rem;
+}
+
+.showmore_button {
+  color: $primary-color;
+  display: -moz-box;
+  display: flex;
+  -moz-box-pack: center;
+  justify-content: center;
+  -moz-box-align: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.showmore_text {
+  width: 10rem;
+}

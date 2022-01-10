@@ -18,6 +18,7 @@ import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/Fav
 import ModalTrailer from 'components/modal/ModalTrailer';
 import ModalCredits from 'components/modal/ModalCredits';
 import IconLink from 'components/IconLink/IconLink';
+import Head from 'next/head';
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,
@@ -69,6 +70,11 @@ const MovieDetail: NextPage<{
 
   return (
     <div>
+      <Head>
+        <title>{movie.title}</title>
+        <meta name="description" content={movie?.overview} />
+        <meta name="image" content={movie?.poster_path} />
+      </Head>
       <ModalTrailer
         show={playTrailer}
         onHide={() => setPlayTrailer(false)}

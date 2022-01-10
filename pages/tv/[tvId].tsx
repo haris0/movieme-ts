@@ -10,7 +10,9 @@ import { useState, MouseEvent } from 'react';
 import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
-import { baseProfileDetailURL, getDetail, getDiscover } from 'services';
+import {
+  baseImageURLOrigin, baseProfileDetailURL, getDetail, getDiscover,
+} from 'services';
 import { IFavorite, ISocialMedia, ITvDetail } from 'types';
 import styles from 'styles/TvDetail.module.scss';
 import CardPeople from 'components/card/CardPeople';
@@ -18,6 +20,7 @@ import CardMovie from 'components/card/CardMovie';
 import ModalTrailer from 'components/modal/ModalTrailer';
 import ModalCredits from 'components/modal/ModalCredits';
 import IconLink from 'components/IconLink/IconLink';
+import Head from 'next/head';
 
 const TvDetail: NextPage<{
   detailRes: ITvDetail,
@@ -69,6 +72,13 @@ const TvDetail: NextPage<{
 
   return (
     <div>
+      <Head>
+        <title>{tv.name} - Movieme</title>
+        <meta name="description" content={tv.overview} />
+        <meta property="og:title" content={tv.name} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={`${baseImageURLOrigin}${tv.backdrop_path}`} />
+      </Head>
       <ModalTrailer
         show={playTrailer}
         onHide={() => setPlayTrailer(false)}

@@ -13,6 +13,7 @@ import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
 import { convertDate } from 'mixin';
 import IconLink from 'components/IconLink/IconLink';
+import Head from 'next/head';
 
 const PeopleDetail: NextPage<{
   detailRes: IPeopleDetail,
@@ -96,171 +97,179 @@ const PeopleDetail: NextPage<{
   }, [detailRes]);
 
   return (
-    <Container className="container-custom">
-      <Row>
-        <Col sm={6} md={4} lg={3} className={styles.col_center}>
-          <div className={styles.image_wrapper}>
-            <Image
-              src={people.profile_path ? `${baseProfileDetailURL}${people.profile_path}` : '/images/thumbnail.png'}
-              placeholder="blur"
-              blurDataURL={`${baseProfileDetailURL}${people.profile_path}`}
-              alt={people.name}
-              layout="fill"
-              objectFit="cover"
+    <>
+      <Head>
+        <title>{people.name} - Movieme</title>
+        <meta property="og:title" content={people.name} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={`${baseProfileDetailURL}${people.profile_path}`} />
+      </Head>
+      <Container className="container-custom">
+        <Row>
+          <Col sm={6} md={4} lg={3} className={styles.col_center}>
+            <div className={styles.image_wrapper}>
+              <Image
+                src={people.profile_path ? `${baseProfileDetailURL}${people.profile_path}` : '/images/thumbnail.png'}
+                placeholder="blur"
+                blurDataURL={`${baseProfileDetailURL}${people.profile_path}`}
+                alt={people.name}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+            <IconLink
+              name={people.name}
+              socialMedia={people.sosial_media as ISocialMedia}
+              homepage={undefined}
             />
-          </div>
-          <IconLink
-            name={people.name}
-            socialMedia={people.sosial_media as ISocialMedia}
-            homepage={undefined}
-          />
-          <h2>{people.name}</h2>
-          <br />
-          <div className={styles.personal_info}>
-            <h5>Personal Info</h5>
-            <div className={styles.sub_info}>
-              <h6>Know For</h6>
-              <div>{people.known_for_department}</div>
-            </div>
-            <div className={styles.sub_info}>
-              <h6>Known Credits</h6>
-              <div>{creditCount}</div>
-            </div>
-            <div className={styles.sub_info}>
-              <h6>Gender</h6>
-              <div>
-                {!people.gender && 'Unknown'}
-                {people.gender === 1 && 'Female'}
-                {people.gender === 2 && 'Male'}
+            <h2>{people.name}</h2>
+            <br />
+            <div className={styles.personal_info}>
+              <h5>Personal Info</h5>
+              <div className={styles.sub_info}>
+                <h6>Know For</h6>
+                <div>{people.known_for_department}</div>
+              </div>
+              <div className={styles.sub_info}>
+                <h6>Known Credits</h6>
+                <div>{creditCount}</div>
+              </div>
+              <div className={styles.sub_info}>
+                <h6>Gender</h6>
+                <div>
+                  {!people.gender && 'Unknown'}
+                  {people.gender === 1 && 'Female'}
+                  {people.gender === 2 && 'Male'}
+                </div>
+              </div>
+              <div className={styles.sub_info}>
+                <h6>Birthday</h6>
+                <div>
+                  {people.birthday ? convertDate(people.birthday) : '-'}
+                </div>
+              </div>
+              <div className={styles.sub_info}>
+                <h6>Place of Birth</h6>
+                <div>
+                  {people.place_of_birth || '-'}
+                </div>
+              </div>
+              <div className={styles.sub_info}>
+                <h6>Also Known As</h6>
+                <div className={styles.bio_paragraph}>
+                  {!people.also_known_as.length && '-'}
+                  {!!people.also_known_as.length && (
+                    <div>
+                      {people.also_known_as.map((known) => (
+                        <div key={known}>{known}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            <div className={styles.sub_info}>
-              <h6>Birthday</h6>
-              <div>
-                {people.birthday ? convertDate(people.birthday) : '-'}
+          </Col>
+          <Col sm={6} md={8} lg={9}>
+            <div>
+              <h5>Biography</h5>
+              <div className={`${styles.bio_wrapper} ${styles[clamped]}`}>
+                <p
+                  id="biography"
+                  className={styles.bio_paragraph}
+                >
+                  {!!people.biography && (
+                    people.biography
+                  )}
+                  {!people.biography && (
+                    `We don't have a biography for ${people.name}`
+                  )}
+                </p>
               </div>
-            </div>
-            <div className={styles.sub_info}>
-              <h6>Place of Birth</h6>
               <div>
-                {people.place_of_birth || '-'}
-              </div>
-            </div>
-            <div className={styles.sub_info}>
-              <h6>Also Known As</h6>
-              <div className={styles.bio_paragraph}>
-                {!people.also_known_as.length && '-'}
-                {!!people.also_known_as.length && (
+                {bioLine > 3 && (
                   <div>
-                    {people.also_known_as.map((known) => (
-                      <div key={known}>{known}</div>
-                    ))}
+                    {clamped === 'clamped' && (
+                      <button type="button" className={styles.show} onClick={handleShowBio}>
+                        Show More
+                      </button>
+                    )}
+                    {!(clamped === 'clamped') && (
+                      <button type="button" className={styles.show} onClick={handleShowBio}>
+                        Show Less
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
-            </div>
-          </div>
-        </Col>
-        <Col sm={6} md={8} lg={9}>
-          <div>
-            <h5>Biography</h5>
-            <div className={`${styles.bio_wrapper} ${styles[clamped]}`}>
-              <p
-                id="biography"
-                className={styles.bio_paragraph}
-              >
-                {!!people.biography && (
-                  people.biography
-                )}
-                {!people.biography && (
-                  `We don't have a biography for ${people.name}`
-                )}
-              </p>
-            </div>
-            <div>
-              {bioLine > 3 && (
-                <div>
-                  {clamped === 'clamped' && (
-                    <button type="button" className={styles.show} onClick={handleShowBio}>
-                      Show More
-                    </button>
-                  )}
-                  {!(clamped === 'clamped') && (
-                    <button type="button" className={styles.show} onClick={handleShowBio}>
-                      Show Less
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-            <div>
-              <h5 className={styles.sub_title}>Known For:</h5>
-              {!!knownFor?.length && (
-                <div className={styles.scroll_container}>
-                  {knownFor.map((cast) => (
-                    <Link href={`/${cast.media_type}/${cast.id}`} passHref key={cast.id}>
-                      <div className={styles.skin_option}>
-                        <CardMovie
-                          id={cast.id}
-                          href={`/${cast.media_type}/${cast.id}`}
-                          posterPath={cast.poster_path as string}
-                          voteAverage={cast.vote_average}
-                          title={cast.title || cast.name}
-                          releaseDate={(cast.release_date || cast.first_air_date) as Date}
-                          theme={theme}
-                        />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <h5 className={styles.sub_title}>{people.known_for_department}</h5>
-              <Card className={`${styles[`card_${theme}`]}`}>
-                <ListGroup className="list-group-flush">
-                  {creditsByYear.map((credits) => (
-                    <ListGroupItem
-                      key={credits?.group}
-                      className={`${styles[`card_${theme}`]} ${styles.credits_group}`}
-                    >
-                      {credits.credits.map((credit) => (
-                        <div key={credit.id} className={styles.credits_item}>
-                          <div>
-                            <span className={styles.credit_year}>
-                              {credit.release_year || '—'}
-                            </span>
-                          </div>
-                          <div>
-                            <span className={styles.credit_separator}> ■ </span>
-                          </div>
-                          <Link href={`/${credit.media_type}/${credit.id}`}>
-                            <a
-                              href={`/${credit.media_type}/${credit.id}`}
-                              className={styles.credit_anchor}
-                            >
-                              <div className={styles.credit_title}>
-                                <span>
-                                  <b>{credit.title || credit.name}</b>
-                                </span>
-                                {(credit.character || credit.job) && (
-                                  <span>
-                                    <span className={styles.credit_as}>as</span>
-                                    {credit.character || credit.job}
-                                  </span>
-                                )}
-                              </div>
-                            </a>
-                          </Link>
+              <div>
+                <h5 className={styles.sub_title}>Known For:</h5>
+                {!!knownFor?.length && (
+                  <div className={styles.scroll_container}>
+                    {knownFor.map((cast) => (
+                      <Link href={`/${cast.media_type}/${cast.id}`} passHref key={cast.id}>
+                        <div className={styles.skin_option}>
+                          <CardMovie
+                            id={cast.id}
+                            href={`/${cast.media_type}/${cast.id}`}
+                            posterPath={cast.poster_path as string}
+                            voteAverage={cast.vote_average}
+                            title={cast.title || cast.name}
+                            releaseDate={(cast.release_date || cast.first_air_date) as Date}
+                            theme={theme}
+                          />
                         </div>
-                      ))}
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
-              </Card>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                <h5 className={styles.sub_title}>{people.known_for_department}</h5>
+                <Card className={`${styles[`card_${theme}`]}`}>
+                  <ListGroup className="list-group-flush">
+                    {creditsByYear.map((credits) => (
+                      <ListGroupItem
+                        key={credits?.group}
+                        className={`${styles[`card_${theme}`]} ${styles.credits_group}`}
+                      >
+                        {credits.credits.map((credit) => (
+                          <div key={credit.id} className={styles.credits_item}>
+                            <div>
+                              <span className={styles.credit_year}>
+                                {credit.release_year || '—'}
+                              </span>
+                            </div>
+                            <div>
+                              <span className={styles.credit_separator}> ■ </span>
+                            </div>
+                            <Link href={`/${credit.media_type}/${credit.id}`}>
+                              <a
+                                href={`/${credit.media_type}/${credit.id}`}
+                                className={styles.credit_anchor}
+                              >
+                                <div className={styles.credit_title}>
+                                  <span>
+                                    <b>{credit.title || credit.name}</b>
+                                  </span>
+                                  {(credit.character || credit.job) && (
+                                    <span>
+                                      <span className={styles.credit_as}>as</span>
+                                      {credit.character || credit.job}
+                                    </span>
+                                  )}
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
+                        ))}
+                      </ListGroupItem>
+                    ))}
+                  </ListGroup>
+                </Card>
+              </div>
             </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

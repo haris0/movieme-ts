@@ -73,7 +73,7 @@ const MovieDetail: NextPage<{
   return (
     <div>
       <Head>
-        <title>Movieme - {movie.title}</title>
+        <title>{movie.title} - Movieme</title>
         <meta name="description" content={movie?.overview} />
         <meta property="og:title" content={movie.title} />
         <meta property="og:type" content="article" />

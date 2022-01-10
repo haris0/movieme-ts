@@ -30,7 +30,12 @@ const MovieDetail: NextPage<{
   const releaseYear = getYear(movie.release_date);
   const duration = convertMinsToHrsMins(movie.runtime);
   const topCast = movie?.cast?.slice(0, 9);
-  const officialTrailer = movie?.videos?.find((video) => video.name.includes('Official Trailer'));
+  const officialTrailer = movie?.videos?.find(
+    (video, idx) => video.name.includes('Official Trailer')
+            || video.name.includes('Official Teaser')
+            || (video.official && video.type === 'Trailer')
+            || idx === 0,
+  );
   const { recommendations } = movie;
   const writers = movie?.crew?.filter((crew) => crew.department === 'Writing');
 
@@ -230,24 +235,26 @@ const MovieDetail: NextPage<{
                   </button>
                 )}
               </div>
-              <div className={styles.icon_play}>
-                <button
-                  type="button"
-                  className={styles.button_icon}
-                  onClick={() => setPlayTrailer(true)}
-                >
-                  <Image
-                    src="/images/play.png"
-                    alt="favorite"
-                    layout="fixed"
-                    width="19"
-                    height="19"
-                  />
-                  <span className={styles.trailer_text}>
-                    <b>Play Trailer</b>
-                  </span>
-                </button>
-              </div>
+              {!!movie?.videos?.length && (
+                <div className={styles.icon_play}>
+                  <button
+                    type="button"
+                    className={styles.button_icon}
+                    onClick={() => setPlayTrailer(true)}
+                  >
+                    <Image
+                      src="/images/play.png"
+                      alt="favorite"
+                      layout="fixed"
+                      width="19"
+                      height="19"
+                    />
+                    <span className={styles.trailer_text}>
+                      <b>Play Trailer</b>
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
           </Col>
         </Row>

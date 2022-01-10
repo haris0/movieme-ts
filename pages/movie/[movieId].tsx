@@ -38,7 +38,7 @@ const MovieDetail: NextPage<{
             || idx === 0,
   );
   const { recommendations } = movie;
-  const writers = movie?.crew?.filter((crew) => crew.department === 'Writing');
+  const writers = movie?.crew?.filter((crew) => crew.department === 'Writing' || crew.job === 'Director');
 
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();

@@ -16,6 +16,7 @@ import { useTheme } from 'context/ThemeContext';
 import CardPeople from 'components/card/CardPeople';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
 import ModalTrailer from 'components/modal/ModalTrailer';
+import ModalCredits from 'components/modal/ModalCredits';
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,
@@ -43,6 +44,7 @@ const MovieDetail: NextPage<{
   const removeFavorite = useRemoveFavorite();
 
   const [playTrailer, setPlayTrailer] = useState(false);
+  const [showAllCredits, setShowAllCredits] = useState(false);
 
   const handleFavorite = (
     event: MouseEvent<HTMLButtonElement>,
@@ -70,8 +72,13 @@ const MovieDetail: NextPage<{
       <ModalTrailer
         show={playTrailer}
         onHide={() => setPlayTrailer(false)}
-        title={movie.title}
         embedid={officialTrailer?.key}
+      />
+      <ModalCredits
+        show={showAllCredits}
+        onHide={() => setShowAllCredits(false)}
+        cast={movie?.cast}
+        crew={movie?.crew}
       />
       <Banner backdropPath={movie.backdrop_path} />
       <Container className={`${'container-custom'} ${styles.movie_container}`}>
@@ -319,7 +326,11 @@ const MovieDetail: NextPage<{
                       ))}
                       <div className={styles.showmore_container}>
                         <div className={styles.showmore_text}>
-                          <button type="button" className={styles.showmore_button}>
+                          <button
+                            type="button"
+                            className={styles.showmore_button}
+                            onClick={() => setShowAllCredits(true)}
+                          >
                             <b>All Cast & Crew →</b>
                           </button>
                         </div>

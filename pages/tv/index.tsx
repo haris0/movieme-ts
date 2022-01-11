@@ -92,7 +92,16 @@ const Tv: NextPage<{
     <>
       <Head>
         <title>Discover Tv Show - Movieme</title>
+        <meta name="title" content="Discover Tv Show - Movieme" />
         <meta name="description" content="Discover all amazing tv show here" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Discover Tv Show - Movieme" />
+        <meta property="og:description" content="Discover all amazing tv show here" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Discover Tv Show - Movieme" />
+        <meta property="twitter:description" content="Discover all amazing tv show here" />
       </Head>
       <Container className="container-custom">
         <h3>Discover Tv Show</h3>

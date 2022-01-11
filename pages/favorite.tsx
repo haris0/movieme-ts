@@ -37,7 +37,16 @@ const Favorite: NextPage = () => {
     <>
       <Head>
         <title>Favorite - Movieme</title>
+        <meta name="title" content="Favorite - Movieme" />
         <meta name="description" content="Save your favorite Movie or Tv show here" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Favorite - Movieme" />
+        <meta property="og:description" content="Save your favorite Movie or Tv show here" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Favorite - Movieme" />
+        <meta property="twitter:description" content="Save your favorite Movie or Tv show here" />
       </Head>
       <Container className="container-custom">
         <h3>Favorite</h3>

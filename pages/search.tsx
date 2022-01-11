@@ -119,7 +119,16 @@ const Search: NextPage<{
     <>
       <Head>
         <title>Search - Movieme</title>
+        <meta name="title" content="Search - Movieme" />
         <meta name="description" content="Search for a movie, tv show, person" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Search - Movieme" />
+        <meta property="og:description" content="Search for a movie, tv show, person" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Search - Movieme" />
+        <meta property="twitter:description" content="Search for a movie, tv show, person" />
       </Head>
       <Container className="container-custom">
         <SearchBar

@@ -59,7 +59,16 @@ const People: NextPage<{
     <>
       <Head>
         <title>Popular People - Movieme</title>
+        <meta name="title" content="Popular People - Movieme" />
         <meta name="description" content="Find all amazing people from movie and tv shows here" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Popular People - Movieme" />
+        <meta property="og:description" content="Find all amazing people from movie and tv shows here" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Popular People - Movieme" />
+        <meta property="twitter:description" content="Find all amazing people from movie and tv shows here" />
       </Head>
       <Container className="container-custom">
         <h3>Populer People</h3>

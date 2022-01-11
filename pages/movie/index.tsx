@@ -96,7 +96,16 @@ const Movie: NextPage<{
     <>
       <Head>
         <title>Discover Movie - Movieme</title>
+        <meta name="title" content="Discover Movie - Movieme" />
         <meta name="description" content="Discover all amazing movie here" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Discover Movie - Movieme" />
+        <meta property="og:description" content="Discover all amazing movie here" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Discover Movie - Movieme" />
+        <meta property="twitter:description" content="Discover all amazing movie here" />
       </Head>
       <Container className="container-custom">
         <h3>Discover Movie</h3>

@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     <ThemeController>
       <Head>
         <title>MovieMe</title>
-        {/* <meta name="title" content="MovieMe" /> */}
+        <meta name="title" content="MovieMe" />
         <meta name="description" content="Discover your amazing movies" />
 
         {/* <meta property="og:type" content="website" />

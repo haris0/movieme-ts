@@ -100,10 +100,19 @@ const PeopleDetail: NextPage<{
     <>
       <Head>
         <title>{people?.name} - Movieme</title>
+        <meta name="title" content={`${people?.name} - Movieme`} />
         <meta name="description" content={people?.biography} />
-        <meta property="og:title" content={people?.name} />
-        <meta property="og:type" content="article" />
+        <meta name="image" content={`${baseProfileDetailURL}${people?.profile_path}`} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${people?.name} - Movieme`} />
+        <meta property="og:description" content={people?.biography} />
         <meta property="og:image" content={`${baseProfileDetailURL}${people?.profile_path}`} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={`${people?.name} - Movieme`} />
+        <meta property="twitter:description" content={people?.biography} />
+        <meta property="twitter:image" content={`${baseProfileDetailURL}${people?.profile_path}`} />
       </Head>
       <Container className="container-custom">
         <Row>

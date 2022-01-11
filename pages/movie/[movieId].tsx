@@ -74,10 +74,19 @@ const MovieDetail: NextPage<{
     <div>
       <Head>
         <title>{movie?.title} - Movieme</title>
+        <meta name="title" content={`${movie?.title} - Movieme`} />
         <meta name="description" content={movie?.overview} />
-        <meta property="og:title" content={movie?.title} />
-        <meta property="og:type" content="article" />
+        <meta name="image" content={`${baseBackURL}${movie?.backdrop_path}`} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${movie?.title} - Movieme`} />
+        <meta property="og:description" content={movie?.overview} />
         <meta property="og:image" content={`${baseBackURL}${movie?.backdrop_path}`} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={`${movie?.title} - Movieme`} />
+        <meta property="twitter:description" content={movie?.overview} />
+        <meta property="twitter:image" content={`${baseBackURL}${movie?.backdrop_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

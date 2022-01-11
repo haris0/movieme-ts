@@ -74,11 +74,21 @@ const TvDetail: NextPage<{
     <div>
       <Head>
         <title>{tv?.name} - Movieme</title>
+        <meta name="title" content={`${tv?.name} - Movieme`} />
         <meta name="description" content={tv?.overview} />
-        <meta property="og:title" content={tv?.name} />
-        <meta property="og:type" content="article" />
+        <meta name="image" content={`${baseBackURL}${tv?.backdrop_path}`} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${tv?.name} - Movieme`} />
+        <meta property="og:description" content={tv?.overview} />
         <meta property="og:image" content={`${baseBackURL}${tv?.backdrop_path}`} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={`${tv?.name} - Movieme`} />
+        <meta property="twitter:description" content={tv?.overview} />
+        <meta property="twitter:image" content={`${baseBackURL}${tv?.backdrop_path}`} />
       </Head>
+
       <ModalTrailer
         show={playTrailer}
         onHide={() => setPlayTrailer(false)}

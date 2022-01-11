@@ -28,14 +28,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         <title>MovieMe</title>
         <meta name="title" content="MovieMe" />
         <meta name="description" content="Discover your amazing movies" />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="MovieMe" />
-        <meta property="og:description" content="Discover your amazing movies" />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="MovieMe" />
-        <meta property="twitter:description" content="Discover your amazing movies" />
       </Head>
       <NavigationBar />
       <Component {...pageProps} />

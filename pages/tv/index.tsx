@@ -118,7 +118,7 @@ const Tv: NextPage<{
             />
           </Col>
           <Col lg={9} className={styles.col_right_margin}>
-            {/* <Row className={styles.row_custom}>
+            <Row className={styles.row_custom}>
               {discoverTv.map((tv) => (
                 <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
                   <Col xs={6} sm="auto" className={styles.center_content}>
@@ -138,7 +138,7 @@ const Tv: NextPage<{
                 loadingMore={loadingMore}
                 handleLoadMore={() => handleLoadMore()}
               />
-            </Row> */}
+            </Row>
           </Col>
         </Row>
       </Container>

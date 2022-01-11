@@ -11,13 +11,15 @@ import {
 } from 'types';
 import { Container } from 'react-bootstrap';
 import { useTheme } from 'context/ThemeContext';
-import CardMovie from 'components/card/CardMovie';
-import CardPeople from 'components/card/CardPeople';
-import Banner from 'components/benner/Banner';
-import SearchBar from 'components/search/Search';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.scss';
+
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardPeople = dynamic(() => import('components/card/CardPeople'));
+const Banner = dynamic(() => import('components/benner/Banner'));
+const SearchBar = dynamic(() => import('components/search/Search'));
 
 const Home: NextPage<{
   inTheatresRes: IMovieListRes,

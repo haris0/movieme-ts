@@ -85,14 +85,14 @@ const Movie: NextPage<{
     setLoadingMore(false);
   };
 
-  useEffect(() => {
-    setDiscoverMovie(discoverResult);
-  }, [discoverResult]);
+  // useEffect(() => {
+  //   setDiscoverMovie(discoverResult);
+  // }, [discoverResult]);
 
-  useEffect(() => {
-    setSelectedGenre(genre as string || '');
-    setLoadedPage(+(loaded as string) || 1);
-  }, [genre, loaded]);
+  // useEffect(() => {
+  //   setSelectedGenre(genre as string || '');
+  //   setLoadedPage(+(loaded as string) || 1);
+  // }, [genre, loaded]);
 
   return (
     <>

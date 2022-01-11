@@ -53,9 +53,9 @@ const People: NextPage<{
     setLoadingMore(false);
   };
 
-  useEffect(() => {
-    setLoadedPage(+(loaded as string) || 1);
-  }, [loaded]);
+  // useEffect(() => {
+  //   setLoadedPage(+(loaded as string) || 1);
+  // }, [loaded]);
 
   return (
     <>

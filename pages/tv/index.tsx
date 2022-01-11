@@ -81,14 +81,14 @@ const Tv: NextPage<{
     setLoadingMore(false);
   };
 
-  useEffect(() => {
-    setDiscoverTv(discoverResult);
-  }, [discoverResult]);
+  // useEffect(() => {
+  //   setDiscoverTv(discoverResult);
+  // }, [discoverResult]);
 
-  useEffect(() => {
-    setSelectedGenre(genre as string || '');
-    setLoadedPage(+(loaded as string) || 1);
-  }, [genre, loaded]);
+  // useEffect(() => {
+  //   setSelectedGenre(genre as string || '');
+  //   setLoadedPage(+(loaded as string) || 1);
+  // }, [genre, loaded]);
 
   return (
     <>

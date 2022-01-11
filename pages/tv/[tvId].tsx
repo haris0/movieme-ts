@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import Banner from 'components/benner/Banner';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
 import { useTheme } from 'context/ThemeContext';
 import { convertDate, convertMinsToHrsMins, getYear } from 'mixin';
@@ -15,12 +14,15 @@ import {
 } from 'services';
 import { IFavorite, ISocialMedia, ITvDetail } from 'types';
 import styles from 'styles/TvDetail.module.scss';
-import CardPeople from 'components/card/CardPeople';
-import CardMovie from 'components/card/CardMovie';
-import ModalTrailer from 'components/modal/ModalTrailer';
-import ModalCredits from 'components/modal/ModalCredits';
-import IconLink from 'components/IconLink/IconLink';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const Banner = dynamic(() => import('components/benner/Banner'));
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardPeople = dynamic(() => import('components/card/CardPeople'));
+const ModalTrailer = dynamic(() => import('components/modal/ModalTrailer'));
+const ModalCredits = dynamic(() => import('components/modal/ModalCredits'));
+const IconLink = dynamic(() => import('components/IconLink/IconLink'));
 
 const TvDetail: NextPage<{
   detailRes: ITvDetail,

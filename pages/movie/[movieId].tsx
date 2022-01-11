@@ -9,18 +9,20 @@ import {
 } from 'services';
 import { IFavorite, IMovieDetail, ISocialMedia } from 'types';
 import styles from 'styles/MovieDetail.module.scss';
-import Banner from 'components/benner/Banner';
 import Image from 'next/image';
 import { convertDate, convertMinsToHrsMins, getYear } from 'mixin';
 import Link from 'next/link';
-import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
-import CardPeople from 'components/card/CardPeople';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
-import ModalTrailer from 'components/modal/ModalTrailer';
-import ModalCredits from 'components/modal/ModalCredits';
-import IconLink from 'components/IconLink/IconLink';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const Banner = dynamic(() => import('components/benner/Banner'));
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardPeople = dynamic(() => import('components/card/CardPeople'));
+const ModalTrailer = dynamic(() => import('components/modal/ModalTrailer'));
+const ModalCredits = dynamic(() => import('components/modal/ModalCredits'));
+const IconLink = dynamic(() => import('components/IconLink/IconLink'));
 
 const MovieDetail: NextPage<{
   detailRes: IMovieDetail,

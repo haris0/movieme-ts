@@ -9,12 +9,14 @@ import {
 import { getDiscover, getGenreList } from 'services';
 import { IGenreListRes, ITv } from 'types';
 import styles from 'styles/Tv.module.scss';
-import CardSelect from 'components/card/CardSelect';
 import Link from 'next/link';
-import CardMovie from 'components/card/CardMovie';
-import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardSelect = dynamic(() => import('components/card/CardSelect'));
+const ButtonLoadMore = dynamic(() => import('components/button/ButtonLoadMore'));
 
 const Tv: NextPage<{
   discoverResult: ITv[]

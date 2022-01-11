@@ -9,11 +9,13 @@ import Image from 'next/image';
 import styles from 'styles/PeopleDetail.module.scss';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
 import { convertDate } from 'mixin';
-import IconLink from 'components/IconLink/IconLink';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const IconLink = dynamic(() => import('components/IconLink/IconLink'));
 
 const PeopleDetail: NextPage<{
   detailRes: IPeopleDetail,

@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import CardPeople from 'components/card/CardPeople';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -11,9 +10,12 @@ import { IPeople } from 'types';
 import styles from 'styles/People.module.scss';
 import { useRouter } from 'next/router';
 import { useTheme } from 'context/ThemeContext';
-import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const CardPeople = dynamic(() => import('components/card/CardPeople'));
+const ButtonLoadMore = dynamic(() => import('components/button/ButtonLoadMore'));
 
 const People: NextPage<{
   peopleResult: IPeople[],

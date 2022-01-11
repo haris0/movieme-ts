@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import CardMovie from 'components/card/CardMovie';
 import { useTheme } from 'context/ThemeContext';
 import { GetServerSideProps, NextPage } from 'next';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -13,12 +12,15 @@ import {
   IGenreListRes, IMovie,
 } from 'types';
 import Link from 'next/link';
-import CardSelect from 'components/card/CardSelect';
 import { useRouter } from 'next/router';
 import styles from 'styles/Movie.module.scss';
-import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardSelect = dynamic(() => import('components/card/CardSelect'));
+const ButtonLoadMore = dynamic(() => import('components/button/ButtonLoadMore'));
 
 const Movie: NextPage<{
   discoverResult: IMovie[]

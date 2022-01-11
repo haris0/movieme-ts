@@ -1,14 +1,16 @@
-import CardMovie from 'components/card/CardMovie';
-import CardSelect from 'components/card/CardSelect';
 import { useFavoritesMovie, useFavoritesTv } from 'context/FavoriteContext';
 import { useTheme } from 'context/ThemeContext';
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import styles from 'styles/Favorite.module.scss';
+
+const CardMovie = dynamic(() => import('components/card/CardMovie'));
+const CardSelect = dynamic(() => import('components/card/CardSelect'));
 
 const Favorite: NextPage = () => {
   const router = useRouter();

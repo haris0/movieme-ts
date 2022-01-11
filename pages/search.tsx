@@ -1,10 +1,7 @@
-import CardGenre from 'components/card/CardGenre';
-import CardSearch from 'components/card/CardSearch';
-import CardSelect from 'components/card/CardSelect';
-import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
 import { useDebouncedEffect } from 'mixin';
 import { GetStaticProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -25,6 +22,11 @@ import {
   IPeople,
   ITv,
 } from 'types';
+
+const CardGenre = dynamic(() => import('components/card/CardGenre'));
+const CardSearch = dynamic(() => import('components/card/CardSearch'));
+const CardSelect = dynamic(() => import('components/card/CardSelect'));
+const SearchBar = dynamic(() => import('components/search/Search'));
 
 const Search: NextPage<{
   genreRes: IGenreListRes,

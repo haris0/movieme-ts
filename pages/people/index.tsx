@@ -53,9 +53,9 @@ const People: NextPage<{
     setLoadingMore(false);
   };
 
-  // useEffect(() => {
-  //   setLoadedPage(+(loaded as string) || 1);
-  // }, [loaded]);
+  useEffect(() => {
+    setLoadedPage(+(loaded as string) || 1);
+  }, [loaded]);
 
   return (
     <>
@@ -74,7 +74,7 @@ const People: NextPage<{
       </Head>
       <Container className="container-custom">
         <h3>Populer People</h3>
-        <Row className={styles.row_custom}>
+        {/* <Row className={styles.row_custom}>
           {populerPeople.map((people) => (
             <Link href={`/people/${people.id}`} passHref key={people.id}>
               <Col xs={6} sm="auto" xl={2} className={styles.center_content}>
@@ -94,7 +94,7 @@ const People: NextPage<{
             loadingMore={loadingMore}
             handleLoadMore={() => handleLoadMore()}
           />
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

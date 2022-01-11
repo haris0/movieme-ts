@@ -85,14 +85,14 @@ const Movie: NextPage<{
     setLoadingMore(false);
   };
 
-  // useEffect(() => {
-  //   setDiscoverMovie(discoverResult);
-  // }, [discoverResult]);
+  useEffect(() => {
+    setDiscoverMovie(discoverResult);
+  }, [discoverResult]);
 
-  // useEffect(() => {
-  //   setSelectedGenre(genre as string || '');
-  //   setLoadedPage(+(loaded as string) || 1);
-  // }, [genre, loaded]);
+  useEffect(() => {
+    setSelectedGenre(genre as string || '');
+    setLoadedPage(+(loaded as string) || 1);
+  }, [genre, loaded]);
 
   return (
     <>
@@ -122,7 +122,7 @@ const Movie: NextPage<{
             />
           </Col>
           <Col lg={9} className={styles.col_right_margin}>
-            <Row className={styles.row_custom}>
+            {/* <Row className={styles.row_custom}>
               {discoverMovie.map((movie) => (
                 <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
                   <Col xs={6} sm="auto" className={styles.center_content}>
@@ -142,7 +142,7 @@ const Movie: NextPage<{
                 loadingMore={loadingMore}
                 handleLoadMore={() => handleLoadMore()}
               />
-            </Row>
+            </Row> */}
           </Col>
         </Row>
       </Container>

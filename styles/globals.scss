@@ -35,7 +35,14 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
   width: 7px;
+}
+
+::-webkit-scrollbar:horizontal {
   height: 3px;
 }
 

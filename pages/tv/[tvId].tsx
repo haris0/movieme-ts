@@ -312,11 +312,11 @@ const TvDetail: NextPage<{
         {!!recommendations?.length && (
           <div className={styles.scroll_container}>
             {recommendations?.map((recom) => (
-              <Link href={`/movie/${recom.id}`} passHref key={recom.id}>
+              <Link href={`/tv/${recom.id}`} passHref key={recom.id}>
                 <div className={styles.skin_option}>
                   <CardMovie
                     id={recom.id}
-                    href={`/movie/${recom.id}`}
+                    href={`/tv/${recom.id}`}
                     posterPath={recom?.poster_path as string}
                     voteAverage={recom?.vote_average}
                     title={recom.name}

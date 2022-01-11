@@ -14,6 +14,7 @@ import Link from 'next/link';
 import CardMovie from 'components/card/CardMovie';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
+import Head from 'next/head';
 
 const Tv: NextPage<{
   discoverResult: ITv[]
@@ -88,43 +89,49 @@ const Tv: NextPage<{
   }, [genre, loaded]);
 
   return (
-    <Container className="container-custom">
-      <h3>Discover Tv Show</h3>
-      <Row className={styles.row_margin}>
-        <Col lg={3} className={styles.col_left_margin}>
-          <CardSelect
-            theme={theme}
-            title="Genre"
-            options={genreRes.genres.map((gen) => gen.name)}
-            selected={selectedGenre}
-            onChange={handleGenreChange}
-          />
-        </Col>
-        <Col lg={9} className={styles.col_right_margin}>
-          <Row className={styles.row_custom}>
-            {discoverTv.map((tv) => (
-              <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
-                <Col xs={6} sm="auto" className={styles.center_content}>
-                  <CardMovie
-                    id={tv.id}
-                    href={`/tv/${tv.id}`}
-                    posterPath={tv.poster_path}
-                    voteAverage={tv.vote_average}
-                    title={tv.name}
-                    releaseDate={tv.first_air_date}
-                    theme={theme}
-                  />
-                </Col>
-              </Link>
-            ))}
-            <ButtonLoadMore
-              loadingMore={loadingMore}
-              handleLoadMore={() => handleLoadMore()}
+    <>
+      <Head>
+        <title>Discover Tv Show - Movieme</title>
+        <meta name="description" content="Discover all amazing tv show here" />
+      </Head>
+      <Container className="container-custom">
+        <h3>Discover Tv Show</h3>
+        <Row className={styles.row_margin}>
+          <Col lg={3} className={styles.col_left_margin}>
+            <CardSelect
+              theme={theme}
+              title="Genre"
+              options={genreRes.genres.map((gen) => gen.name)}
+              selected={selectedGenre}
+              onChange={handleGenreChange}
             />
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+          <Col lg={9} className={styles.col_right_margin}>
+            <Row className={styles.row_custom}>
+              {discoverTv.map((tv) => (
+                <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
+                  <Col xs={6} sm="auto" className={styles.center_content}>
+                    <CardMovie
+                      id={tv.id}
+                      href={`/tv/${tv.id}`}
+                      posterPath={tv.poster_path}
+                      voteAverage={tv.vote_average}
+                      title={tv.name}
+                      releaseDate={tv.first_air_date}
+                      theme={theme}
+                    />
+                  </Col>
+                </Link>
+              ))}
+              <ButtonLoadMore
+                loadingMore={loadingMore}
+                handleLoadMore={() => handleLoadMore()}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

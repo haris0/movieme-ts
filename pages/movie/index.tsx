@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import styles from 'styles/Movie.module.scss';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
+import Head from 'next/head';
 
 const Movie: NextPage<{
   discoverResult: IMovie[]
@@ -92,43 +93,49 @@ const Movie: NextPage<{
   }, [genre, loaded]);
 
   return (
-    <Container className="container-custom">
-      <h3>Discover Movie</h3>
-      <Row className={styles.row_margin}>
-        <Col lg={3} className={styles.col_left_margin}>
-          <CardSelect
-            theme={theme}
-            title="Genre"
-            options={genreRes.genres.map((gen) => gen.name)}
-            selected={selectedGenre}
-            onChange={handleGenreChange}
-          />
-        </Col>
-        <Col lg={9} className={styles.col_right_margin}>
-          <Row className={styles.row_custom}>
-            {discoverMovie.map((movie) => (
-              <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
-                <Col xs={6} sm="auto" className={styles.center_content}>
-                  <CardMovie
-                    id={movie.id}
-                    href={`/movie/${movie.id}`}
-                    posterPath={movie.poster_path}
-                    voteAverage={movie.vote_average}
-                    title={movie.title}
-                    releaseDate={movie.release_date}
-                    theme={theme}
-                  />
-                </Col>
-              </Link>
-            ))}
-            <ButtonLoadMore
-              loadingMore={loadingMore}
-              handleLoadMore={() => handleLoadMore()}
+    <>
+      <Head>
+        <title>Discover Movie - Movieme</title>
+        <meta name="description" content="Discover all amazing movie here" />
+      </Head>
+      <Container className="container-custom">
+        <h3>Discover Movie</h3>
+        <Row className={styles.row_margin}>
+          <Col lg={3} className={styles.col_left_margin}>
+            <CardSelect
+              theme={theme}
+              title="Genre"
+              options={genreRes.genres.map((gen) => gen.name)}
+              selected={selectedGenre}
+              onChange={handleGenreChange}
             />
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+          <Col lg={9} className={styles.col_right_margin}>
+            <Row className={styles.row_custom}>
+              {discoverMovie.map((movie) => (
+                <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
+                  <Col xs={6} sm="auto" className={styles.center_content}>
+                    <CardMovie
+                      id={movie.id}
+                      href={`/movie/${movie.id}`}
+                      posterPath={movie.poster_path}
+                      voteAverage={movie.vote_average}
+                      title={movie.title}
+                      releaseDate={movie.release_date}
+                      theme={theme}
+                    />
+                  </Col>
+                </Link>
+              ))}
+              <ButtonLoadMore
+                loadingMore={loadingMore}
+                handleLoadMore={() => handleLoadMore()}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

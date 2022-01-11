@@ -5,6 +5,7 @@ import SearchBar from 'components/search/Search';
 import { useTheme } from 'context/ThemeContext';
 import { useDebouncedEffect } from 'mixin';
 import { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -115,152 +116,158 @@ const Search: NextPage<{
   }, []);
 
   return (
-    <Container className="container-custom">
-      <SearchBar
-        theme={theme}
-        keyword={searchKey}
-        onSearch={() => handleSearch(searchKey)}
-        onKeyWordChange={handleKeyWord}
-      />
-      {searchKey && (
-        <Row className={styles.margin_top}>
-          <Col lg={3} className={styles.margin_bottom}>
-            <CardSelect
-              theme={theme}
-              title="Media"
-              options={['Movie', 'Tv', 'People']}
-              selected={selectedMedia}
-              onChange={handleMediaChange}
-            />
-          </Col>
-          <Col lg={9}>
-            {searchLoading && (
-              <div style={{ textAlign: 'center' }}>
-                <Spinner animation="border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              </div>
+    <>
+      <Head>
+        <title>Search - Movieme</title>
+        <meta name="description" content="Search for a movie, tv show, person" />
+      </Head>
+      <Container className="container-custom">
+        <SearchBar
+          theme={theme}
+          keyword={searchKey}
+          onSearch={() => handleSearch(searchKey)}
+          onKeyWordChange={handleKeyWord}
+        />
+        {searchKey && (
+          <Row className={styles.margin_top}>
+            <Col lg={3} className={styles.margin_bottom}>
+              <CardSelect
+                theme={theme}
+                title="Media"
+                options={['Movie', 'Tv', 'People']}
+                selected={selectedMedia}
+                onChange={handleMediaChange}
+              />
+            </Col>
+            <Col lg={9}>
+              {searchLoading && (
+                <div style={{ textAlign: 'center' }}>
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              )}
+              {!searchLoading && (
+                <div>
+                  {(selectedMedia === 'movie' || selectedMedia === '') && (
+                    <div>
+                      {!!movieResuls?.length && (
+                        <div className={styles.margin_bottom}>
+                          <h4 className={styles.section_title}>Movie Result</h4>
+                          {movieResuls.map((movie) => (
+                            <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
+                              <div>
+                                <CardSearch
+                                  theme={theme}
+                                  href={`/movie/${movie.id}`}
+                                  posterPath={movie.poster_path}
+                                  title={movie.title}
+                                  description={movie.overview}
+                                />
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                      {!movieResuls?.length && selectedMedia !== '' && (
+                        <div>No {selectedMedia} found for: {searchKey}</div>
+                      )}
+                    </div>
+                  )}
+                  {(selectedMedia === 'tv' || selectedMedia === '') && (
+                    <div>
+                      {!!tvResult?.length && (
+                        <div className={styles.margin_bottom}>
+                          <h4 className={styles.section_title}>Tv Show Result</h4>
+                          {tvResult.map((tv) => (
+                            <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
+                              <div>
+                                <CardSearch
+                                  theme={theme}
+                                  href={`/tv/${tv.id}`}
+                                  posterPath={tv.poster_path}
+                                  title={tv.name}
+                                  description={tv.overview}
+                                />
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                      {!tvResult?.length && selectedMedia !== '' && (
+                        <div>No {selectedMedia} found for: {searchKey}</div>
+                      )}
+                    </div>
+                  )}
+                  {(selectedMedia === 'people' || selectedMedia === '') && (
+                    <div>
+                      {!!peopleResult?.length && (
+                        <div className={styles.margin_bottom}>
+                          <h4 className={styles.section_title}>People Result</h4>
+                          {peopleResult.map((people) => (
+                            <Link href={`/people/${people.id}`} passHref key={people.id}>
+                              <div>
+                                <CardSearch
+                                  theme={theme}
+                                  href={`/people/${people.id}`}
+                                  posterPath={people?.profile_path}
+                                  title={people.name}
+                                  description={people.known_for_department}
+                                  peopleKnowFor={people.known_for.map(
+                                    (movie) => movie.title || movie.name,
+                                  )}
+                                />
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                      {!peopleResult?.length && selectedMedia !== '' && (
+                        <div>No {selectedMedia} found for: {searchKey}</div>
+                      )}
+                    </div>
+                  )}
+                  {!movieResuls?.length
+                  && !tvResult?.length
+                  && !peopleResult?.length
+                  && selectedMedia === '' && (
+                    <div>No results found for: {searchKey}</div>
+                  )}
+                </div>
+              )}
+            </Col>
+          </Row>
+        )}
+        {!searchKey && (
+          <div className={styles.margin_top}>
+            {genres && (
+              <Row>
+                {genres.map((genre) => (
+                  <Link
+                    href={{
+                      pathname: '/movie',
+                      query: { genre: genre.name.toLowerCase() },
+                    }}
+                    passHref
+                    key={genre.id}
+                  >
+                    <Col sm={6} md={4}>
+                      <CardGenre
+                        theme={theme}
+                        name={genre.name}
+                      />
+                    </Col>
+                  </Link>
+                ))}
+              </Row>
             )}
-            {!searchLoading && (
-              <div>
-                {(selectedMedia === 'movie' || selectedMedia === '') && (
-                  <div>
-                    {!!movieResuls?.length && (
-                      <div className={styles.margin_bottom}>
-                        <h4 className={styles.section_title}>Movie Result</h4>
-                        {movieResuls.map((movie) => (
-                          <Link href={`/movie/${movie.id}`} passHref key={movie.id}>
-                            <div>
-                              <CardSearch
-                                theme={theme}
-                                href={`/movie/${movie.id}`}
-                                posterPath={movie.poster_path}
-                                title={movie.title}
-                                description={movie.overview}
-                              />
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                    {!movieResuls?.length && selectedMedia !== '' && (
-                      <div>No {selectedMedia} found for: {searchKey}</div>
-                    )}
-                  </div>
-                )}
-                {(selectedMedia === 'tv' || selectedMedia === '') && (
-                  <div>
-                    {!!tvResult?.length && (
-                      <div className={styles.margin_bottom}>
-                        <h4 className={styles.section_title}>Tv Show Result</h4>
-                        {tvResult.map((tv) => (
-                          <Link href={`/tv/${tv.id}`} passHref key={tv.id}>
-                            <div>
-                              <CardSearch
-                                theme={theme}
-                                href={`/tv/${tv.id}`}
-                                posterPath={tv.poster_path}
-                                title={tv.name}
-                                description={tv.overview}
-                              />
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                    {!tvResult?.length && selectedMedia !== '' && (
-                      <div>No {selectedMedia} found for: {searchKey}</div>
-                    )}
-                  </div>
-                )}
-                {(selectedMedia === 'people' || selectedMedia === '') && (
-                  <div>
-                    {!!peopleResult?.length && (
-                      <div className={styles.margin_bottom}>
-                        <h4 className={styles.section_title}>People Result</h4>
-                        {peopleResult.map((people) => (
-                          <Link href={`/people/${people.id}`} passHref key={people.id}>
-                            <div>
-                              <CardSearch
-                                theme={theme}
-                                href={`/people/${people.id}`}
-                                posterPath={people?.profile_path}
-                                title={people.name}
-                                description={people.known_for_department}
-                                peopleKnowFor={people.known_for.map(
-                                  (movie) => movie.title || movie.name,
-                                )}
-                              />
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                    {!peopleResult?.length && selectedMedia !== '' && (
-                      <div>No {selectedMedia} found for: {searchKey}</div>
-                    )}
-                  </div>
-                )}
-                {!movieResuls?.length
-                && !tvResult?.length
-                && !peopleResult?.length
-                && selectedMedia === '' && (
-                  <div>No results found for: {searchKey}</div>
-                )}
-              </div>
+            {genreErr && (
+              <div>Failed to Load Data</div>
             )}
-          </Col>
-        </Row>
-      )}
-      {!searchKey && (
-        <div className={styles.margin_top}>
-          {genres && (
-            <Row>
-              {genres.map((genre) => (
-                <Link
-                  href={{
-                    pathname: '/movie',
-                    query: { genre: genre.name.toLowerCase() },
-                  }}
-                  passHref
-                  key={genre.id}
-                >
-                  <Col sm={6} md={4}>
-                    <CardGenre
-                      theme={theme}
-                      name={genre.name}
-                    />
-                  </Col>
-                </Link>
-              ))}
-            </Row>
-          )}
-          {genreErr && (
-            <div>Failed to Load Data</div>
-          )}
-        </div>
-      )}
-    </Container>
+          </div>
+        )}
+      </Container>
+    </>
   );
 };
 

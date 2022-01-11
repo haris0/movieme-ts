@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'context/ThemeContext';
 import ButtonLoadMore from 'components/button/ButtonLoadMore';
 import { filterEmptyId } from 'mixin';
+import Head from 'next/head';
 
 const People: NextPage<{
   peopleResult: IPeople[],
@@ -55,30 +56,36 @@ const People: NextPage<{
   }, [loaded]);
 
   return (
-    <Container className="container-custom">
-      <h3>Populer People</h3>
-      <Row className={styles.row_custom}>
-        {populerPeople.map((people) => (
-          <Link href={`/people/${people.id}`} passHref key={people.id}>
-            <Col xs={6} sm="auto" xl={2} className={styles.center_content}>
-              <CardPeople
-                href={`/people/${people.id}`}
-                name={people.name}
-                profilePath={people.profile_path}
-                peopleKnowFor={people.known_for.map(
-                  (movie) => movie.title || movie.name,
-                )}
-                theme={theme}
-              />
-            </Col>
-          </Link>
-        ))}
-        <ButtonLoadMore
-          loadingMore={loadingMore}
-          handleLoadMore={() => handleLoadMore()}
-        />
-      </Row>
-    </Container>
+    <>
+      <Head>
+        <title>Popular People - Movieme</title>
+        <meta name="description" content="Find all amazing people from movie and tv shows here" />
+      </Head>
+      <Container className="container-custom">
+        <h3>Populer People</h3>
+        <Row className={styles.row_custom}>
+          {populerPeople.map((people) => (
+            <Link href={`/people/${people.id}`} passHref key={people.id}>
+              <Col xs={6} sm="auto" xl={2} className={styles.center_content}>
+                <CardPeople
+                  href={`/people/${people.id}`}
+                  name={people.name}
+                  profilePath={people.profile_path}
+                  peopleKnowFor={people.known_for.map(
+                    (movie) => movie.title || movie.name,
+                  )}
+                  theme={theme}
+                />
+              </Col>
+            </Link>
+          ))}
+          <ButtonLoadMore
+            loadingMore={loadingMore}
+            handleLoadMore={() => handleLoadMore()}
+          />
+        </Row>
+      </Container>
+    </>
   );
 };
 

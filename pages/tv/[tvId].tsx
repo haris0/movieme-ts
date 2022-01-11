@@ -187,7 +187,7 @@ const TvDetail: NextPage<{
                     className={styles.button_icon}
                     onClick={(event) => handleFavorite(event, {
                       id: tv?.id,
-                      href: `/movie/${tv?.id}`,
+                      href: `/tv/${tv?.id}`,
                       posterPath: tv?.poster_path,
                       voteAverage: tv?.vote_average,
                       title: tv.name,

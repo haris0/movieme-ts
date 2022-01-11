@@ -43,14 +43,16 @@
 
 .icon_vote {
   font-size: 12px;
-  padding: 8.5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 100%;
-  width: 35px;
-  height: 35px;
+  width: 39.5px;
+  height: 39.5px;
   text-align: center;
   font-weight: bold;
-  color: $text-dark;
   background-color: $primary-bg;
+  color: $text-dark;
   margin-right: 1.5rem;
 }
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const baseURL = 'https://api.themoviedb.org/3';
-export const baseImageURLOrigin = 'https://image.tmdb.org/t/p/original/';
-export const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
+export const baseBackURL = 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/';
+export const basePosterCardURL = 'https://image.tmdb.org/t/p/w220_and_h330_face/';
 export const baseProfileURL = 'https://image.tmdb.org/t/p/w235_and_h235_face/';
 export const baseProfileDetailURL = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/';
 

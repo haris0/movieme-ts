@@ -5,7 +5,7 @@ import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
 import {
-  baseImageURLOrigin, baseProfileDetailURL, getDetail, getDiscover,
+  baseBackURL, baseProfileDetailURL, getDetail, getDiscover,
 } from 'services';
 import { IFavorite, IMovieDetail, ISocialMedia } from 'types';
 import styles from 'styles/MovieDetail.module.scss';
@@ -77,7 +77,7 @@ const MovieDetail: NextPage<{
         <meta name="description" content={movie?.overview} />
         <meta property="og:title" content={movie?.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={`${baseImageURLOrigin}${movie?.backdrop_path}`} />
+        <meta property="og:image" content={`${baseBackURL}${movie?.backdrop_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

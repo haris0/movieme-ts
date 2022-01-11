@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import { ReactNode } from 'react';
 import { Container } from 'react-bootstrap';
-import { baseImageURLOrigin } from 'services';
+import { baseBackURL } from 'services';
 import styles from './Banner.module.scss';
 
 type props = {
@@ -19,7 +19,7 @@ const Banner = ({
       backgroundImage: `
         linear-gradient( rgba(0, 0, 0, 0.6), 
         rgba(0, 0, 0, 0.6) ), 
-        url(${baseImageURLOrigin + backdropPath})
+        url(${baseBackURL + backdropPath})
       `,
       transition: 'background-image 2s linear',
     }}

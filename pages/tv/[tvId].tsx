@@ -11,7 +11,7 @@ import {
   Badge, Col, Container, Row,
 } from 'react-bootstrap';
 import {
-  baseImageURLOrigin, baseProfileDetailURL, getDetail, getDiscover,
+  baseBackURL, baseProfileDetailURL, getDetail, getDiscover,
 } from 'services';
 import { IFavorite, ISocialMedia, ITvDetail } from 'types';
 import styles from 'styles/TvDetail.module.scss';
@@ -77,7 +77,7 @@ const TvDetail: NextPage<{
         <meta name="description" content={tv?.overview} />
         <meta property="og:title" content={tv?.name} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={`${baseImageURLOrigin}${tv?.backdrop_path}`} />
+        <meta property="og:image" content={`${baseBackURL}${tv?.backdrop_path}`} />
       </Head>
       <ModalTrailer
         show={playTrailer}

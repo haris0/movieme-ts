@@ -3,7 +3,7 @@ import { MouseEvent } from 'react';
 import { convertDate } from 'mixin';
 import Image from 'next/image';
 import { Card } from 'react-bootstrap';
-import { baseImageURL } from 'services';
+import { basePosterCardURL } from 'services';
 import { IFavorite } from 'types';
 import {
   useAddFavorite,
@@ -66,9 +66,9 @@ const CardMovie = ({
       >
         <div className={styles.image_custom}>
           <Image
-            src={posterPath ? `${baseImageURL}${posterPath}` : '/images/thumbnail.png'}
+            src={posterPath ? `${basePosterCardURL}${posterPath}` : '/images/thumbnail.png'}
             placeholder="blur"
-            blurDataURL={`${baseImageURL}${posterPath}`}
+            blurDataURL={`${basePosterCardURL}${posterPath}`}
             alt={title}
             layout="fixed"
             width="150"

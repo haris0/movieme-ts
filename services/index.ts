@@ -10,8 +10,8 @@ import {
 import { axiosGet } from './axios-client';
 
 export {
-  baseImageURL,
-  baseImageURLOrigin,
+  baseBackURL,
+  basePosterCardURL,
   baseProfileURL,
   baseProfileDetailURL,
 } from './axios-client';

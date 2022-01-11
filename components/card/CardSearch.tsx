@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import { Card } from 'react-bootstrap';
 import Image from 'next/image';
-import { baseImageURL } from 'services';
+import { basePosterCardURL } from 'services';
 import styles from './CardSearch.module.scss';
 
 type props = {
@@ -32,9 +32,9 @@ const CardSearch = ({
       <div style={{ display: 'flex' }}>
         <div className={styles.image_custom}>
           <Image
-            src={posterPath ? `${baseImageURL}${posterPath}` : '/images/thumbnail.png'}
+            src={posterPath ? `${basePosterCardURL}${posterPath}` : '/images/thumbnail.png'}
             placeholder="blur"
-            blurDataURL={`${baseImageURL}${posterPath}`}
+            blurDataURL={`${basePosterCardURL}${posterPath}`}
             alt={title}
             layout="fixed"
             width="100"

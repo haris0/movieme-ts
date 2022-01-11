@@ -16,8 +16,8 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
           <Image
             src="/images/facebook.png"
             alt={name}
-            width="35"
-            height="35"
+            width="39.5"
+            height="39.5"
             layout="fixed"
           />
         </a>
@@ -29,8 +29,8 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
           <Image
             src="/images/twitter.png"
             alt={name}
-            width="35"
-            height="35"
+            width="39.5"
+            height="39.5"
             layout="fixed"
           />
         </a>
@@ -42,8 +42,8 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
           <Image
             src="/images/instagram.png"
             alt={name}
-            width="35"
-            height="35"
+            width="39.5"
+            height="39.5"
             layout="fixed"
           />
         </a>
@@ -55,8 +55,8 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
           <Image
             src="/images/link.png"
             alt={name}
-            width="38"
-            height="38"
+            width="42"
+            height="42"
             layout="fixed"
           />
         </a>

@@ -37,7 +37,9 @@
 
 .vote_average {
   font-size: 12px;
-  padding: 11.5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   border-radius: 100%;
   width: 39.5px;

@@ -36,8 +36,8 @@ export const useDebouncedEffect = (effect: Function, deps: Array<any>, delay: nu
 export const filterEmptyId = (datas: any[]) => datas.filter((data) => !!data.id);
 
 export const anyExternalLink = (sosialMedia: ISocialMedia, homepage: string | undefined) => (
-  !!sosialMedia.facebook_id
-    || !!sosialMedia.twitter_id
-    || !!sosialMedia.instagram_id
+  !!sosialMedia?.facebook_id
+    || !!sosialMedia?.twitter_id
+    || !!sosialMedia?.instagram_id
     || !!homepage
 );

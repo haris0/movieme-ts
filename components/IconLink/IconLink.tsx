@@ -12,7 +12,7 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
   <div className={styles.sosmed_wrapper}>
     {socialMedia?.facebook_id && (
       <div className={styles.sosmed_logo}>
-        <a target="_blank" href={`https://www.facebook.com/${socialMedia.facebook_id}`} rel="noreferrer">
+        <a target="_blank" href={`https://www.facebook.com/${socialMedia?.facebook_id}`} rel="noreferrer">
           <Image
             src="/images/facebook.png"
             alt={name}
@@ -25,7 +25,7 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
     )}
     {socialMedia?.twitter_id && (
       <div className={styles.sosmed_logo}>
-        <a target="_blank" href={`https://twitter.com/${socialMedia.twitter_id}`} rel="noreferrer">
+        <a target="_blank" href={`https://twitter.com/${socialMedia?.twitter_id}`} rel="noreferrer">
           <Image
             src="/images/twitter.png"
             alt={name}
@@ -38,7 +38,7 @@ const IconLink = ({ socialMedia, homepage, name }: props) => (
     )}
     {socialMedia?.instagram_id && (
       <div className={styles.sosmed_logo}>
-        <a target="_blank" href={`https://www.instagram.com/${socialMedia.instagram_id}`} rel="noreferrer">
+        <a target="_blank" href={`https://www.instagram.com/${socialMedia?.instagram_id}`} rel="noreferrer">
           <Image
             src="/images/instagram.png"
             alt={name}

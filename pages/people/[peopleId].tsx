@@ -10,7 +10,7 @@ import styles from 'styles/PeopleDetail.module.scss';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'context/ThemeContext';
-import { convertDate } from 'mixin';
+import { anyExternalLink, convertDate } from 'mixin';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
@@ -134,7 +134,10 @@ const PeopleDetail: NextPage<{
               socialMedia={people.sosial_media as ISocialMedia}
               homepage={undefined}
             />
-            <h2 className={styles.people_name}>{people.name}</h2>
+            {!anyExternalLink(people.sosial_media as ISocialMedia, undefined) && (
+              <br />
+            )}
+            <h2>{people.name}</h2>
             <br />
             <div className={styles.personal_info}>
               <h5>Personal Info</h5>

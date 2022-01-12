@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
 import { useTheme } from 'context/ThemeContext';
-import { convertDate, convertMinsToHrsMins, getYear } from 'mixin';
+import {
+  anyExternalLink, convertDate, convertMinsToHrsMins, getYear,
+} from 'mixin';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -117,12 +119,17 @@ const TvDetail: NextPage<{
                 objectFit="cover"
               />
             </div>
-
             <IconLink
               name={tv?.name}
               socialMedia={tv?.sosial_media as ISocialMedia}
               homepage={tv?.homepage}
             />
+            {!anyExternalLink(tv.sosial_media as ISocialMedia, tv.homepage) && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
           </Col>
           <Col md={8} lg={9}>
             <h2>{tv?.name} ({releaseYear})</h2>

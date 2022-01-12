@@ -10,7 +10,9 @@ import {
 import { IFavorite, IMovieDetail, ISocialMedia } from 'types';
 import styles from 'styles/MovieDetail.module.scss';
 import Image from 'next/image';
-import { convertDate, convertMinsToHrsMins, getYear } from 'mixin';
+import {
+  anyExternalLink, convertDate, convertMinsToHrsMins, getYear,
+} from 'mixin';
 import Link from 'next/link';
 import { useTheme } from 'context/ThemeContext';
 import { useAddFavorite, useCheckFavorite, useRemoveFavorite } from 'context/FavoriteContext';
@@ -116,12 +118,17 @@ const MovieDetail: NextPage<{
                 objectFit="cover"
               />
             </div>
-
             <IconLink
               name={movie.title}
               socialMedia={movie.sosial_media as ISocialMedia}
               homepage={movie.homepage}
             />
+            {!anyExternalLink(movie.sosial_media as ISocialMedia, movie.homepage) && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
           </Col>
           <Col md={8} lg={9}>
             <h2>{movie.title} ({releaseYear})</h2>

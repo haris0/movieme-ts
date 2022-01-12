@@ -13,6 +13,7 @@ import { useTheme } from 'context/ThemeContext';
 import { filterEmptyId } from 'mixin';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { getPeople } from 'pages/api/people';
 
 const CardPeople = dynamic(() => import('components/card/CardPeople'));
 const ButtonLoadMore = dynamic(() => import('components/button/ButtonLoadMore'));
@@ -102,22 +103,26 @@ const People: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { loaded } = query;
-
   const loadedPage = +(loaded as string) || 1;
-  const loadedPageArr = Array.from(Array(loadedPage + 1).keys());
-  loadedPageArr.shift();
+  const { peopleResult, peopleError } = await getPeople(loadedPage);
 
-  const populerPeopleResults = await Promise.all(
-    loadedPageArr.map(
-      (page) => (getPopulerPeople(page)),
-    ),
-  );
+  // const { loaded } = query;
 
-  const allPeopleRes = populerPeopleResults?.map((res) => res.peopleRes);
-  const allPeopleErr = populerPeopleResults?.map((res) => res.peopleErr);
+  // const loadedPage = +(loaded as string) || 1;
+  // const loadedPageArr = Array.from(Array(loadedPage + 1).keys());
+  // loadedPageArr.shift();
 
-  const peopleResult = filterEmptyId(allPeopleRes.map(({ results }) => results).flat());
-  const peopleError = allPeopleErr.map((error) => error).flat();
+  // const populerPeopleResults = await Promise.all(
+  //   loadedPageArr.map(
+  //     (page) => (getPopulerPeople(page)),
+  //   ),
+  // );
+
+  // const allPeopleRes = populerPeopleResults?.map((res) => res.peopleRes);
+  // const allPeopleErr = populerPeopleResults?.map((res) => res.peopleErr);
+
+  // const peopleResult = filterEmptyId(allPeopleRes.map(({ results }) => results).flat());
+  // const peopleError = allPeopleErr.map((error) => error).flat();
 
   return {
     props: {

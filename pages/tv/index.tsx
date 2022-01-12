@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { filterEmptyId } from 'mixin';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { getGenre } from 'pages/api/genres';
+import { getDiscoverRes } from 'pages/api/discover';
 
 const CardMovie = dynamic(() => import('components/card/CardMovie'));
 const CardSelect = dynamic(() => import('components/card/CardSelect'));
@@ -148,7 +150,7 @@ const Tv: NextPage<{
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { genre, loaded } = query;
-  const { genreRes, genreErr } = await getGenreList('tv');
+  const { genreRes, genreErr } = await getGenre('tv');
   let genreId = 0;
 
   if (genre) {
@@ -157,20 +159,32 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   }
 
   const loadedPage = +(loaded as string) || 1;
-  const loadedPageArr = Array.from(Array(loadedPage + 1).keys());
-  loadedPageArr.shift();
+  const { discoverResult, discoverError } = await getDiscoverRes('tv', loadedPage, genreId);
 
-  const discoverResults = await Promise.all(
-    loadedPageArr.map(
-      (page) => (getDiscover('tv', +genreId, page)),
-    ),
-  );
+  // const { genre, loaded } = query;
+  // const { genreRes, genreErr } = await getGenreList('tv');
+  // let genreId = 0;
 
-  const alldiscoverRes = discoverResults?.map((res) => res.discoverRes);
-  const alldiscoverErr = discoverResults?.map((res) => res.discoverErr);
+  // if (genre) {
+  //   const genreObj = genreRes.genres.find((gen) => gen.name.toLowerCase() === genre);
+  //   genreId = genreObj?.id as number;
+  // }
 
-  const discoverResult = filterEmptyId(alldiscoverRes.map(({ results }) => results).flat());
-  const discoverError = alldiscoverErr.map((error) => error).flat();
+  // const loadedPage = +(loaded as string) || 1;
+  // const loadedPageArr = Array.from(Array(loadedPage + 1).keys());
+  // loadedPageArr.shift();
+
+  // const discoverResults = await Promise.all(
+  //   loadedPageArr.map(
+  //     (page) => (getDiscover('tv', +genreId, page)),
+  //   ),
+  // );
+
+  // const alldiscoverRes = discoverResults?.map((res) => res.discoverRes);
+  // const alldiscoverErr = discoverResults?.map((res) => res.discoverErr);
+
+  // const discoverResult = filterEmptyId(alldiscoverRes.map(({ results }) => results).flat());
+  // const discoverError = alldiscoverErr.map((error) => error).flat();
 
   return {
     props: {

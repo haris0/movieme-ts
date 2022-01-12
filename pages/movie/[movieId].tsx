@@ -120,10 +120,10 @@ const MovieDetail: NextPage<{
             </div>
             <IconLink
               name={movie.title}
-              socialMedia={movie.sosial_media as ISocialMedia}
-              homepage={movie.homepage}
+              socialMedia={movie?.sosial_media as ISocialMedia}
+              homepage={movie?.homepage}
             />
-            {!anyExternalLink(movie.sosial_media as ISocialMedia, movie.homepage) && (
+            {!anyExternalLink(movie?.sosial_media as ISocialMedia, movie?.homepage) && (
               <>
                 <br />
                 <br />

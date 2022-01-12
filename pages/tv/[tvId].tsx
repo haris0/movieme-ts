@@ -124,7 +124,7 @@ const TvDetail: NextPage<{
               socialMedia={tv?.sosial_media as ISocialMedia}
               homepage={tv?.homepage}
             />
-            {!anyExternalLink(tv.sosial_media as ISocialMedia, tv.homepage) && (
+            {!anyExternalLink(tv?.sosial_media as ISocialMedia, tv?.homepage) && (
               <>
                 <br />
                 <br />

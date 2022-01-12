@@ -131,10 +131,10 @@ const PeopleDetail: NextPage<{
             </div>
             <IconLink
               name={people.name}
-              socialMedia={people.sosial_media as ISocialMedia}
+              socialMedia={people?.sosial_media as ISocialMedia}
               homepage={undefined}
             />
-            {!anyExternalLink(people.sosial_media as ISocialMedia, undefined) && (
+            {!anyExternalLink(people?.sosial_media as ISocialMedia, undefined) && (
               <br />
             )}
             <h2>{people.name}</h2>

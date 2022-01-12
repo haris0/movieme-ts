@@ -134,7 +134,7 @@ const PeopleDetail: NextPage<{
               socialMedia={people.sosial_media as ISocialMedia}
               homepage={undefined}
             />
-            <h2>{people.name}</h2>
+            <h2 className={styles.people_name}>{people.name}</h2>
             <br />
             <div className={styles.personal_info}>
               <h5>Personal Info</h5>

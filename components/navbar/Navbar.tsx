@@ -17,7 +17,7 @@ const NavigationBar = () => {
   const countFav = useCountFavorite();
 
   return (
-    <Navbar fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
+    <Navbar collapseOnSelect fixed="top" expand="lg" bg="dark" variant="dark" className={styles.navbar}>
       <Container>
         <Link href="/" passHref>
           <Navbar.Brand className={styles.nav_brand}>

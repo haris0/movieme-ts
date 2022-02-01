@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import {
@@ -5,6 +6,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { IFavorite } from 'types';
@@ -61,18 +63,19 @@ const FavoriteContextProvider = ({ children }: props) => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
+  const contextValue = useMemo<FavoriteContextType>(() => ({
+    favorites,
+    favoritesMovie,
+    favoritesTv,
+    addFavorite,
+    removeFavorite,
+    checkFavorite,
+    countFavorite,
+  }), [favorites]);
+
   return (
-    <FavoriteContext.Provider value={{
-      favorites,
-      favoritesMovie,
-      favoritesTv,
-      addFavorite,
-      removeFavorite,
-      checkFavorite,
-      countFavorite,
-    }}
-    >
-      { children}
+    <FavoriteContext.Provider value={contextValue}>
+      {children}
     </FavoriteContext.Provider>
   );
 };

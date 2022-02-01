@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import {
   createContext,
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -38,13 +40,14 @@ const ThemeContextProvider = ({ children }: props) => {
     localStorage.setItem('theme', JSON.stringify(theme));
   }, [theme]);
 
+  const contextValue = useMemo<ThemeContextType>(() => ({
+    theme,
+    switchTheme,
+  }), [theme]);
+
   return (
-    <ThemeContext.Provider value={{
-      theme,
-      switchTheme,
-    }}
-    >
-      { children}
+    <ThemeContext.Provider value={contextValue}>
+      {children}
     </ThemeContext.Provider>
   );
 };

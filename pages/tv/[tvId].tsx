@@ -40,8 +40,8 @@ const TvDetail: NextPage<{
   const duration = convertMinsToHrsMins(tv?.episode_run_time[0]);
   const topCast = tv?.cast?.slice(0, 9);
   const officialTrailer = tv?.videos?.find(
-    (video) => video.name.includes('Official Trailer')
-            || video.name.includes('Official Teaser')
+    (video) => video?.name.includes('Official Trailer')
+            || video?.name.includes('Official Teaser')
             || (video.official && video.type === 'Trailer'),
   );
   const recommendations = tv?.recommendations || [];
@@ -142,7 +142,7 @@ const TvDetail: NextPage<{
               <span className={styles.subtitle_separator}>•</span>
               {tv?.genres?.map((genre, idx) => (
                 <span key={genre.id}>
-                  {genre.name}
+                  {genre?.name}
                   {tv?.genres.length !== (idx + 1) && (
                     <span>,{' '}</span>
                   )}
@@ -165,7 +165,7 @@ const TvDetail: NextPage<{
                     <Link href={`/people/${writer.id}`} passHref>
                       <a href={`/people/${writer.id}`} className={styles.writer_anchor}>
                         <div>
-                          <b>{writer.name}</b>
+                          <b>{writer?.name}</b>
                         </div>
                         <div>{writer.job}</div>
                       </a>
@@ -209,7 +209,7 @@ const TvDetail: NextPage<{
                       href: `/tv/${tv?.id}`,
                       posterPath: tv?.poster_path,
                       voteAverage: tv?.vote_average,
-                      title: tv.name,
+                      title: tv?.name,
                       releaseDate: tv?.first_air_date,
                     })}
                   >
@@ -256,7 +256,7 @@ const TvDetail: NextPage<{
               </div>
               <div className={styles.sub_info}>
                 <h6>Original Language</h6>
-                <div>{tv?.spoken_languages[0].name}</div>
+                <div>{tv?.spoken_languages[0]?.name}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Type</h6>
@@ -264,7 +264,7 @@ const TvDetail: NextPage<{
               </div>
               <div className={styles.sub_info}>
                 <h6>Networks</h6>
-                <div>{tv?.networks[0].name}</div>
+                <div>{tv?.networks[0]?.name}</div>
               </div>
               <div className={styles.sub_info}>
                 <h6>Season</h6>
@@ -279,7 +279,7 @@ const TvDetail: NextPage<{
                       className={styles.badge_keywords}
                       key={keyword.id}
                     >
-                      {keyword.name}
+                      {keyword?.name}
                     </Badge>
                   ))}
                 </div>
@@ -301,7 +301,7 @@ const TvDetail: NextPage<{
                           <div className={styles.skin_option}>
                             <CardPeople
                               href={`/people/${people.id}`}
-                              name={people.name}
+                              name={people?.name}
                               profilePath={people.profile_path as string}
                               peopleKnowFor={[people.character as string]}
                               theme={theme}
@@ -338,7 +338,7 @@ const TvDetail: NextPage<{
                     href={`/tv/${recom.id}`}
                     posterPath={recom?.poster_path as string}
                     voteAverage={recom?.vote_average}
-                    title={recom.name}
+                    title={recom?.name}
                     releaseDate={recom?.first_air_date as Date}
                     theme={theme}
                   />

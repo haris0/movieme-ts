@@ -6,6 +6,7 @@ import { useTheme } from 'context/ThemeContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
 import NavigationBar from 'components/navbar/Navbar';
+import NextProgress from 'next-progress';
 
 type props = {
   children: ReactNode;
@@ -36,6 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </Head>
+      <NextProgress />
       <NavigationBar />
       <Component {...pageProps} />
     </ThemeController>
